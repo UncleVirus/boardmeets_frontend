@@ -1,0 +1,195 @@
+<div class="data">
+  <div class="filter-view">
+    <input
+      class="form-control"
+      type="text"
+      name="search"
+      autocomplete="off"
+      placeholder="Search Notifications"
+    />
+  </div>
+  <br />
+
+  <div class="loadAll" align="center">
+    <mat-spinner
+      diameter="60"
+      class="loading-indicator"
+      *ngIf="loadingNotification"
+    >
+    </mat-spinner>
+  </div>
+  <ng-container *ngIf="!loadingNotification">
+    <div class="no-notification-content" *ngIf="!notification">
+      <img
+        src="../../assets/images/Alarm_bell_reminder_notification-512.webp"
+      />
+
+      <div class="notif-footer-content">
+        <span>No Notification Yet</span>
+        <p>
+          There are no notifications right now. Don’t worry about missing out,
+          we’ll alert you when anything happens.
+        </p>
+      </div>
+    </div>
+
+    <!-- notification content section -->
+    <div class="notif-container" *ngIf="notification">
+      <div mat-subheader color="primary">MEETING NOTIFICATIONS</div>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let invitation of invitations">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Meeting Title: <b>{{ invitation.meeting.name }}</b>
+            </mat-panel-title>
+            <mat-panel-description>
+              Scheduled At: <b>{{ invitation.meeting.start_time }}</b>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div
+            class="main-notif-conent"
+            fxLayout
+            fxLayout.xs="column"
+            fxLayoutAlign="center"
+            fxLayoutGap="0px"
+            fxLayoutGap.xs="0"
+          >
+            <div class="let-content" fxFlex>
+              <p class="all-caps grey-color">Invited By</p>
+              <p>
+                First Name: <b>{{ invitation.invited_by.username }}</b>
+              </p>
+              <p>Last Name: <b>Doe</b></p>
+              <p>
+                Email: <b>{{ invitation.invited_by.email }}</b>
+              </p>
+
+              <p class="all-caps grey-color">Attendee</p>
+              <p>
+                First Name: <b>{{ invitation.attendee.username }}</b>
+              </p>
+              <p>Last Name: <b>Jhnson</b></p>
+              <p>
+                Email: <b>{{ invitation.attendee.email }}</b>
+              </p>
+              <br />
+            </div>
+            <div class="midle-conent" fxFlex>
+              <p class="all-caps grey-color">Meeting</p>
+              <p>
+                Meeting Title: <b>{{ invitation.meeting.name }}</b>
+              </p>
+              <p>
+                Meeting Address: <b>{{ invitation.meeting.location }}</b>
+              </p>
+              <p>
+                Meeting Start Time: <b>{{ invitation.meeting.start_time }}</b>
+              </p>
+              <p>
+                Meeting End Time: <b>{{ invitation.meeting.end_time }}</b>
+              </p>
+              <br />
+
+              <p>
+                Meeting Response:
+                <i style="color: red" *ngIf="invitation.response">{{
+                  invitation.response.display_value
+                }}</i>
+                <i style="color: red" *ngIf="!invitation.response"
+                  >No response</i
+                >
+              </p>
+            </div>
+
+            <!-- //agenda items -->
+            <div
+              class="midle-conent-agenda"
+              fxFlex
+              *ngIf="invitation.meeting.agenda_items.length > 0"
+            >
+              <p class="all-caps grey-color">Agenda</p>
+
+              <ul
+                class="main-agenda-items"
+                *ngFor="let item of invitation.meeting.agenda_items"
+              >
+                <li>{{ item.item }}</li>
+                <div *ngIf="item.subItems">
+                  <ol *ngFor="let subitem of item.subItems">
+                    <li>{{ subitem.item }}</li>
+                  </ol>
+                </div>
+              </ul>
+            </div>
+          </div>
+          <span
+            ><b
+              >Let meeting invitees know if you plan to attend the meeting.</b
+            ></span
+          >
+          <mat-action-row align="end">
+            <mat-form-field appearance="fill" class="example-full-width">
+              <mat-label>RSVP Status</mat-label>
+              <select
+                matNativeControl
+                (change)="changeResponse($event.target.value)"
+              >
+                <option
+                  *ngFor="let option of responseOptions"
+                  [value]="option.id"
+                >
+                  {{ option.display_value }}
+                </option>
+              </select>
+            </mat-form-field>
+            <button
+              mat-button
+              class="rep-btn"
+              (click)="onSubmit(invitation.id)"
+              color="primary"
+              *ngIf="!loading"
+            >
+              Submit
+            </button>
+            <mat-spinner
+              diameter="40"
+              class="loading-indicator"
+              *ngIf="loading"
+            >
+            </mat-spinner>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <div mat-subheader>VOTING NOTIFICATIONS</div>
+
+      <mat-accordion>
+        <mat-expansion-panel
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title> Self aware panel </mat-panel-title>
+            <mat-panel-description> No notification yet </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>I'm visible because I am open</p>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <div mat-subheader>CONTRACT NOTIFICATIONS</div>
+
+      <mat-accordion>
+        <mat-expansion-panel
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title> Self aware panel </mat-panel-title>
+            <mat-panel-description> No notification yet </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>I'm visible because I am open</p>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,269 @@
+<mat-sidenav-container class="sidenav-container">
+
+  <mat-sidenav
+    #drawer
+    class="sidenav alert alert-primary"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <!-- <mat-toolbar class="nav-toolbar"></mat-toolbar> -->
+
+    <mat-card class="example-card">
+      <div class="logo-container">
+        <!-- <h1 class="h1-title">BoardMeets</h1> -->
+        <!--<img src="assets/img/BoardMeets LOGO-01.jpg">-->
+        <img class="rounded" src="../../assets/img/ecabinetbold.png">
+      </div>
+      <!-- <mat-card-header>
+          <mat-card-title >CABINET</mat-card-title>
+          <mat-card-subtitle>{{ currentUser?.first_name }}  {{ currentUser?.last_name }}</mat-card-subtitle>
+        </mat-card-header> -->
+    </mat-card>
+    <mat-divider></mat-divider>
+    <br/>
+
+    <mat-card class="card">
+      <mat-nav-list class="mat-nav-list">
+        <a
+          mat-list-item
+          id="dashboard"
+          #dashboard
+          (click)="setTitle('Dashboard', '#dashboard')"
+          routerLink="../admin/landing-page"
+        >
+          <i style="color: #ffffff;" class="fa fa-home" aria-hidden="true"></i>
+          <span class="space hover-zoom"> Dashboard</span>
+        </a>
+
+        <mat-accordion>
+          <mat-expansion-panel class="card">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <i style="color: #ffffff;" class="fa fa-calendar" aria-hidden="true"></i><span
+                class="space">Calendar</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-expansion-panel-body>
+              <a
+                mat-list-item
+                id="ElActive"
+                align="center"
+                (click)="setTitle('Meetings', '#ElActive')"
+                routerLink="../admin/meeting-page/active"
+              >
+                <div class="text-success">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                  <span class="space"> <b style="color: #ffffff;"> </b>Up coming meetings</span>
+                </div>
+              </a>
+              <a
+                mat-list-item
+                id="ElPast"
+                (click)="setTitle('Meetings', '#ElPast')"
+                align="center"
+                routerLink="../admin/meeting-page/past"
+              >
+                <div class="text-success">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                  <span class="space"> <b style="color: #ffffff;"> </b>Past meetings</span>
+                </div>
+              </a>
+            </mat-expansion-panel-body>
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <mat-accordion>
+          <mat-expansion-panel class="card">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <i style="color: #ffffff;" class="fa fa-list-alt" aria-hidden="true"></i><span
+                class="space">Actions</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-expansion-panel-body>
+              <a
+                mat-list-item
+                id="voting"
+                (click)="setTitle('Actions', '#voting')"
+                align="center"
+                routerLink="../admin/actions/voting"
+              >
+                <div class="text-success">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                  <span class="space"> <b style="color: #ffffff;"> </b>Approval</span>
+                </div>
+              </a>
+              <a
+                mat-list-item
+                id="survey"
+                align="center"
+                (click)="setTitle('Actions', '#survey')"
+                routerLink="../admin/actions/survey"
+              >
+                <div class="text-success">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                  <span class="space"> <b style="color: #ffffff;"> </b>Evaluation</span>
+                </div>
+              </a>
+              <a
+                mat-list-item
+                id="ElSignature"
+                align="center"
+                (click)="setTitle('Actions', '#ElSignature')"
+                routerLink="../admin/actions/signature"
+              >
+                <div class="text-success">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                  <span class="space"> <b style="color: #ffffff;"> </b>eSignature</span>
+                </div>
+              </a>
+            </mat-expansion-panel-body>
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <a
+          mat-list-item
+          #ElResources
+          (click)="setTitle('Resources', '#ElResources')"
+          routerLink="../admin/resources-page"
+        ><i style="color: #ffffff;" class="fa fa-folder" aria-hidden="true"></i> <span
+          class="space"> Resources</span></a
+        >
+       <!-- <a
+          mat-list-item
+          id="ElCompliance"
+          (click)="setTitle('Corporate Compliance Management', '#ElCompliance')"
+          routerLink="../admin/compliance-page"
+        >
+
+          <i style="color: #ffffff;" class="fa fa-balance-scale" aria-hidden="true"></i>
+          <span class="space"> Compliance Management</span></a
+        >
+        <a
+          mat-list-item
+          id="ElContract"
+          (click)="setTitle('Contracts Management', '#ElContract')"
+          routerLink="../admin/contract-page"
+        >
+          <i style="color: #ffffff;" class="fa fa-file" aria-hidden="true"></i>
+
+          <span class="space"> Contract Management</span></a
+        >-->
+
+        <a
+          mat-list-item
+          *ngIf="currentUser?.org_permission == 'Admin'"
+          id="ElDirectory"
+          (click)="setTitle('Members', '#ElDirectory')"
+          routerLink="../admin/users-page"
+        >
+          <mat-icon style="color: #ffffff;">people</mat-icon>
+          <span class="space"> Directory</span></a
+        >
+
+        <a
+          mat-list-item
+          id="ElTask"
+          (click)="setTitle('Tasks', '#ElTask')"
+          routerLink="../admin/tasks-page"
+        > <i style="color: #ffffff;" class="fa fa-check-square" aria-hidden="true"></i> <span
+          class="space"> Tasks</span></a
+        >
+        <a
+          mat-list-item
+          id="ElMessanger"
+          (click)="setTitle('Chats', '#ElMessanger')"
+          routerLink="../admin/chat-page"
+        > <i style="color: #ffffff;" class="fa fa-comments" aria-hidden="true"></i><span class="space"> Messenger </span></a
+        >
+        <hr>
+        <!--<a
+          mat-list-item
+          *ngIf="currentUser?.org_permission == 'Admin'"
+          id="settings"
+          (click)="setTitle('System settings', '#settings')"
+          routerLink="../admin/organization-page"
+        >
+          <mat-icon style="color: #ffffff;">settings</mat-icon>
+          <span class="space"> System settings</span></a
+        >-->
+        <div class="" style="height: 30px; width: auto;" [matMenuTriggerFor]="menu">
+          <img
+            src="../../assets/img/profile.png"
+            alt="..." class="avatar-img rounded-circle bg-white"
+            style="height: 25px; width: 25px; margin-left: 10px;" />
+<span style="color: white;font-size: 15px;"> {{ currentUser?.first_name }}  {{ currentUser?.last_name }}</span>
+        </div>
+      </mat-nav-list>
+    </mat-card>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="main-toolbar bg-white">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async"
+      >
+        <mat-icon aria-label="Side nav toggle icon" style="color: #ffffff;">menu</mat-icon>
+      </button>
+      <span style="font-size: 27px; color: black;">{{ title }}</span>
+
+      <span class="spacer"></span>
+      <!-- <div
+        class="avatar-sm"
+        matBadge="15"
+        matBadgeColor="accent"
+        matBadgePosition="before"
+        [matMenuTriggerFor]="menu"
+      >
+        <img
+          src="../../assets/images/outline_notifications_white_36dp.png"
+          alt="..."
+          class="avatar-img rounded-circle"
+        />
+      </div> -->
+
+
+
+      <mat-menu #menu="matMenu">
+        <div class="user-box">
+          <div class="u-text">
+            <h4>{{ currentUser?.first_name }}  {{ currentUser?.last_name }}</h4>
+            <span class="text-muted">{{ currentUser?.email }}</span>
+            <button
+              mat-button
+              class="view-profile"
+              style="color:rgb(245, 245, 245); background-color: #008037;"
+              (click)="setTitle('Profile', '#dashboard')"
+              routerLink="../admin/user-profile-page"
+            >
+              View Profile
+            </button>
+          </div>
+        </div>
+        <br/>
+
+        <button
+          mat-menu-item
+          (click)="setTitle('Account Settings', '#dashboard')"
+          routerLink="../admin/user-profile-page"
+        >
+          <span> Account Settings</span>
+          <mat-icon color="primary">person</mat-icon>
+        </button>
+
+        <button mat-menu-item (click)="logout()">
+          <span>Sign Out</span>
+          <mat-icon color="warn">logout</mat-icon>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <!-- Add Content Here -->
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

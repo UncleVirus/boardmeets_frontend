@@ -1,0 +1,152 @@
+.data {
+  width: 100%;
+}
+.heading-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.example-full-width {
+  width: 100%;
+  box-shadow: none;
+}
+h2 {
+  margin: 0 !important;
+  padding: 5px 3px;
+}
+
+.survey-card,
+.content,
+.remote-card {
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 10px;
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+  border-radius: 5px;
+  border-width: 0px;
+}
+.space {
+  padding: 0px 10px;
+  margin-right: 10px;
+  align-self: flex-start;
+}
+.flex-self h1 {
+  margin: 0 !important;
+  color: #201547;
+  font-size: 27px;
+  font-weight: bold;
+  font-family: quantify;
+}
+
+.example-form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  margin-top: 2px;
+}
+
+.example-form p {
+  font-weight: 500;
+  font-family: quantify;
+}
+
+.mat-checkbox {
+  padding-top: 30px;
+}
+
+.example-margin p {
+  font-weight: 600;
+  font-family: quantify;
+  font-size: 17px;
+  padding-top: 10px;
+}
+.add-new-btn {
+  margin: 10px;
+}
+.item {
+  width: 96%;
+}
+
+.example-full-width,
+.card {
+  width: 100%;
+}
+
+.card3 {
+  width: 100%;
+  margin-bottom: 8px;
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+}
+.items-body {
+  width: 100% !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 6px;
+}
+.level_a_items {
+  margin-left: 15px;
+}
+.level_b_items {
+  margin-left: 30px;
+}
+.add-item-button {
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+}
+.save {
+  width: 200px;
+  margin: 15px;
+  border-radius: 10px;
+}
+
+.agenda-input {
+  width: 100%;
+  margin-bottom: 8px;
+  position: relative;
+  display: inline-block;
+}
+.item-input {
+  background-color: #e0e0e0;
+  border-radius: 15px;
+  font-size: 15px;
+  padding: 15px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+}
+.details-btn {
+  position: absolute;
+  top: 10px;
+  right: 0px;
+}
+.marging-right-15 {
+  width: 96%;
+  background-color: #e0e0e0;
+  border: 0;
+  color: black;
+}
+.dialog {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.mat-dialog-content {
+  height: calc(100% - 16px);
+  max-height: unset;
+  overflow-x: hidden;
+}
+
+.heading-section {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+}
+
+.heading-section h2 {
+  color: #201547;
+  font-family: quantify;
+}

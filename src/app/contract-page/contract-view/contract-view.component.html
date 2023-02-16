@@ -1,0 +1,274 @@
+<div class="data">
+  <div class="upper-section">
+    <div class="middle-section">
+      <div>
+        <h2>Contract Details</h2>
+      </div>
+      <button
+        mat-button
+        class="create-btn"
+        [disabled]="!(currentUser?.org_permission == 'Admin')"
+        routerLink="/admin/contract-creation"
+      >
+        Create Contract
+      </button>
+    </div>
+  </div>
+
+  <div class="container_">
+    <mat-tab-group mat-align-tabs="start">
+      <mat-tab label="Contract list">
+        <div class="loading-data" *ngIf="allContracts.length">
+          <table
+            mat-table
+            [dataSource]="allContractsDataSource"
+            class="mat-elevation-z8"
+          >
+            <!-- Position Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef class="data-header">Contract Title</th>
+              <td mat-cell *matCellDef="let element" class="data-content">
+                {{ element.contract_title }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="parties">
+              <th mat-header-cell *matHeaderCellDef class="data-header">Parties</th>
+              <td mat-cell *matCellDef="let element" class="data-content">
+                <div [innerHTML]="element.parties"></div>
+              </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="start_date">
+              <th mat-header-cell *matHeaderCellDef class="data-header">Start date</th>
+              <td mat-cell *matCellDef="let element" class="data-content">
+                {{ element.start_date_time | date: "medium" }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="end_date">
+              <th mat-header-cell *matHeaderCellDef class="data-header">End date</th>
+              <td mat-cell *matCellDef="let element" class="data-content">
+                {{ element.end_date_time | date: "medium" }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="percentage_approval">
+              <th mat-header-cell *matHeaderCellDef class="data-header">Approval rate</th>
+              <td mat-cell *matCellDef="let element" class="data-content">
+                <i>{{ element.percentage_approval }}%</i>
+                <button
+                  mat-icon-button
+                  class="example-icon primary"
+                  [matMenuTriggerFor]="menu1"
+                  aria-label="Example icon-button with share icon"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+
+                <mat-menu #menu1="matMenu">
+                  <button mat-menu-item (click)="openContract(element)">
+                    <span> Open contract</span>
+                    <mat-icon color="primary">launch</mat-icon>
+                  </button>
+                  <button
+                    mat-menu-item
+                    [disabled]="!(currentUser?.org_permission == 'Admin')"
+                    (click)="deleteContract(element.id)"
+                  >
+                    <span>Delete contract</span>
+                    <mat-icon color="warn">delete</mat-icon>
+                  </button>
+                </mat-menu>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">
+                No data matching the filter "{{ input.value }}"
+              </td>
+            </tr>
+          </table>
+          <div class="paginator">
+            <mat-paginator
+              [pageSizeOptions]="[3, 8, 15, 30, 50, 1000]"
+              showFirstLastButtons
+            ></mat-paginator>
+          </div>
+          <br />
+        </div>
+      </mat-tab>
+      <mat-tab label="Contracts to be signed">
+        <div class="loading-data" *ngIf="toBeSignedContracts.length">
+          <table
+            mat-table
+            [dataSource]="signedContractsDataSource"
+            class="mat-elevation-z8"
+          >
+            <!-- Position Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Contract Title</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.contract_title }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="parties">
+              <th mat-header-cell *matHeaderCellDef>Parties</th>
+              <td mat-cell *matCellDef="let element">
+                <div [innerHTML]="element.parties"></div>
+              </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="start_date">
+              <th mat-header-cell *matHeaderCellDef>Start date</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.start_date_time | date: "medium" }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="end_date">
+              <th mat-header-cell *matHeaderCellDef>End date</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.end_date_time | date: "medium" }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="percentage_approval">
+              <th mat-header-cell *matHeaderCellDef>Approval rate</th>
+              <td mat-cell *matCellDef="let element">
+                <i>{{ element.percentage_approval }}%</i>
+                <button
+                  mat-icon-button
+                  class="example-icon"
+                  [matMenuTriggerFor]="menu1"
+                  aria-label="Example icon-button with share icon"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+
+                <mat-menu #menu1="matMenu">
+                  <button mat-menu-item (click)="openContract(element)">
+                    <span> Open contract</span>
+                    <mat-icon color="primary">launch</mat-icon>
+                  </button>
+                  <button mat-menu-item (click)="deleteContract(element.id)">
+                    <span>Delete contract</span>
+                    <mat-icon color="warn">delete</mat-icon>
+                  </button>
+                </mat-menu>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">
+                No data matching the filter "{{ input.value }}"
+              </td>
+            </tr>
+          </table>
+          <div class="paginator">
+            <mat-paginator
+              #MatPaginator1
+              [pageSizeOptions]="[3, 8, 15, 30, 50, 1000]"
+              showFirstLastButtons
+            ></mat-paginator>
+          </div>
+          <br />
+        </div>
+      </mat-tab>
+      <mat-tab label="Contracts to be Approved">
+        <div class="loading-data" *ngIf="toBeApprovedContracts.length">
+          <table
+            mat-table
+            [dataSource]="approvedContractDataSource"
+            class="mat-elevation-z8"
+          >
+            <!-- Position Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Contract Title</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.contract_title }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="parties">
+              <th mat-header-cell *matHeaderCellDef>Parties</th>
+              <td mat-cell *matCellDef="let element">
+                <div [innerHTML]="element.parties"></div>
+              </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="start_date">
+              <th mat-header-cell *matHeaderCellDef>Start date</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.start_date_time | date: "medium" }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="end_date">
+              <th mat-header-cell *matHeaderCellDef>End date</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.end_date_time | date: "medium" }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="percentage_approval">
+              <th mat-header-cell *matHeaderCellDef>Approval rate</th>
+              <td mat-cell *matCellDef="let element">
+                <i>{{ element.percentage_approval }}%</i>
+                <button
+                  mat-icon-button
+                  class="example-icon primary"
+                  [matMenuTriggerFor]="menu1"
+                  aria-label="Example icon-button with share icon"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+
+                <mat-menu #menu1="matMenu">
+                  <button mat-menu-item (click)="openContract(element)">
+                    <span> Open contract</span>
+                    <mat-icon color="primary">launch</mat-icon>
+                  </button>
+                  <button mat-menu-item (click)="deleteContract(element.id)">
+                    <span>Delete contract</span>
+                    <mat-icon color="warn">delete</mat-icon>
+                  </button>
+                </mat-menu>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">
+                No data matching the filter "{{ input.value }}"
+              </td>
+            </tr>
+          </table>
+          <div class="paginator">
+            <mat-paginator
+              #MatPaginator2
+              [pageSizeOptions]="[4, 8, 15, 30, 50, 1000]"
+              showFirstLastButtons
+            ></mat-paginator>
+          </div>
+          <br />
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

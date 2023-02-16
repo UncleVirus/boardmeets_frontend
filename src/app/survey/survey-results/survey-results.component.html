@@ -1,0 +1,522 @@
+<div class="data" *ngIf="!doc">
+  <mat-card class="survey-card">
+    <div class="heading-section">
+      <div class="flex">
+        <button mat-icon-button (click)="_location.back()">
+          <mat-icon color="primary" class="pointer"
+            >arrow_back_ios_new</mat-icon
+          >
+        </button>
+        <div class="flex-self">
+          <h1>Survey Details</h1>
+        </div>
+      </div>
+      <div class="save-survey">
+        <button class="save" mat-flat-button color="primary">
+          Edit details
+        </button>
+      </div>
+    </div>
+    <br />
+    <mat-card-content>
+      <form class="example-form" [formGroup]="surveyForm">
+        <p>
+          <strong>Survey Title</strong>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput formControlName="survey_title" />
+          </mat-form-field>
+          <strong>Survey Description</strong>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <textarea matInput formControlName="survey_description"></textarea>
+          </mat-form-field>
+        </p>
+
+        <p class="space">
+          <strong>Open Date</strong>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input
+              matInput
+              [ngxMatDatetimePicker]="picker1"
+              formControlName="survey_open_date"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker1"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker color="primary" #picker1>
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+          <strong>Close Date</strong>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input
+              matInput
+              [ngxMatDatetimePicker]="picker"
+              formControlName="survey_close_date"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker color="primary" #picker>
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+        </p>
+      </form>
+      <div *ngIf="surveyObj?.document">
+        <span>Supporting document</span>
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="openSuupportingDoc(surveyObj?.document)"
+        >
+          &nbsp; here
+        </button>
+      </div>
+      <br />
+
+      <h2 class="survey-dets">Survey Metrics</h2>
+      <div class="metrics me_1">
+        <div class="meeting-metrics">
+          <div class="m_data">
+            <span>Survey Completion Date</span>
+            <strong>{{ surveyObj.survey_close_date | date: "medium" }}</strong>
+          </div>
+          <div class="m_data">
+            <span>Survey Questions</span>
+            <strong>8</strong>
+          </div>
+          <div class="m_data">
+            <span>Survey Respondants</span>
+            <strong>2 </strong>
+          </div>
+        </div>
+        <br /><br />
+        <div class="invitees-metrics">
+          <h2>Respondants</h2>
+          <div class="users-profile">
+            <div
+              class="vertical-direction"
+              *ngFor="let item of surveyObj.permissions"
+            >
+              <span>{{ item.first_name }} {{ item.last_name }} </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <div class="content">
+    <div class="questions-view" *ngIf="questionsObj">
+      <div class="q-view">
+        <mat-card
+          class="q-card"
+          *ngFor="let question of questionsObj; let i = index"
+        >
+          <h4>
+            <b>{{ i + 1 }} . </b> {{ question.question_title }}
+          </h4>
+          <div class="answers" [ngSwitch]="question?.question_type">
+            <section
+              class="example-section-checkbox"
+              *ngSwitchCase="'checkbox'"
+            >
+              <div class="in-row">
+                <mat-selection-list>
+                  <mat-list-option
+                    *ngFor="let item of question.responses; let i = index"
+                    [value]="item.responses"
+                    checkboxPosition="before"
+                  >
+                    {{ item.responses }}
+                  </mat-list-option>
+                </mat-selection-list>
+              </div>
+              <div class="answers-view-q">
+                <div align="end">
+                  <mat-icon
+                    class="question_icons_butonn"
+                    matTooltip="View the question results"
+                    (click)="
+                      getQuestionAnalytics(question.id, question?.question_type)
+                    "
+                    >visibility</mat-icon
+                  >
+                  <mat-icon
+                    class="question_icons_butonn"
+                    matTooltip="Edit question details"
+                    (click)="editQuestion(question)"
+                    >mode_edit_outline</mat-icon
+                  >
+                  <mat-icon
+                    class="question_icons_butonn"
+                    matTooltip="Delete question from a survey"
+                    matTooltipClass="example-tooltip-red"
+                    (click)="deleteQuestion(question.id)"
+                    >clear</mat-icon
+                  >
+                </div>
+                <br />
+                <mat-accordion
+                  class="mat-accordion"
+                  *ngIf="questionResult[0]?.survey_question.id === question.id"
+                >
+                  <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title> Result details </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <table
+                      class="table table-borderless"
+                      *ngIf="questionResult.length"
+                    >
+                      <thead>
+                        <tr>
+                          <th scope="col">Respondents</th>
+                          <th scope="col">Selections</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let ans of questionResult">
+                          <td>
+                            {{ ans.respondent.first_name }}
+                            {{ ans.respondent.first_name }}
+                          </td>
+                          <td>
+                            <div
+                              class="answers-section"
+                              *ngIf="ans.answer == ''"
+                            >
+                              <span *ngFor="let item of ans.selected_responses"
+                                >{{ item.responses }},
+                              </span>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="graph-section">
+                      <h2>Stastics</h2>
+                      <div class="chart-wrapper">
+                        <canvas
+                          baseChart
+                          [data]="pieChartData"
+                          [labels]="pieChartLabels"
+                          [chartType]="pieChartType"
+                          [options]="lineChartOptions"
+                          [plugins]="pieChartPlugins"
+                          [legend]="pieChartLegend"
+                        >
+                        </canvas>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </section>
+
+            <section class="example-section-option" *ngSwitchCase="'radio'">
+              <mat-radio-group aria-label="Select an option" class="in-row">
+                <mat-radio-button
+                  *ngFor="let item of question.responses"
+                  [value]="item.responses"
+                  >{{ item?.responses }}</mat-radio-button
+                >
+              </mat-radio-group>
+
+              <div class="answers-view-q">
+                <div align="end">
+                  <mat-icon
+                    class="question_icons_butonn"
+                    matTooltip="View the question results"
+                    (click)="
+                      getQuestionAnalytics(question.id, question?.question_type)
+                    "
+                    >visibility</mat-icon
+                  >
+                  <mat-icon
+                    class="question_icons_butonn"
+                    matTooltip="Edit question details"
+                    (click)="editQuestion(question)"
+                    >mode_edit_outline</mat-icon
+                  >
+                  <mat-icon
+                    class="question_icons_butonn"
+                    matTooltip="Delete question from a survey"
+                    matTooltipClass="example-tooltip-red"
+                    (click)="deleteQuestion(question.id)"
+                    >clear</mat-icon
+                  >
+                </div>
+                <mat-accordion
+                  class="mat-accordion"
+                  *ngIf="questionResult[0]?.survey_question.id === question.id"
+                >
+                  <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title> Result details </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <table
+                      class="table table-borderless"
+                      *ngIf="questionResult.length"
+                    >
+                      <thead>
+                        <tr>
+                          <th scope="col">Respondents</th>
+                          <th scope="col">Selections</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let ans of questionResult">
+                          <td>
+                            {{ ans.respondent.first_name }}
+                            {{ ans.respondent.first_name }}
+                          </td>
+                          <td>
+                            <div
+                              class="answers-section"
+                              *ngIf="ans.answer == ''"
+                            >
+                              <span *ngFor="let item of ans.selected_responses"
+                                >{{ item.responses }},
+                              </span>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="graph-section">
+                      <h2>Stastics</h2>
+                      <div class="chart-wrapper">
+                        <canvas
+                          baseChart
+                          [data]="pieChartData"
+                          [labels]="pieChartLabels"
+                          [chartType]="pieChartType"
+                          [options]="pieChartOptions"
+                          [plugins]="pieChartPlugins"
+                          [legend]="pieChartLegend"
+                        >
+                        </canvas>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </section>
+
+            <section
+              class="example-section-option"
+              *ngSwitchCase="'liner-scale'"
+            >
+              <mat-form-field appearance="outline" class="range">
+                <mat-select name="number" [value]="0">
+                  <mat-option *ngFor="let number of numbers" [value]="number">
+                    {{ number }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div class="answers-view-q">
+                <div align="end">
+                  <mat-icon
+                    class="question_icons_butonn"
+                    matTooltip="View the question results"
+                    (click)="
+                      getQuestionAnalytics(question.id, question?.question_type)
+                    "
+                    >visibility</mat-icon
+                  >
+                  <mat-icon
+                    class="question_icons_butonn"
+                    matTooltip="Edit question details"
+                    (click)="editQuestion(question)"
+                    >mode_edit_outline</mat-icon
+                  >
+                  <mat-icon
+                    class="question_icons_butonn"
+                    matTooltip="Delete question from a survey"
+                    matTooltipClass="example-tooltip-red"
+                    (click)="deleteQuestion(question.id)"
+                    >clear</mat-icon
+                  >
+                </div>
+                <mat-accordion
+                  class="mat-accordion"
+                  *ngIf="questionResult[0]?.survey_question.id === question.id"
+                >
+                  <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title> Result details </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <table
+                      class="table table-borderless"
+                      *ngIf="questionResult.length"
+                    >
+                      <thead>
+                        <tr>
+                          <th scope="col">Respondents</th>
+                          <th scope="col">Selections</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let ans of questionResult">
+                          <td>
+                            {{ ans.respondent.first_name }}
+                            {{ ans.respondent.first_name }}
+                          </td>
+                          <td>{{ ans.answer }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <h2>Stastics</h2>
+                    <div class="chart-wrapper">
+                      <canvas
+                        baseChart
+                        [data]="pieChartData"
+                        [labels]="pieChartLabels"
+                        [chartType]="pieChartType"
+                        [options]="lineChartOptions"
+                        [plugins]="pieChartPlugins"
+                        [legend]="pieChartLegend"
+                      >
+                      </canvas>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </section>
+
+            <section class="example-section-texbox" *ngSwitchCase="'paragraph'">
+              <mat-form-field class="example-full-width" appearance="standard">
+                <mat-label>your answer</mat-label>
+                <textarea matInput></textarea>
+              </mat-form-field>
+              <div class="answers-view-q">
+                <div align="end">
+                  <mat-icon
+                    class="question_icons_butonn"
+                    matTooltip="View the question results"
+                    (click)="
+                      getQuestionAnalytics(question.id, question?.question_type)
+                    "
+                    >visibility</mat-icon
+                  >
+                  <mat-icon
+                    class="question_icons_butonn"
+                    matTooltip="Edit question details"
+                    (click)="editQuestion(question)"
+                    >mode_edit_outline</mat-icon
+                  >
+                  <mat-icon
+                    class="question_icons_butonn"
+                    matTooltip="Delete question from a survey"
+                    matTooltipClass="example-tooltip-red"
+                    (click)="deleteQuestion(question.id)"
+                    >clear</mat-icon
+                  >
+                </div>
+                <mat-accordion
+                  class="mat-accordion"
+                  *ngIf="questionResult[0]?.survey_question.id === question.id"
+                >
+                  <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title> Result details </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <table
+                      class="table table-borderless"
+                      *ngIf="questionResult.length"
+                    >
+                      <thead>
+                        <tr>
+                          <th scope="col">Respondents</th>
+                          <th scope="col">Selections</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let ans of questionResult">
+                          <td>
+                            {{ ans.respondent.first_name }}
+                            {{ ans.respondent.first_name }}
+                          </td>
+                          <td>{{ ans.answer }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </section>
+
+            <section class="example-section-texbox" *ngSwitchDefault>
+              <mat-form-field class="example-70-width" appearance="standard">
+                <mat-label>your answer</mat-label>
+                <input matInput />
+              </mat-form-field>
+              <div class="answers-view-q">
+                <div align="end">
+                  <mat-icon
+                    class="question_icons_butonn"
+                    matTooltip="View the question results"
+                    (click)="
+                      getQuestionAnalytics(question.id, question?.question_type)
+                    "
+                    >visibility</mat-icon
+                  >
+                  <mat-icon
+                    class="question_icons_butonn"
+                    matTooltip="Edit question details"
+                    (click)="editQuestion(question)"
+                    >mode_edit_outline</mat-icon
+                  >
+                  <mat-icon
+                    class="question_icons_butonn"
+                    matTooltip="Delete question from a survey"
+                    matTooltipClass="example-tooltip-red"
+                    (click)="deleteQuestion(question.id)"
+                    >clear</mat-icon
+                  >
+                </div>
+                <mat-accordion
+                  class="mat-accordion"
+                  *ngIf="questionResult[0]?.survey_question.id === question.id"
+                >
+                  <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title> Result details </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <table
+                      class="table table-borderless"
+                      *ngIf="questionResult.length"
+                    >
+                      <thead>
+                        <tr>
+                          <th scope="col">Respondents</th>
+                          <th scope="col">Selections</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let ans of questionResult">
+                          <td>
+                            {{ ans.respondent.first_name }}
+                            {{ ans.respondent.first_name }}
+                          </td>
+                          <td>{{ ans.answer }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </section>
+          </div>
+        </mat-card>
+        <br />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="view-doc" *ngIf="doc">
+  <button mat-button (click)="closeDocumentView()">
+    <mat-icon color="warn">close</mat-icon>Close
+  </button>
+  <app-view-document></app-view-document>
+</div>

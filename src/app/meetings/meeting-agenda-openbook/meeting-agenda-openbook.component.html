@@ -1,0 +1,591 @@
+<!--<div class="data" *ngIf="!viewAgendaDoc">-->
+<!--  <mat-card class="back-header">-->
+<!--    <button-->
+<!--      mat-icon-button-->
+<!--      [disabled]="showZoomWindow"-->
+<!--      (click)="_location.back()"-->
+<!--    >-->
+<!--      <mat-icon class="pointer">arrow_back_ios_new</mat-icon>-->
+<!--    </button>-->
+<!--    <div class="flex-self">-->
+<!--      <h1>Meeting Details</h1>-->
+<!--    </div>-->
+<!--    <br />-->
+<!--  </mat-card>-->
+
+<!--  <mat-tab-group>-->
+<!--    <mat-tab label="Meeting Details" class="tab-label">-->
+<!--      <div class="example-small-box mat-elevation-z4">-->
+<!--        <br />-->
+<!--        <mat-card class="card">-->
+<!--          <div class="heading-section">-->
+<!--            <div class="meeting-content">-->
+<!--              <h2>{{ meetingObj.meeting_title }}</h2>-->
+<!--              <p>-->
+<!--                <span>Start time: </span>{{ meetingObj.start_date | date: "medium" }}-->
+<!--              </p>-->
+<!--              <p><span> &nbsp;End time: </span> {{ meetingObj.end_date | date: "medium" }}</p>-->
+
+<!--              <p><span> &nbsp; &nbsp;Address: </span>{{ meetingObj?.meeting_address }}</p>-->
+
+<!--              <div class="setup-section">-->
+<!--                <button-->
+<!--                  mat-button-->
+<!--                  routerLinkActive="router-link-active"-->
+<!--                  [disabled]="!zoomObj?.id"-->
+<!--                  (click)="joinMeeting()"-->
+<!--                >-->
+<!--                  <mat-icon>videocam</mat-icon> <span>Join remote</span>-->
+<!--                </button>-->
+<!--                <button-->
+<!--                  mat-button-->
+<!--                  *ngIf="currentUser?.org_permission == 'Admin'"-->
+<!--                  color="primary"-->
+<!--                  (click)="setupRemoteMeeting(meetingObj)"-->
+<!--                >-->
+<!--                  <strong>Setup remote meeting</strong>-->
+<!--                </button>-->
+<!--              </div>-->
+<!--              <br />-->
+<!--            </div>-->
+<!--            <div class="meeting-edit">-->
+<!--              <button-->
+<!--                mat-button-->
+<!--                [disabled]="!(currentUser?.org_permission == 'Admin')"-->
+<!--                color="primary"-->
+<!--                (click)="openEditMeetingDialog(meetingObj)"-->
+<!--              >-->
+<!--                <span>Edit details</span>-->
+<!--              </button>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </mat-card>-->
+<!--        <br />-->
+<!--        <mat-card class="card">-->
+<!--          <div class="meeting-invitees">-->
+<!--            <h2>Invitees</h2>-->
+<!--            <div class="users-profile">-->
+<!--              <div-->
+<!--                class="vertical-direction"-->
+<!--                *ngFor="let item of meetingObj?.invitees"-->
+<!--              >-->
+<!--                &lt;!&ndash; <div class="image-section">-->
+<!--                  <img-->
+<!--                    class="tile-image"-->
+<!--                    src="../../../assets/images/user.jpg"-->
+<!--                    alt=""-->
+<!--                    layout-cover-->
+<!--                  />-->
+<!--                </div> &ndash;&gt;-->
+<!--                <span>{{ item?.first_name }} {{ item?.last_name }}</span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </mat-card>-->
+<!--        <br />-->
+<!--        <br />-->
+<!--        <div class="actions-section">-->
+<!--          <div class="action pointer" (click)="openRsvpDialog(meetingObj)">-->
+<!--            <div class="action-icon">-->
+<!--              <mat-icon class="a-icon">grading</mat-icon>-->
+<!--            </div>-->
+
+<!--            <div class="body-action pointer">-->
+<!--              <h3>RSVP to Meeting</h3>-->
+<!--              <span class="gray-color">{{-->
+<!--                usersRsvp?.length > 0 ? usersRsvp[0].choice : "No Response"-->
+<!--                }}</span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="action pointer" (click)="openAttandanceDialog(rsvps)">-->
+<!--            <div class="action-icon">-->
+<!--              <mat-icon class="a-icon">groups</mat-icon>-->
+<!--            </div>-->
+
+<!--            <div class="body-action pointer">-->
+<!--              <h3>Attendance</h3>-->
+<!--              <span>and RSVP status</span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="action pointer">-->
+<!--            <div class="action-icon">-->
+<!--              <mat-icon class="a-icon">cloud_download</mat-icon>-->
+<!--            </div>-->
+
+<!--            <div class="body-action">-->
+<!--              <h3>Downloads</h3>-->
+<!--              <span>Exportable Materials</span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <br />-->
+
+<!--        <mat-card class="card">-->
+<!--          <div class="meeting-minutes">-->
+<!--            <h2>Meeting Minutes</h2>-->
+<!--            <mat-card-subtitle-->
+<!--            ><span>Created by</span> {{ minutesObj[0]?.created_by.first_name }}-->
+<!--              {{ minutesObj[0]?.created_by.last_name }}-->
+<!--            </mat-card-subtitle>-->
+<!--            <mat-card-actions class="minutes-module">-->
+<!--              <button-->
+<!--                *ngIf="!minutesObj.length"-->
+<!--                [disabled]="!(currentUser?.org_permission == 'Admin')"-->
+<!--                mat-button-->
+<!--                color="primary"-->
+<!--                (click)="startMinutes(meetingObj)"-->
+<!--                class="min-start-view"-->
+<!--              >-->
+<!--                <span>Start minutes</span>-->
+<!--              </button>-->
+<!--              <button-->
+<!--                mat-button-->
+<!--                color="primary"-->
+<!--                *ngIf="minutesObj.length"-->
+<!--                (click)="viewMinutes(minutesObj)"-->
+<!--                class="min-start-view"-->
+<!--              >-->
+<!--                View minutes-->
+<!--              </button>-->
+<!--            </mat-card-actions>-->
+<!--          </div>-->
+<!--        </mat-card>-->
+
+<!--        <div class="example-full-width" *ngIf="items.length">-->
+<!--          <mat-card class="card">-->
+<!--            <h2>Agenda</h2>-->
+<!--            <mat-card-sub-title>Agenda items list </mat-card-sub-title>-->
+<!--          </mat-card>-->
+
+<!--          <mat-card class="items-body">-->
+<!--            <div class="items" *ngFor="let item of items; let i_item = index">-->
+<!--              <div class="agenda-input">-->
+<!--                <div class="item-input">-->
+<!--                  <div class="flex">-->
+<!--                    <strong matPrefix>{{ romanize(i_item + 1) }} .</strong>-->
+<!--                    <input-->
+<!--                      matInput-->
+<!--                      type="text"-->
+<!--                      value="{{ item.agenda_name }}"-->
+<!--                      [disabled]="true"-->
+<!--                      class="marging-right-15"-->
+<!--                    />-->
+<!--                  </div>-->
+<!--                  <div class="item-details">-->
+<!--                    <p class="margin-0" *ngIf="item.presenters">-->
+<!--                      presenters: {{ item.presenters }}-->
+<!--                    </p>-->
+<!--                    <p class="margin-0" *ngIf="item.guests">-->
+<!--                      Guests: {{ item.guests }}-->
+<!--                    </p>-->
+<!--                  </div>-->
+<!--                  <p *ngIf="item.agenda_description" class="gray-color">-->
+<!--                    {{ item.agenda_description }}-->
+<!--                  </p>-->
+<!--                </div>-->
+<!--                <div class="details-btn">-->
+<!--                  <button-->
+<!--                    mat-icon-button-->
+<!--                    *ngIf="item.agenda_document"-->
+<!--                    type="button"-->
+<!--                    aria-label="add"-->
+<!--                    (click)="openAgendaDocument(item)"-->
+<!--                  >-->
+<!--                    <mat-icon class="doc-btn">description</mat-icon>-->
+<!--                  </button>-->
+<!--                  <button-->
+<!--                    mat-button-->
+<!--                    type="button"-->
+<!--                    aria-label="add"-->
+<!--                    class="edit-btn"-->
+<!--                    *ngIf="currentUser?.org_permission == 'Admin'"-->
+<!--                    (click)="editItemDetailsDialog(item)"-->
+<!--                  >-->
+<!--                    Edit details-->
+<!--                  </button>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div-->
+<!--                class="level_a_items"-->
+<!--                *ngFor="let item of item?.childreen; let i_item = index"-->
+<!--              >-->
+<!--                <div class="agenda-input">-->
+<!--                  <div class="item-input">-->
+<!--                    <div class="flex">-->
+<!--                      <strong matPrefix>{{ leterize(i_item + 1) }} .</strong>-->
+<!--                      <input-->
+<!--                        matInput-->
+<!--                        type="text"-->
+<!--                        value="{{ item.agenda_name }}"-->
+<!--                        [disabled]="true"-->
+<!--                        class="marging-right-15"-->
+<!--                      />-->
+<!--                    </div>-->
+<!--                    <div class="item-details">-->
+<!--                      <p class="margin-0" *ngIf="item.presenters">-->
+<!--                        presenters: {{ item.presenters }}-->
+<!--                      </p>-->
+<!--                      <p class="margin-0" *ngIf="item.guests">-->
+<!--                        Guests: {{ item.guests }}-->
+<!--                      </p>-->
+<!--                    </div>-->
+<!--                    <p *ngIf="item.agenda_description" class="gray-color">-->
+<!--                      {{ item.agenda_description }}-->
+<!--                    </p>-->
+<!--                  </div>-->
+<!--                  <div class="details-btn">-->
+<!--                    <button-->
+<!--                      mat-icon-button-->
+<!--                      *ngIf="item.agenda_document"-->
+<!--                      type="button"-->
+<!--                      aria-label="add"-->
+<!--                      (click)="openAgendaDocument(item)"-->
+<!--                    >-->
+<!--                      <mat-icon class="doc-btn">description</mat-icon>-->
+<!--                    </button>-->
+<!--                    <button-->
+<!--                      mat-button-->
+<!--                      type="button"-->
+<!--                      aria-label="add"-->
+<!--                      class="edit-btn"-->
+<!--                      *ngIf="currentUser?.org_permission == 'Admin'"-->
+<!--                      (click)="editItemDetailsDialog(item)"-->
+<!--                    >-->
+<!--                      Edit details-->
+<!--                    </button>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div-->
+<!--                  class="level_b_items"-->
+<!--                  *ngFor="let item of item?.childreen; let i_item = index"-->
+<!--                >-->
+<!--                  <div class="agenda-input">-->
+<!--                    <div class="item-input">-->
+<!--                      <div class="flex">-->
+<!--                        <strong matPrefix>{{ i_item + 1 }}.</strong>-->
+<!--                        <input-->
+<!--                          matInput-->
+<!--                          type="text"-->
+<!--                          value="{{ item.agenda_name }}"-->
+<!--                          [disabled]="true"-->
+<!--                          class="marging-right-15"-->
+<!--                        />-->
+<!--                      </div>-->
+<!--                      <div class="item-details">-->
+<!--                        <p class="margin-0" *ngIf="item.presenters">-->
+<!--                          presenters: {{ item.presenters }}-->
+<!--                        </p>-->
+<!--                        <p class="margin-0" *ngIf="item.guests">-->
+<!--                          Guests: {{ item.guests }}-->
+<!--                        </p>-->
+<!--                      </div>-->
+<!--                      <p *ngIf="item.agenda_description" class="gray-color">-->
+<!--                        {{ item.agenda_description }}-->
+<!--                      </p>-->
+<!--                    </div>-->
+<!--                    <div class="details-btn">-->
+<!--                      <button-->
+<!--                        mat-icon-button-->
+<!--                        *ngIf="item.agenda_document"-->
+<!--                        type="button"-->
+<!--                        aria-label="add"-->
+<!--                        (click)="openAgendaDocument(item)"-->
+<!--                      >-->
+<!--                        <mat-icon class="doc-btn">description</mat-icon>-->
+<!--                      </button>-->
+<!--                      <button-->
+<!--                        mat-button-->
+<!--                        type="button"-->
+<!--                        aria-label="add"-->
+<!--                        class="edit-btn"-->
+<!--                        *ngIf="currentUser?.org_permission == 'Admin'"-->
+<!--                        (click)="editItemDetailsDialog(item)"-->
+<!--                      >-->
+<!--                        Edit details-->
+<!--                      </button>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div> </mat-card-->
+<!--          ><br />-->
+<!--        </div>-->
+
+<!--        <br />-->
+<!--      </div>-->
+<!--    </mat-tab>-->
+<!--    <mat-tab label="Analytics">-->
+<!--      <div class="example-large-box mat-elevation-z4">-->
+<!--        <div class="metrics me_1">-->
+<!--          <h2>Meeting Metrics</h2>-->
+<!--          <div class="meeting-metrics">-->
+<!--            <div class="m_data">-->
+<!--              <span>Meeting Length</span>-->
+<!--              <strong>{{ analytics.meeting_length || "1 hr" }}</strong>-->
+<!--            </div>-->
+<!--            <div class="m_data">-->
+<!--              <span>Agenda</span>-->
+<!--              <strong>{{ analytics.Agendas || 0 }} Section</strong>-->
+<!--            </div>-->
+<!--            <div class="m_data">-->
+<!--              <span>Invitees</span>-->
+<!--              <strong>{{ analytics.invitees || 0 }} </strong>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <br /><br />-->
+<!--          <div class="invites-metrics">-->
+<!--            <h2>Invitees</h2>-->
+<!--            <div class="users-profile">-->
+<!--              <div-->
+<!--                class="vertical-direction"-->
+<!--                *ngFor="let item of meetingObj?.invitees"-->
+<!--              >-->
+<!--                &lt;!&ndash; <div class="image-section">-->
+<!--                  <img-->
+<!--                    class="tile-image"-->
+<!--                    src="../../../assets/images/user.jpg"-->
+<!--                    alt="beer"-->
+<!--                    layout-cover-->
+<!--                  />-->
+<!--                </div> &ndash;&gt;-->
+<!--                <span>{{ item?.first_name }}</span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="graph-section">-->
+<!--          <h2>Engagement</h2>-->
+<!--          <div class="chart-wrapper">-->
+<!--            <canvas-->
+<!--              baseChart-->
+<!--              [data]="pieChartData"-->
+<!--              [labels]="pieChartLabels"-->
+<!--              [chartType]="pieChartType"-->
+<!--              [options]="pieChartOptions"-->
+<!--              [plugins]="pieChartPlugins"-->
+<!--              [legend]="pieChartLegend"-->
+<!--            >-->
+<!--            </canvas>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </mat-tab>-->
+<!--  </mat-tab-group>-->
+<!--</div>-->
+
+
+<!--<app-zoom-page class="zoom" *ngIf="showZoomWindow"></app-zoom-page>-->
+
+<!--document view-->
+
+<mat-drawer-container class="example-container" *ngIf="show">
+  <mat-card class="card">
+  <mat-card class="back-header shadow-lg p-3 mb-5 bg-white rounded">
+    <button
+      mat-icon-button
+      [disabled]="showZoomWindow"
+      (click)="_location.back()"
+    >
+<!--      <mat-icon class="pointer">arrow_back_ios_new</mat-icon>-->
+      <i class="fa fa-step-backward" aria-hidden="true"></i>
+    </button>
+    <div class="flex-self">
+      <h2 class="float-lg-start">Back</h2>
+    </div>
+  </mat-card>
+    <div class="card">
+    <div class="card-body shadow-lg p-3 mb-5 bg-white rounded">
+      <div class="col-md-3">
+        <div class="panel panel-info">
+          <div class="panel-heading">Agenda</div>
+<!--          <div id="docLinksList" class="list-group">-->
+
+            <div class="example-full-width" *ngIf="items.length">
+
+              <mat-card class="card">
+                <div class="items" *ngFor="let item of items; let i_item = index">
+                  <div class="agenda-input">
+                    <div class="item-input">
+                      <div class="flex">
+                        <strong matPrefix>{{ romanize(i_item + 1) }} .</strong>
+                        <input
+                          matInput
+                          type="text"
+                          value="{{ item.agenda_name }}"
+                          [disabled]="true"
+                          class="marging-right-15"
+                        />
+                      </div>
+<!--                                                    <div class="item-details">-->
+<!--                                                      <p class="margin-0" *ngIf="item.presenters">-->
+<!--                                                        presenters: {{ item.presenters }}-->
+<!--                                                      </p>-->
+<!--                                                      <p class="margin-0" *ngIf="item.guests">-->
+<!--                                                        Guests: {{ item.guests }}-->
+<!--                                                      </p>-->
+<!--                                                    </div>-->
+                      <p *ngIf="item.agenda_description" class="gray-color">
+                        {{ item.agenda_description }}
+                      </p>
+                    </div>
+                    <div class="details-btn">
+                      <button
+                        mat-icon-button
+                        *ngIf="item.agenda_document"
+                        type="button"
+                        aria-label="add"
+                        (click)="openAgendaDocument(item)"
+                      >
+                        <mat-icon class="doc-btn">description</mat-icon>
+                      </button>
+                      <button
+                        mat-button
+                        type="button"
+                        aria-label="add"
+                        class="edit-btn"
+                        *ngIf="currentUser?.org_permission == 'Admin'"
+                        (click)="editItemDetailsDialog(item)"
+                      >
+<!--                        Edit details-->
+                        <i class="fa fa-align-justify"  aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="level_a_items"
+                    *ngFor="let item of item?.childreen; let i_item = index"
+                  >
+                    <div class="agenda-input">
+                      <div class="item-input">
+                        <div class="flex">
+                          <strong matPrefix>{{ leterize(i_item + 1) }} .</strong>
+                          <input
+                            matInput
+                            type="text"
+                            value="{{ item.agenda_name }}"
+                            [disabled]="true"
+                            class="marging-right-15"
+                          />
+                        </div>
+                        <div class="item-details">
+                          <p class="margin-0" *ngIf="item.presenters">
+                            presenters: {{ item.presenters }}
+                          </p>
+                          <p class="margin-0" *ngIf="item.guests">
+                            Guests: {{ item.guests }}
+                          </p>
+                        </div>
+                        <p *ngIf="item.agenda_description" class="gray-color">
+                          {{ item.agenda_description }}
+                        </p>
+                      </div>
+                      <div class=" row details-btn">
+                        <button
+                          mat-icon-button
+                          *ngIf="item.agenda_document"
+                          type="button"
+                          aria-label="add"
+                          (click)="openAgendaDocument(item)"
+                        >
+                          <mat-icon class="doc-btn">description</mat-icon>
+                        </button>
+                        <button
+                          mat-button
+                          type="button"
+                          aria-label="add"
+                          class="edit-btn"
+                          *ngIf="currentUser?.org_permission == 'Admin'"
+                          (click)="editItemDetailsDialog(item)"
+                        >
+<!--                          Edit details-->
+                          <i class="fa fa-align-justify" aria-hidden="true"></i>
+
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="level_b_items"
+                      *ngFor="let item of item?.childreen; let i_item = index"
+                    >
+                      <div class="agenda-input">
+                        <div class="item-input">
+                          <div class="flex">
+                            <strong matPrefix>{{ i_item + 1 }}.</strong>
+                            <input
+                              matInput
+                              type="text"
+                              value="{{ item.agenda_name }}"
+                              [disabled]="true"
+                              class="marging-right-15"
+                            />
+                          </div>
+                          <div class="item-details">
+                            <p class="margin-0" *ngIf="item.presenters">
+                              presenters: {{ item.presenters }}
+                            </p>
+                            <p class="margin-0" *ngIf="item.guests">
+                              Guests: {{ item.guests }}
+                            </p>
+                          </div>
+                          <p *ngIf="item.agenda_description" class="gray-color">
+                            {{ item.agenda_description }}
+                          </p>
+                        </div>
+                        <div class="details-btn">
+                          <button
+                            mat-icon-button
+                            *ngIf="item.agenda_document"
+                            type="button"
+                            aria-label="add"
+                            (click)="openAgendaDocument(item)"
+                          >
+                            <mat-icon class="doc-btn">description</mat-icon>
+                          </button>
+                          <button
+                            mat-button
+                            type="button"
+                            aria-label="add"
+                            class="edit-btn"
+                            *ngIf="currentUser?.org_permission == 'Admin'"
+                            (click)="editItemDetailsDialog(item)"
+                          >
+<!--                            Edit details-->
+                            <i class="fa fa-align-justify" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-card>
+            </div>
+<!--          </div> &lt;!&ndash; docLinksList &ndash;&gt;-->
+
+        </div> <!-- navPanel -->
+      </div> <!-- left column -->
+
+      <div class="col-md-9">
+        <div class="panel panel-info">
+          <div id="docName" class="panel-heading"><b>Document</b></div>
+          <div id="docContents" class="panel-body">
+            <!--                    <iframe id="docPdf" width="100%" height="100%" seamless></iframe>-->
+            <div class="view-agenda-doc" *ngIf="viewAgendaDoc">
+              <button mat-button (click)="viewAgendaDoc = false">
+                <mat-icon color="warn">close</mat-icon>Close
+              </button>
+              <app-view-document></app-view-document>
+
+            </div>
+          </div>
+        </div> <!-- contentViewer -->
+      </div> <!-- rightCol -->
+    </div> <!-- row -->
+    </div>
+</mat-card>
+</mat-drawer-container>
+
+
+
+
+

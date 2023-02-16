@@ -1,0 +1,89 @@
+<div class="data">
+  <mat-card class="card">
+    <div class="heading-section">
+      <div class="back-header2">
+        <button mat-icon-button cdkFocusInitial (click)="_location.back()">
+          <mat-icon>arrow_back_ios_new</mat-icon>
+        </button>
+        <h1>Compliance details</h1>
+      </div>
+      <div>
+        <button
+          mat-button
+          [disabled]="!(currentUser?.org_permission == 'Admin')"
+          color="primary"
+          (click)="openEditComplianceDialog(complianceOb)"
+        >
+          Edit details
+        </button>
+      </div>
+    </div>
+    <br />
+
+    <div class="compliance-details">
+      <h1>{{ complianceOb.compliance_name }}</h1>
+      <span
+        >{{ complianceOb.compliance_start_date | date: "fullDate" }} to
+        {{ complianceOb.compliance_end_date | date: "fullDate" }}</span
+      >
+    </div>
+  </mat-card>
+
+  <div class="example-full-width" *ngIf="checkList.length">
+    <br />
+    <strong class="list-title">Compliance Check List</strong>
+
+    <mat-card class="checks-body" *ngFor="let item of checkList; let i = index">
+      <div class="check">
+        <p>Check {{ i + 1 }}</p>
+        <strong>{{ item.check_name }}</strong>
+
+        <p>
+          {{ item.check_description }}
+        </p>
+        <div *ngIf="item.check_evidence">
+          <i>Evidence: </i>
+          <div [innerHTML]="item.check_evidence"></div>
+        </div>
+        <span class="red-color"
+          >Comply? <i>{{ item.check_status ? "Yes" : "No" }}</i></span
+        ><br /><br />
+        <div class="action-button">
+          <div class="text-editor">
+            <quill-editor
+              class="editor"
+              (onContentChanged)="evidence = $event?.html"
+            >
+            </quill-editor>
+          </div>
+
+          <button
+            mat-button
+            class="yes-btn"
+            (click)="complyCheck(item.id, true)"
+          >
+            Yes
+          </button>
+          <button
+            mat-button
+            class="no-btn"
+            (click)="complyCheck(item.id, false)"
+          >
+            No
+          </button>
+        </div>
+      </div>
+
+      <div class="actions-check-btn">
+        <button
+          mat-button
+          color="primary"
+          *ngIf="currentUser?.org_permission == 'Admin'"
+          (click)="openEditComplianceCheckDialog(item)"
+        >
+          Edit details
+        </button>
+      </div>
+    </mat-card>
+  </div>
+</div>

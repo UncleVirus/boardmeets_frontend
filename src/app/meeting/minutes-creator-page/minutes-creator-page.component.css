@@ -1,0 +1,158 @@
+.data {
+  margin-right: 40px;
+}
+.heading-card {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(255, 255, 255);
+  margin-top: 5px;
+  margin-bottom: 8px;
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+}
+.minutes-header h2{
+  font-family: quantify;
+  font-weight: bold;
+  color: #201547;
+}
+.minutes-h {
+  font-family: quantify;
+}
+.heading-card-members {
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 30px;
+  /* box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px; */
+  border-radius: 5px;
+  border-width: 0px;
+  box-shadow: 7px 5px 5px 0px rgb(179, 178, 178);
+}
+.agenda-card {
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 30px;
+  /* box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px; */
+  border-radius: 5px;
+  border-width: 0px;
+  box-shadow: 7px 5px 5px 5px rgb(179, 178, 178);
+}
+.heading-card-members h1 {
+  font-family: quantify;
+  font-weight: bold;
+  color: #201547;
+  text-transform: uppercase;
+}
+.heading-card-members h2 {
+  font-family: quantify;
+
+}
+.members-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.members-header {
+  display: flex;
+  justify-content: space-between;
+}
+.members-header h2 {
+  font-family: quantify;
+  font-weight: bold;
+  color: #201547;
+  text-transform: uppercase;
+}
+.h_view {
+  display: flex;
+}
+
+.heading-card-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  margin-top: 5px;
+  margin-bottom: 8px;
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+}
+.members-list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+}
+h2,
+h4 {
+  padding: 0;
+  margin: 0;
+}
+.logo {
+  width: 130px;
+  background-size: cover;
+  margin-right: 15px;
+  padding: 8px;
+  border-radius: 20px;
+}
+.image {
+  width: 100%;
+  height: auto;
+}
+.member {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f1f1f1;
+  margin-bottom: 10px;
+  margin-right: 15px;
+  width: fit-content;
+}
+.mat-radio-button {
+  margin: 5px;
+  padding-top: 6px;
+  padding-right: 10px;
+  align-items: center;
+  background-color: #ddd;
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 20px;
+}
+.example-60-width {
+  width: 60%;
+}
+.agenda-item {
+  width: 100%;
+  padding: 25px;
+}
+
+.example-form-field {
+  width: fit-content;
+}
+.task {
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  margin: 20px;
+  padding: 15px;
+}
+.agenda {
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  margin: 20px;
+  padding: 15px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+.form-group strong {
+  font-family: quantify;
+  font-weight: bold;
+  color: #0d0d0e;
+  text-transform: uppercase;
+}
+.add-btn {
+  font-family: quantify;
+  font-weight: bold;
+  color: #0d0d0e;
+}

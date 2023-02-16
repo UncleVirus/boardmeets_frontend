@@ -1,0 +1,50 @@
+<h1 mat-dialog-title>+ Add e-Signature</h1>
+<div mat-dialog-content>
+  <div class="attachment">
+    <div>
+      <mat-slide-toggle (click)="enableAttachment()"
+        ><span
+          >Pick from your device or draw using your mouse cursor</span
+        ></mat-slide-toggle
+      >
+    </div>
+    <div class="attachment-section" *ngIf="enableAttachmentView">
+      <ngx-dropzone (change)="onSelect($event)">
+        <ngx-dropzone-label
+          >Drag and Drop or click here to upload!</ngx-dropzone-label
+        >
+        <ngx-dropzone-preview
+          *ngFor="let f of files"
+          [removable]="true"
+          (removed)="onRemove(f)"
+        >
+          <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+        </ngx-dropzone-preview>
+      </ngx-dropzone>
+    </div>
+  </div>
+  <div class="signature-container" *ngIf="!enableAttachmentView">
+    <signature-pad
+      [options]="signaturePadOptions"
+      (onBeginEvent)="drawStart()"
+      (onEndEvent)="drawComplete()"
+    ></signature-pad>
+  </div>
+</div>
+<div mat-dialog-actions align="center">
+  <button mat-button (click)="onNoClick()" color="warn">Cancel</button>
+  <button mat-button (click)="clearSignature()" color="warn">
+    Clear signature
+  </button>
+  <button
+    mat-button
+    [disabled]="!signatureImg"
+    color="primary"
+    *ngIf="!loading"
+    (click)="savePad()"
+  >
+    Save signature
+  </button>
+  <mat-spinner diameter="40" class="loading-indicator" *ngIf="loading">
+  </mat-spinner>
+</div>

@@ -1,0 +1,47 @@
+<div class="dialog">
+  <div class="heading-section">
+    <div>
+      <button mat-icon-button (click)="onNoClick()">
+        <mat-icon>arrow_back_ios_new</mat-icon>
+      </button>
+    </div>
+    <div class="save-changes">
+      <button
+        mat-button
+        (click)="onSubmit(formGroup.value)"
+        color="primary"
+        form="formGroup"
+        [disabled]="!formGroup.valid"
+      >
+        Save Changes
+      </button>
+      <mat-spinner diameter="40" class="loading-indicator" *ngIf="loading">
+      </mat-spinner>
+    </div>
+  </div>
+  <hr />
+  <br />
+  <div
+    mat-dialog-content
+    [formGroup]="formGroup"
+    id="formGroup"
+    class="data-content"
+  >
+    <strong>Feedback heading</strong>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input matInput value="New Meeting" formControlName="title" />
+    </mat-form-field>
+    <br />
+    <strong>Description</strong>
+    <quill-editor formControlName="comment" class="editor"> </quill-editor>
+    <br />
+
+    <strong>Your decision</strong>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-select class="mat-select-user" #usersList formControlName="status">
+        <mat-option value="CONTINUE">Continue</mat-option>
+        <mat-option value="DICONTINUE">Discontinue</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

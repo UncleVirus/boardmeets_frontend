@@ -1,0 +1,133 @@
+.data {
+  width: 100%;
+  margin: 0px 0px;
+  background-color: rgb(248, 242, 242);
+  font-family: quantify;
+}
+.card {
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 0px;
+  box-shadow: 0px 5px 5px 5px rgb(212, 209, 209);
+  border-radius: 5px;
+  margin: 5px;
+  border-width: 0px;
+}
+.heading-section {
+  padding-top: 0%;
+  padding: 0%;
+  margin: 0%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  font-family: quantify;
+}
+.heading .desc-section {
+  width: 70%;
+}
+.logo {
+  width: 300px;
+  height: 400px;
+  border:2px solid #fff;
+  box-shadow: 10px 10px 5px #ccc;
+  -moz-box-shadow: 10px 10px 5px #ccc;
+  -webkit-box-shadow: 10px 10px 5px #ccc;
+  -khtml-box-shadow: 10px 10px 5px #ccc;
+  background-size: cover;
+  margin-right: 15px;
+  padding-top: 0%;
+  box-shadow: #0d0d0e;
+  // padding: 8px;
+  border-radius: 20px;
+}
+.image {
+  width: 100%;
+  height: auto;
+}
+
+.heading-card-section {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px 5px rgb(212, 209, 209);
+}
+
+.mat-card-title {
+  font-weight: bold;
+  font-size: 20px;
+  font-family: quantify;
+}
+
+.mat-card-title h1 {
+  text-transform: uppercase;
+  font-size: 25px;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.card-dash {
+  min-width: 100%;
+}
+
+.mat-expansion-panel-header {
+  background-color: rgb(248, 242, 242);}
+
+.mat-expansion-panel {
+  background-color: rgb(248, 242, 242);}
+
+.dashboard-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 0%;
+  box-shadow: 5px 5px 5px 5px rgb(212, 209, 209);
+  margin-bottom: 0% !important;
+}
+.card-dash {
+  width: auto;
+}
+
+.total-card {
+  min-width: 300px;
+}
+.meeting-section {
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 80px;
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  border-width: 0px;
+}
+.view-btn {
+  border-radius: 20px;
+  color: #201547;
+  border: 1px solid #201547;
+  margin: 5px;
+}
+.mat-expansion-panel {
+  box-shadow: none;
+  padding: 0 !important;
+  margin: 0;
+}
+.example-card {
+  border-radius: 20px;
+  box-shadow: none;
+  padding: 10px;
+  margin: 10px;
+}
+
+.example-card .heading {
+  color: #201547;
+}
+
+.example-card .heading p {
+  color: #000;
+}
+
+.example-card .content {
+  color: #201547;
+}
+
+

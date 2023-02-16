@@ -1,0 +1,19 @@
+<div class="page">
+  <div class="profile_2">
+    <div class="heading-section">
+      <div>
+        <button mat-icon-button (click)="onClose()" color="primary">
+          <mat-icon>arrow_back_ios_new</mat-icon>
+        </button>
+      </div>
+      <h2>View document</h2>
+    </div>
+    <br />
+    <button mat-button class="save-btn" (click)="download()">
+      <mat-icon>download_for_offline</mat-icon>
+      Download
+    </button>
+  </div>
+
+  <div #viewer class="viewer"></div>
+</div>

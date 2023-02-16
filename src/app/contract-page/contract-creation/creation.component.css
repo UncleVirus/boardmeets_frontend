@@ -1,0 +1,38 @@
+.data,
+.example-full-width {
+  width: 100%;
+}
+.heading-section {
+  display: flex;
+  justify-content: space-between;
+  box-shadow: none;
+}
+.h1-margin h1 {
+  margin: 0 !important;
+}
+.back-section {
+  display: flex;
+  align-items: center;
+}
+
+.example-form {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+.space {
+  margin: 2px 5px;
+  width: 100%;
+}
+
+.card {
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 30px;
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+  border-radius: 5px;
+  border-width: 0px;
+}
+.viewer {
+  width: 100%;
+}

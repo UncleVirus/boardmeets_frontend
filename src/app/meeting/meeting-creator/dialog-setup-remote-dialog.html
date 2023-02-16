@@ -1,0 +1,66 @@
+<div class="dialog">
+  <div class="heading-section">
+    <div>
+      <button mat-icon-button mat-dialog-close cdkFocusInitial>
+        <mat-icon>arrow_back_ios_new</mat-icon>
+      </button>
+    </div>
+    <h1 mat-dialog-title></h1>
+
+    <div class="save-changes">
+      <button
+        mat-button
+        (click)="onSubmit(formGroup.value)"
+        color="primary"
+        [disabled]="!formGroup.valid"
+        *ngIf="!loading"
+      >
+        Generate zoom meeting
+      </button>
+
+      <mat-spinner diameter="20" class="loading-indicator" *ngIf="loading">
+      </mat-spinner>
+    </div>
+  </div>
+  <hr />
+  <br />
+  <br />
+
+  <div mat-dialog-content [formGroup]="formGroup" class="mat-dialog-content">
+    <strong>Topic</strong>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input matInput formControlName="zoom_topic" />
+    </mat-form-field>
+    <strong>Start time</strong>
+    <mat-form-field appearance="outline" class="example-full-width">
+      <input
+        matInput
+        [ngxMatDatetimePicker]="picker1"
+        formControlName="start_time"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <ngx-mat-datetime-picker color="primary" #picker1>
+      </ngx-mat-datetime-picker>
+    </mat-form-field>
+    <p class="example-full-width"><strong>Duration</strong></p>
+    <mat-form-field appearance="outline">
+      <mat-select formControlName="duration">
+        <mat-option *ngFor="let number of numbers" [value]="number">
+          {{ number }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="zoom-details" *ngIf="zoomObj?.id">
+    <h2><strong>Generated Zoom Details</strong></h2>
+
+    <p>
+      <b>Meeting Link: </b
+      ><a href="{{zoomObj?.join_url}}" target="_black">{{zoomObj?.join_url}}</a>
+      <br />
+      <b>Meeting Password: </b>{{zoomObj?.zoom_meeting_password}} <br />
+      <b>Meeting Host Email: </b>{{zoomObj?.host_email}} <br />
+      <b>Remote Meeting ID: </b>{{zoomObj?.zoom_meeting_id}} <br />
+    </p>
+  </div>
+</div>

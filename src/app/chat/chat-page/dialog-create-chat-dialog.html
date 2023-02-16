@@ -1,0 +1,69 @@
+<div class="dialog">
+  <div class="heading-section h-dialog">
+    <div>
+      <button mat-icon-button mat-dialog-close cdkFocusInitial>
+        <mat-icon>arrow_back_ios_new</mat-icon>
+      </button>
+    </div>
+    <div>
+      <button mat-button (click)="onSubmit()" color="primary">
+        Create Group
+      </button>
+    </div>
+  </div>
+  <hr />
+  <br />
+  <h1
+    align="center"
+    mat-dialog-title
+    cdkDrag
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDragHandle
+  >
+    New Group
+  </h1>
+  <br />
+
+  <div mat-dialog-content class="data-content">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Group Name</mat-label>
+      <input matInput [(ngModel)]="groupName" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Participants</mat-label>
+      <mat-chip-list #chipList aria-label="Fruit selection">
+        <mat-chip
+          *ngFor="let fruit of fruits"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove(fruit)"
+        >
+          {{fruit.first_name}}
+          <button matChipRemove *ngIf="removable">
+            <mat-icon color="warn">cancel</mat-icon>
+          </button>
+        </mat-chip>
+        <input
+          placeholder="New participant..."
+          #fruitInput
+          [formControl]="fruitCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="add($event)"
+        />
+      </mat-chip-list>
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        (optionSelected)="selected($event)"
+      >
+        <mat-option
+          *ngFor="let fruit of filteredFruits | async"
+          [value]="fruit"
+        >
+          {{fruit.first_name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+</div>

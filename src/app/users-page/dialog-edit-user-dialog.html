@@ -1,0 +1,91 @@
+<div class="dialog">
+  <div class="heading-section">
+    <div>
+      <button mat-icon-button mat-dialog-close cdkFocusInitial>
+        <mat-icon>arrow_back_ios_new</mat-icon>
+      </button>
+    </div>
+
+    <div class="save-changes">
+      <button
+        mat-button
+        form="userForm"
+        [disabled]="!userForm.valid"
+        color="primary"
+        (click)="OnSubmit(userForm.value)"
+      >
+        Save Changes
+      </button>
+
+      <mat-spinner diameter="20" class="loading-indicator" *ngIf="loading">
+      </mat-spinner>
+    </div>
+  </div>
+  <hr />
+  <br />
+  <h2 mat-dialog-title>Edit Profile</h2>
+  <mat-dialog-content class="mat-typography data-content">
+    <form [formGroup]="userForm" id="userForm">
+      <strong>First name</strong>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <input matInput formControlName="first_name" />
+      </mat-form-field>
+
+      <strong>Last name</strong>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <input matInput formControlName="last_name" />
+      </mat-form-field>
+
+      <strong>Email</strong>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <input matInput formControlName="email" />
+      </mat-form-field>
+
+      <strong>Phone number</strong>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <input matInput formControlName="phone_no" />
+      </mat-form-field>
+
+      <div class="options">
+        <strong>Role</strong>
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-select value="Member" formControlName="org_permission">
+            <mat-option value="Admin">Admin</mat-option>
+            <mat-option value="Creator">Creator</mat-option>
+            <mat-option value="Member">Member</mat-option>
+          </mat-select> </mat-form-field
+        ><br />
+
+        <strong>Groups</strong>
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-select multiple formControlName="org_groups">
+            <mat-option *ngFor="let item of groups" [value]="item.id"
+              >{{item.group_name}}</mat-option
+            >
+          </mat-select> </mat-form-field
+        ><br />
+
+        <strong>Active</strong><br />
+        <mat-radio-group formControlName="is_active">
+          <mat-radio-button [value]="true">ON</mat-radio-button>
+          <mat-radio-button [value]="false"
+            >OFF</mat-radio-button
+          > </mat-radio-group
+        ><br />
+
+        <strong>Two factor authentication</strong><br />
+        <mat-radio-group formControlName="twofa_status">
+          <mat-radio-button [value]="true">True</mat-radio-button>
+          <mat-radio-button [value]="false"
+            >False</mat-radio-button
+          > </mat-radio-group
+        ><br />
+
+        <strong>Company reference key</strong>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <input matInput formControlName="org_reference_key" />
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-dialog-content>
+</div>

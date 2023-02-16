@@ -1,0 +1,41 @@
+<div class="dialog">
+  <div class="heading-section h-dialog">
+    <div>
+      <button mat-icon-button mat-dialog-close cdkFocusInitial>
+        <mat-icon>arrow_back_ios_new</mat-icon>
+      </button>
+    </div>
+    <div>
+      <button mat-button (click)="onSubmit()" color="primary">
+        Create Chat
+      </button>
+    </div>
+  </div>
+  <hr />
+  <br />
+  <h1
+    align="center"
+    mat-dialog-title
+    cdkDrag
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDragHandle
+  >
+    Participants
+  </h1>
+  <br />
+
+  <div mat-dialog-content class="data-content">
+    <mat-selection-list
+      #contacts
+      (selectionChange)="onChange($event)"
+      [multiple]="false"
+    >
+      <mat-list-option *ngFor="let user of data" [value]="user.id">
+        <mat-icon mat-list-icon>person</mat-icon>
+        <div mat-line>{{user.first_name}} {{user.last_name}}</div>
+
+        <mat-divider></mat-divider>
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
+</div>

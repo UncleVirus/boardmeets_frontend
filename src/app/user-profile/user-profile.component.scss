@@ -1,0 +1,127 @@
+.data {
+  width: 100%;
+  position: relative;
+}
+.heading {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+.logo {
+  width: 300px;
+  background-size: cover;
+  margin-right: 15px;
+  padding: 8px;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+.image {
+  width: 100%;
+  height: auto;
+}
+.card-heading,
+.heading-section {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.profile-view {
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px;
+}
+h2,
+h4 {
+  padding: 0;
+  margin: 0;
+}
+.mat-radio-button {
+  margin-right: 10px;
+  color: gray;
+}
+.example-full-width {
+  width: 100%;
+}
+.dialog {
+  height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.mat-tab,
+.profile-content {
+  overflow: hidden;
+}
+.form {
+  width: 70%;
+  margin: 10px auto;
+}
+.save-changes {
+  display: flex;
+  align-items: center;
+}
+.upper-section {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(
+    -45deg,
+      rgb(32,21,71),
+      rgb(32,21,71)
+  ) !important;
+  padding-right: 12rem;
+  padding-left: 12rem;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 80px;
+  border-radius: 10px;
+}
+.middle-section {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+.create-btn {
+  border-radius: 100px !important;
+  background-color: white;
+  color: black;
+}
+.name {
+  font-size: 20px;
+  font-family: sans-serif;
+}
+.mat-card-subtitlee {
+  color: white;
+  font-size: 18px;
+  font-family: serif;
+}
+.user-settings {
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 30px;
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+  border-radius: 5px;
+  border-width: 0px;
+}
+.avatar-lg .rounded {
+  border-radius: 50% !important;
+}
+
+.avatar-lg {
+  width: 200px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 600px) {
+  .name {
+    font-size: 20px;
+  }
+}

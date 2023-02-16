@@ -1,0 +1,121 @@
+<div class="data" *ngIf="!viewContract">
+  <mat-card class="heading-section back-header">
+    <div class="back-section">
+      <button mat-icon-button>
+        <mat-icon color="primary" class="pointer" (click)="_location.back()"
+          >arrow_back_ios_new</mat-icon
+        >
+      </button>
+      <div class="h1-margin">
+        <h1>New Contract</h1>
+      </div>
+    </div>
+    <div class="save-contract" align="left">
+      <button
+        form="MeetingForm"
+        [disabled]="!formGroup.valid"
+        class="save"
+        mat-flat-button
+        color="primary"
+      >
+        Save Changes
+      </button>
+    </div> </mat-card
+  ><br />
+
+  <mat-card class="card">
+    <form
+      class="example-form-1"
+      [formGroup]="formGroup"
+      id="MeetingForm"
+      (ngSubmit)="onSubmitContract(formGroup.value)"
+    >
+      <div class="example-form">
+        <p class="space">
+          <strong>Contract title</strong>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput formControlName="contract_title" />
+          </mat-form-field>
+          <strong>Contract Description</strong>
+          <quill-editor formControlName="description" class="editor">
+          </quill-editor>
+          <br />
+          <strong>Parties/Contractors</strong>
+          <quill-editor formControlName="parties" class="editor">
+          </quill-editor>
+          <br />
+          <strong>Contract document</strong>
+          <ngx-dropzone (change)="onSelect($event)">
+            <ngx-dropzone-label
+              >Drag and Drop or click here to upload!</ngx-dropzone-label
+            >
+            <ngx-dropzone-preview
+              *ngFor="let f of files"
+              [removable]="true"
+              (removed)="onRemove(f)"
+            >
+              <ngx-dropzone-label
+                >{{ f.name }} ({{ f.type }})</ngx-dropzone-label
+              >
+            </ngx-dropzone-preview>
+          </ngx-dropzone>
+          <br />
+          <mat-checkbox (change)="sendEmail = $event.checked"
+            >Enable Send email notification!</mat-checkbox
+          >
+        </p>
+        <p class="space">
+          <strong>Contract start date</strong>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input
+              matInput
+              [ngxMatDatetimePicker]="picker1"
+              formControlName="start_date_time"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker1"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker color="primary" #picker1>
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+          <strong>Contract expiry date</strong>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input
+              matInput
+              [ngxMatDatetimePicker]="picker"
+              formControlName="end_date_time"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker color="primary" #picker>
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+
+          <strong>Contract signatories</strong>
+          <app-search-member-dropdown
+            class="example-full-width"
+            [bankMultiCtrl]="formGroup.get('signatories')"
+          ></app-search-member-dropdown>
+
+          <strong>Contract approvers</strong>
+          <app-search-member-dropdown
+            class="example-full-width"
+            [bankMultiCtrl]="formGroup.get('approvers')"
+          ></app-search-member-dropdown>
+
+          <strong>Contract permission</strong>
+          <app-search-member-dropdown
+            class="example-full-width"
+            [bankMultiCtrl]="formGroup.get('permission')"
+          ></app-search-member-dropdown>
+        </p>
+      </div>
+    </form> </mat-card
+  ><br />
+</div>
+<div class="view-agenda-doc" *ngIf="viewContract">
+  <contract-document-viwer class="viewer"></contract-document-viwer>
+</div>

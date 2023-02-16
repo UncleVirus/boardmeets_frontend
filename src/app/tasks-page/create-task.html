@@ -1,0 +1,109 @@
+<div class="dialog">
+  <div class="heading-section">
+    <div>
+      <button mat-icon-button (click)="onNoClick()">
+        <mat-icon>arrow_back_ios_new</mat-icon>
+      </button>
+    </div>
+    <h1 mat-dialog-title>+ Create a task</h1>
+
+    <div class="save-changes">
+      <button
+        mat-button
+        (click)="onSubmit(formGroup.value)"
+        color="primary"
+        [disabled]="!formGroup.valid"
+        *ngIf="!loading"
+      >
+        Save Changes
+      </button>
+
+      <mat-spinner diameter="40" class="loading-indicator" *ngIf="loading">
+      </mat-spinner>
+    </div>
+  </div>
+  <hr />
+
+  <div mat-dialog-content [formGroup]="formGroup" class="data-content">
+    <strong>Task name</strong>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input matInput formControlName="task_name" />
+    </mat-form-field>
+    <strong>Description</strong>
+    <div class="text-editor">
+      <quill-editor class="editor" formControlName="task_description">
+      </quill-editor>
+    </div>
+
+    <strong>Completion time</strong>
+    <mat-form-field appearance="outline" class="example-full-width">
+      <input
+        matInput
+        [ngxMatDatetimePicker]="picker1"
+        formControlName="completion_date"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <ngx-mat-datetime-picker color="primary" #picker1>
+      </ngx-mat-datetime-picker>
+    </mat-form-field>
+
+    <strong>Periority</strong>
+    <mat-form-field appearance="outline" class="example-full-width">
+      <mat-select value="Normal" formControlName="task_priority">
+        <mat-option value="Normal">Normal</mat-option>
+        <mat-option value="Important">Important</mat-option>
+        <mat-option value="Urgent">Urgent</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <strong>Assignee(s)</strong>
+    <app-search-member-dropdown
+      class="example-full-width"
+      [bankMultiCtrl]="formGroup.get('task_assignee')"
+    ></app-search-member-dropdown>
+
+    <strong>viewer(s)</strong>
+    <app-search-member-dropdown
+      class="example-full-width"
+      [bankMultiCtrl]="formGroup.get('task_viewer')"
+    ></app-search-member-dropdown>
+    <strong>Linked Meeting</strong>
+    <mat-form-field
+      appearance="outline"
+      class="example-full-width"
+      *ngIf="meetingsObj?.length > 0"
+    >
+      <mat-select formControlName="meeting">
+        <mat-option *ngFor="let meeting of meetingsObj" [value]="meeting.id"
+          >{{meeting?.meeting_title}} {{meeting?.start_date | date:
+          "medium"}}</mat-option
+        >
+      </mat-select>
+      <mat-hint>Optionaly</mat-hint>
+    </mat-form-field>
+
+    <br />
+    <strong>Task document</strong>
+    <div class="attachment-section">
+      <br />
+      <ngx-dropzone (change)="onSelect($event)">
+        <ngx-dropzone-label
+          >Drag and Drop or click here to upload!</ngx-dropzone-label
+        >
+        <ngx-dropzone-preview
+          *ngFor="let f of files"
+          [removable]="true"
+          (removed)="onRemove(f)"
+        >
+          <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+        </ngx-dropzone-preview>
+      </ngx-dropzone>
+    </div>
+
+    <br />
+    <div>
+      <mat-slide-toggle (click)="enableSendEmail()"
+        ><span>Enable send email notification</span></mat-slide-toggle
+      >
+    </div>
+  </div>
+</div>

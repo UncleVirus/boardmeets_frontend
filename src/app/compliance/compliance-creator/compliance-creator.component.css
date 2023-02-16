@@ -1,0 +1,66 @@
+.data {
+  width: 100%;
+}
+.heading-section {
+  display: flex;
+  justify-content: space-between;
+}
+.back-header2 {
+  display: flex;
+  align-items: center;
+  border: none;
+}
+.back-header2 h1 {
+  margin: 0 !important;
+  font-size: 25px;
+  font-family: quantify;
+  font-weight: 700;
+}
+.example-full-width {
+  width: 100%;
+}
+.card,
+.card3 {
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 5px;
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+  border-radius: 5px;
+  border-width: 0px;
+}
+.example-form {
+  width: 60%;
+}
+.add-new-btn {
+  margin: 10px;
+}
+.q {
+  flex: 2 1 auto;
+  max-width: 70%;
+}
+
+.check {
+  width: 80%;
+}
+.example-full-width,
+.card {
+  width: 100%;
+}
+.checks-body {
+  margin: 6px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.add-check-button {
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+.save {
+  width: 200px;
+  margin: 15px;
+  border-radius: 10px;
+}
+.card3 h2 {
+  font-size: 20px;
+  font-family: quantify;
+  font-weight: 700;
+  text-transform: capitalize;
+}

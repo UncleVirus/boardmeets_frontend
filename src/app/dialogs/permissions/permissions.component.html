@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+<div mat-dialog-content>
+  <mat-card>
+    <mat-selection-list
+      #usersList
+      (selectionChange)="onGroupsChange(usersList.selectedOptions.selected)"
+    >
+      <mat-list-option *ngFor="let user of users" [value]="user.id">
+        {{ user.first_name }} {{ user.last_name }}
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-card>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()" color="warn">No Thanks</button>
+  <button
+    mat-button
+    (click)="onSubmit(selectedUsers)"
+    color="primary"
+    cdkFocusInitial
+  >
+    Save
+  </button>
+</div>

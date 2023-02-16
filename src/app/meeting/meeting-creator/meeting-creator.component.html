@@ -1,0 +1,329 @@
+<div class="data">
+  <mat-card class="survey-card">
+    <div class="heading-section">
+      <div class="flex">
+        <button mat-icon-button (click)="_location.back()">
+          <mat-icon color="primary" class="pointer"
+            >arrow_back_ios_new</mat-icon
+          >
+        </button>
+        <div class="flex-self">
+          <h1>New Meeting</h1>
+        </div>
+      </div>
+
+      <div class="save-survey" align="left">
+        <button
+          form="formGroup"
+          [disabled]="!formGroup.valid"
+          class="save"
+          mat-flat-button
+          color="primary"
+        >
+          Save Changes
+        </button>
+      </div>
+    </div>
+    <br />
+    <mat-card-content>
+      <form
+        class="example-form"
+        [formGroup]="formGroup"
+        id="formGroup"
+        (ngSubmit)="onSubmitMeeting(formGroup.value)"
+      >
+        <p>
+          <strong>Meeting title</strong>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input
+              matInput
+              value="New Meeting"
+              formControlName="meeting_title"
+            />
+          </mat-form-field>
+
+          <strong>Meeting Address</strong>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <textarea
+              matInput
+              matTextareaAutosize
+              matAutosizeMinRows="1"
+              matAutosizeMaxRows="20"
+              formControlName="meeting_address"
+            ></textarea>
+          </mat-form-field>
+
+          <strong>Invitees</strong>
+          <app-search-member-dropdown
+            class="example-full-width"
+            [bankMultiCtrl]="formGroup.get('invitees')"
+          ></app-search-member-dropdown>
+
+          <app-search-groups-member
+            class="example-full-width"
+            [bankMultiCtrl]="groupInvitees"
+          >
+          </app-search-groups-member>
+        </p>
+
+        <p class="space">
+          <strong>Start Time</strong>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input
+              matInput
+              [ngxMatDatetimePicker]="picker1"
+              formControlName="start_date"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker1"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker color="primary" #picker1>
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+
+          <strong>End Time</strong>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input
+              matInput
+              [ngxMatDatetimePicker]="picker"
+              formControlName="end_date"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker color="primary" #picker>
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+
+          <br />
+          <mat-checkbox
+            (change)="sendEmail = $event.checked"
+            class="example-margin"
+            ><p>Enable Send email notification!</p></mat-checkbox
+          >
+        </p>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="content">
+    <div class="heading-section">
+      <h2>Compose Agenda</h2>
+      <button
+        mat-flat-button
+        color="primary"
+        form="checkForm"
+        class="save"
+        [disabled]="!agendaForm.valid"
+        type="submit"
+      >
+        Save Changes
+      </button>
+    </div>
+    <div class="items" *ngIf="meeting !== null">
+      <div class="input-section">
+        <div class="sample-form">
+          <form
+            id="checkForm"
+            [formGroup]="agendaForm"
+            (submit)="submitAgendaItems(agendaForm.value)"
+          >
+            <div align="end">
+              <button
+                mat-button
+                color="primary"
+                class="add-item-button"
+                (click)="addItem()"
+                type="button"
+              >
+                <mat-icon>add</mat-icon>
+                Add Section
+              </button>
+              <button
+                mat-button
+                color="primary"
+                [disabled]="level == 0 || level == 3"
+                class="add-item-button"
+                (click)="addSubSection(level)"
+                type="button"
+              >
+                <mat-icon>format_list_bulleted</mat-icon>
+                Sub Section
+              </button>
+              <button
+                mat-button
+                color="warn"
+                class="add-item-button"
+                [disabled]="!level"
+                (click)="deleteSection(level)"
+                type="button"
+              >
+                <mat-icon>delete</mat-icon>
+                Delete
+              </button>
+            </div>
+
+            <mat-card class="card3">
+              <div
+                class="items-body"
+                *ngFor="
+                  let parent of agendaForm.get('items')['controls'];
+                  let i_parent = index
+                "
+                formArrayName="items"
+              >
+                <div class="item">
+                  <div [formGroupName]="i_parent">
+                    <!-- parent item -->
+                    <div class="agenda-input" appearance="outline">
+                      <div class="item-input">
+                        <strong matPrefix
+                          >{{ romanize(i_parent + 1) }} .</strong
+                        >
+                        <input
+                          matInput
+                          formControlName="agenda_name"
+                          type="text"
+                          class="marging-right-15"
+                          placeholder="New section..."
+                          (focus)="setActiveItem(1, i_parent)"
+                        />
+                      </div>
+                      <div class="details-btn">
+                        <button
+                          matSuffix
+                          mat-button
+                          type="button"
+                          aria-label="add"
+                          color="primary"
+                          (click)="editItemDetailsDialog(i_parent)"
+                        >
+                          Edit details
+                        </button>
+                      </div>
+                    </div>
+                    <!-- leve 2 item -->
+                    <div
+                      class="items-body level_a_items"
+                      *ngFor="
+                        let a_item of parent.get('level_a_items')['controls'];
+                        let i_item_a = index
+                      "
+                      formArrayName="level_a_items"
+                    >
+                      <div class="item">
+                        <div [formGroupName]="i_item_a">
+                          <div class="agenda-input" appearance="outline">
+                            <div class="item-input">
+                              <strong matPrefix>{{
+                                leterize(i_item_a + 1)
+                              }}</strong>
+                              <input
+                                matInput
+                                formControlName="agenda_name"
+                                type="text"
+                                class="marging-right-15"
+                                placeholder="New section..."
+                                (focus)="setActiveItem(2, i_parent, i_item_a)"
+                              />
+                            </div>
+
+                            <div class="details-btn">
+                              <button
+                                matSuffix
+                                mat-button
+                                type="button"
+                                aria-label="add"
+                                color="primary"
+                                (click)="
+                                  editItemDetailsDialog(i_parent, 1, i_item_a)
+                                "
+                              >
+                                Edit details
+                              </button>
+                            </div>
+                          </div>
+
+                          <!-- leve 3 item -->
+                          <div
+                            class="items-body level_b_items"
+                            *ngFor="
+                              let b_item of a_item.get('level_b_items')[
+                                'controls'
+                              ];
+                              let i_item_b = index
+                            "
+                            formArrayName="level_b_items"
+                          >
+                            <div class="item">
+                              <div [formGroupName]="i_item_b">
+                                <div class="agenda-input" appearance="outline">
+                                  <div class="item-input">
+                                    <strong matPrefix>{{
+                                      i_item_b + 1
+                                    }}</strong>
+                                    <input
+                                      matInput
+                                      formControlName="agenda_name"
+                                      type="text"
+                                      class="marging-right-15"
+                                      placeholder="New section..."
+                                      (focus)="
+                                        setActiveItem(
+                                          3,
+                                          i_parent,
+                                          i_item_a,
+                                          i_item_b
+                                        )
+                                      "
+                                    />
+                                  </div>
+
+                                  <div class="details-btn">
+                                    <button
+                                      matSuffix
+                                      mat-button
+                                      type="button"
+                                      aria-label="add"
+                                      color="primary"
+                                      (click)="
+                                        editItemDetailsDialog(
+                                          i_parent,
+                                          2,
+                                          i_item_a,
+                                          i_item_b
+                                        )
+                                      "
+                                    >
+                                      Edit details
+                                    </button>
+                                  </div>
+                                </div>
+
+                                <!-- leve 4 item -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          </form>
+        </div>
+      </div>
+    </div>
+    <br />
+    <mat-card class="remote-card" *ngIf="meeting !== null">
+      <div class="remote-btn" align="end">
+        <button mat-button color="primary" (click)="remoteMeetingDetails()">
+          Setup remote meeting
+        </button>
+      </div> </mat-card
+    ><br />
+  </div>
+</div>

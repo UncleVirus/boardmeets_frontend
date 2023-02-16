@@ -1,0 +1,196 @@
+.content-container {
+  width: 100%;
+}
+
+.actions-content {
+  background-color: rosybrown;
+  width: 69%;
+}
+
+.mat-card {
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 10px;
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+}
+.loading-indicator {
+  margin: auto;
+}
+
+.back-header {
+  display: flex;
+  box-shadow: none;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+.flex-self h1 {
+  margin: 0 !important;
+  font-family: quantify;
+  font-weight: 600;
+}
+.back-heading {
+  margin-top: 8px;
+  flex: 1 2;
+  justify-self: center;
+}
+
+ul li {
+  list-style-type: none;
+  padding: 0px 10px;
+  padding-top: 10px;
+}
+.example-form {
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+ul.filter-list-view {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background-color: white;
+}
+.filter-view-line {
+  width: 67%;
+  height: 0.5px;
+  position: absolute;
+  background-color: gray;
+}
+.btn-viewDetails {
+  background-color: #18e611b8;
+  color: white;
+  border-radius: 0px;
+  padding: 6px;
+}
+#margin-left-15 {
+  background-color: #f98909;
+}
+#margin-left- {
+  background-color: #e61127d6;
+}
+p.view-status {
+  font-size: 10px;
+}
+.approval-Detail-inputs {
+  width: 100%;
+}
+
+.approval-details-sections {
+  width: 100%;
+}
+
+.tile-image {
+  max-width: 100%;
+  height: auto;
+}
+
+table {
+  width: 100%;
+  margin: 10px;
+}
+thead.user-th {
+  font-family: sans-serif;
+  font-size: 18px;
+}
+td.separation-view {
+  background: #80808047;
+  border: 0px;
+  top: 10px;
+  margin: 6px auto;
+}
+mat-progress-bar {
+  height: 30px;
+}
+.margin-right-8px {
+  margin-right: 8px;
+}
+.user-permission {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.mat-elevation-z8 {
+  box-shadow: none;
+}
+
+.h-margin-right {
+  margin-right: 8px;
+  width: fit-content;
+  margin: 10px;
+  padding: 6px;
+}
+.user-tb {
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+.align-right {
+  text-align: right;
+}
+.voting-btns {
+  background-color: #8080800f;
+  border-radius: 20px;
+  margin: 10px;
+}
+.start-date-td {
+  padding-right: 10px;
+}
+
+.heading-section {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-content: stretch;
+  flex-wrap: wrap;
+}
+
+.heading-section h2 {
+  padding-bottom: 10px;
+}
+
+.heading-section p {
+  padding-bottom: 10px;
+}
+.heading-section span {
+  font-weight: bold;
+  font-size: 17px;
+}
+.tile-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.image-section {
+  height: 50px;
+  width: 50px;
+  margin: auto;
+}
+.users-profile {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.vertical-direction {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+.attendees-section {
+  padding: 10px;
+}
+
+.attendees-section h2{
+  font-family: quantify;
+  font-size: 22px;
+  font-weight: 700;
+}
+.approval-results {
+  font-weight: 700;
+  font-family: quantify;
+}
+.h-margin-right {
+  font-weight: 700;
+  font-family: quantify;
+}

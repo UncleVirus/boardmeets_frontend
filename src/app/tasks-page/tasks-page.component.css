@@ -1,0 +1,202 @@
+.example-full-width {
+  width: 100%;
+}
+
+.data {
+  width: 100%;
+  overflow: auto;
+}
+.heading-section {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
+}
+.content-section {
+  width: 100%;
+  padding: 10px;
+}
+.card {
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 30px;
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+  border-radius: 5px;
+  border-width: 0px;
+}
+
+.card:hover {
+  color: gray;
+}
+
+.infos p {
+  padding: 0;
+  margin: 0;
+}
+.example-stretched-tabs {
+  max-width: 100%;
+}
+.margin-0 {
+  margin: 0;
+}
+input#message {
+  /* min-width: 300px; */
+  padding: 7px;
+  outline: none;
+  border-radius: 10px;
+  border: 1px solid gray;
+  width: 80%;
+}
+.discussion-conent {
+  overflow-y: auto;
+  width: 100%;
+  flex: 1 2;
+}
+.messages-section {
+  margin: 5px;
+  border-bottom-right-radius: 50px;
+}
+.tile-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.image-section {
+  height: 50px;
+  width: 50px;
+  margin: auto;
+}
+.users-profile {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.vertical-direction {
+  padding: 8px;
+}
+.data-content {
+  height: calc(100% - 1px);
+  max-height: unset;
+}
+
+.dialog {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.mat-tab-group,
+.mat-tab {
+  box-shadow: none;
+}
+.mat-dialog-content {
+  height: calc(100% - 16px);
+  max-height: unset;
+  overflow-x: hidden;
+}
+.action-view {
+  position: relative;
+  bottom: 0;
+  z-index: 1199;
+}
+.discussion {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+.example-field-width {
+  flex: 1 2;
+}
+.send-btn {
+  align-self: center;
+}
+.upper-section {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(
+    -45deg,
+    rgb(32,21,71),
+    rgb(32,21,71)
+  ) !important;
+  padding-right: 12rem;
+  padding-left: 12rem;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 80px;
+  border-radius: 10px;
+}
+.middle-section {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.middle-section h2 {
+  font-family: quantify;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.create-btn {
+  border-radius: 100px !important;
+  background-color: white;
+  color: black;
+}
+.mat-card-subtitle {
+  margin-top: 8px;
+  font-size: 14px;
+  color: rgb(141, 148, 152);
+  margin-bottom: 0px;
+  word-break: normal;
+}
+.content-section {
+  padding: 10px;
+}
+.mat-menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.filter-tasks {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-left: 10px;
+  margin-left: 10px;
+}
+.filters-section {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.remove-border-bottom ::ng-deep .mat-tab-header {
+  border-bottom: none;
+}
+.search-btn {
+  border-radius: 10px;
+  background-color: gray;
+  margin: 0 10px;
+}
+.flex {
+  display: flex;
+  align-items: center;
+}
+h2 {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.task-desc{
+  white-space: pre-line;
+  word-break: break-word;
+}

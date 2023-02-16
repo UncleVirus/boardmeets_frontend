@@ -1,0 +1,196 @@
+<div class="data" *ngIf="voting">
+  <div class="upper-section">
+    <div class="middle-section">
+      <div>
+        <h2>Voting Approval</h2>
+      </div>
+      <button
+        [disabled]="!(currentUser?.org_permission == 'Admin')"
+        mat-button
+        class="create-btn"
+        (click)="createvoteDialog()"
+      >
+        + Create Approval
+      </button>
+    </div>
+  </div>
+  <br />
+  <div class="content-section">
+    <mat-card class="card" *ngFor="let vote of votesObj" matRipple>
+      <div class="heading-section">
+        <div class="desc-section" (click)="viewVotingDetail(vote)">
+          <mat-card-title>{{ vote.title }}</mat-card-title>
+          <p>
+            Approval description: {{ vote.description }} <br />
+            Approvers:
+            <b *ngFor="let item of vote.voters"
+              >{{ item?.first_name }} {{ item?.last_name }},
+            </b>
+            <br />
+            Approval due date: {{ vote?.vote_end_date | date: "medium" }}
+            <br />
+          </p>
+        </div>
+        <div>
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            class="example-icon"
+            aria-label="Example icon-button with share icon"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="viewVotingDetail(vote)">
+              <span> Open approval</span>
+              <mat-icon color="primary">launch</mat-icon>
+            </button>
+            <button
+              [disabled]="!(currentUser?.org_permission == 'Admin')"
+              mat-menu-item
+              (click)="deleteQuestion(vote.id)"
+            >
+              <span> Delete approval</span>
+              <mat-icon color="warn">delete</mat-icon>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div class="data" *ngIf="survey">
+  <div class="upper-section">
+    <div class="middle-section">
+      <div>
+        <h2>Board Survey</h2>
+      </div>
+      <button
+        [disabled]="!(currentUser?.org_permission == 'Admin')"
+        mat-button
+        class="create-btn"
+        routerLink="/admin/survey-creator"
+      >
+        + Create Survey
+      </button>
+    </div>
+  </div>
+  <br />
+  <div class="content-section">
+    <mat-card class="card" *ngFor="let survey of surveyObj" matRipple>
+      <div class="heading-section">
+        <div class="desc-section" (click)="openSurveyObjView(survey)">
+          <mat-card-title>{{ survey.survey_title }}</mat-card-title>
+          <p>
+            <span class="gray-color">{{ survey.survey_description }} </span
+            ><br /><br />
+            Respondants:
+            <b *ngFor="let item of survey.permissions"
+              >{{ item?.first_name }} {{ item?.last_name }},
+            </b>
+            <br />
+            Survey due date:
+            {{ survey?.survey_close_date | date: "medium" }}
+            <br />
+          </p>
+        </div>
+        <div>
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu3"
+            class="example-icon"
+            aria-label="Example icon-button with share icon"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu3="matMenu">
+            <button mat-menu-item (click)="openSurveyObjView(survey)">
+              <span>Open Survey</span>
+              <mat-icon color="primary">launch</mat-icon>
+            </button>
+            <button
+              [disabled]="!(currentUser?.org_permission == 'Admin')"
+              mat-menu-item
+              (click)="openSurveyResults(survey)"
+            >
+              <span> Survey results</span>
+              <mat-icon color="primary">visibility</mat-icon>
+            </button>
+            <button
+              [disabled]="!(currentUser?.org_permission == 'Admin')"
+              mat-menu-item
+              (click)="deleteSurvey(survey.id)"
+            >
+              <span> Delete Survey</span>
+              <mat-icon color="warn">delete</mat-icon>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div class="data" *ngIf="signature">
+  <div class="upper-section">
+    <div class="middle-section">
+      <div>
+        <h2>eSignature Management</h2>
+      </div>
+      <button
+        [disabled]="!(currentUser?.org_permission == 'Admin')"
+        mat-button
+        class="create-btn"
+        routerLink="/admin/signature-page"
+      >
+        + Create eSignature
+      </button>
+    </div>
+  </div>
+  <br />
+  <div class="content-section">
+    <mat-card class="card" *ngFor="let doc of signatureObj" matRipple>
+      <div class="heading-section">
+        <div class="desc-section" (click)="openSignature(doc)">
+          <mat-card-title>{{ doc.signature_title }}</mat-card-title>
+          <p>
+            eSignature description: {{ doc.description }} <br />
+            Signers:
+            <b *ngFor="let item of doc.signers"
+              >{{ item?.first_name }} {{ item?.last_name }},
+            </b>
+            <br />
+            Signig due date:
+            {{ doc?.close_date | date: "medium" }}
+            <br />
+          </p>
+        </div>
+        <div>
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu4"
+            class="example-icon"
+            aria-label="Example icon-button with share icon"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu4="matMenu">
+            <button mat-menu-item (click)="openSignature(doc)">
+              <span>Open signature</span>
+              <mat-icon color="primary">launch</mat-icon>
+            </button>
+            <button
+              [disabled]="!(currentUser?.org_permission == 'Admin')"
+              mat-menu-item
+              (click)="deleteSignature(doc.id)"
+            >
+              <span>Delete signature</span>
+              <mat-icon color="warn">delete</mat-icon>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+<div class="data">
+  <div class="upper-section">
+    <div class="middle-section">
+      <div class="profile-view">
+        <div class="avatar-lg">
+          <img
+            src="../../assets/images/profile.jpg"
+            alt="image profile"
+            class="avatar-img rounded"
+          />
+        </div>
+        <div>
+          <h2 class="name">
+            {{ currentUser?.first_name }} {{ currentUser?.last_name }}
+          </h2>
+          <br />
+          <mat-card-subtitle class="mat-card-subtitlee">{{
+            currentUser?.email
+          }}</mat-card-subtitle>
+          <mat-card-subtitle class="mat-card-subtitlee">{{
+            currentUser?.phone_no
+          }}</mat-card-subtitle>
+          <br />
+          <mat-card-subtitle class="mat-card-subtitlee">{{
+            currentUser?.org_permission
+          }}</mat-card-subtitle>
+
+          <mat-card-subtitle
+            class="mat-card-subtitlee"
+            *ngFor="let item of currentUser?.org_groups"
+            >{{ item?.group_name }}</mat-card-subtitle
+          >
+        </div>
+      </div>
+      <button
+        mat-button
+        class="create-btn"
+        (click)="editprofileDialog(currentUser)"
+      >
+        Edit profile
+      </button>
+    </div>
+  </div>
+  <br />
+
+  <mat-card class="user-settings">
+    <div class="profile-content" *ngIf="!passwordView">
+      <h1><b>Your BoardMeets Credentials</b></h1>
+      <div class="heading-section">
+        <h4>BoardMeets-Id</h4>
+
+        <button mat-button color="primary" (click)="passwordView = true">
+          Change password
+        </button>
+      </div>
+      <mat-card-subtitle>nsengvalens@gmail.com</mat-card-subtitle>
+      <div class="profile-content">
+        <h4>Two-Factor Authentication</h4>
+        <mat-card-subtitle>Disabled</mat-card-subtitle>
+      </div>
+    </div>
+    <form
+      [formGroup]="formGroup"
+      class="form"
+      *ngIf="passwordView"
+      (ngSubmit)="onSubmit(formGroup.value)"
+    >
+      <h2>Change your password</h2>
+      <br /><br />
+      <strong>Old password</strong>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <input matInput formControlName="old_password" />
+      </mat-form-field>
+
+      <strong>New password)</strong>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <input matInput formControlName="new_password" />
+      </mat-form-field>
+      <div class="action-btns">
+        <button mat-button color="warn" (click)="passwordView = false">
+          Cancel
+        </button>
+        <button
+          type="submit"
+          [disabled]="!formGroup.valid"
+          mat-button
+          color="primary"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

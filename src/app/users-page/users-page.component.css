@@ -1,0 +1,142 @@
+.data {
+  width: 100%;
+  position: relative;
+}
+.example-full-width {
+  width: 100%;
+}
+
+.mat-grid-tile {
+  background: lightblue;
+  border-radius: 50%;
+}
+
+img.tile-image {
+  max-width: 100%;
+  height: auto;
+}
+.btn {
+  border-radius: 10px;
+  margin-right: 8px;
+  border: 1px solid rgb(235, 235, 235);
+}
+
+.heading-section,
+.groups-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  box-shadow: none;
+}
+.mat-elevation-z8,
+.paginator {
+  box-shadow: none;
+  width: 100%;
+}
+
+.search-view {
+  flex: 1;
+  padding: 5px;
+  margin-right: 8px;
+}
+.resize-form-field {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.register-btn {
+  margin-right: 15px;
+}
+
+.data-content {
+  height: calc(100% - 96px);
+  max-height: unset;
+}
+
+.dialog {
+  height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.options {
+  display: flex;
+  flex-direction: column;
+}
+.mat-radio-button {
+  margin-right: 10px;
+  color: gray;
+}
+.save-changes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.groups-view {
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: none;
+  min-height: 200px;
+}
+.role-terms {
+  width: 70%;
+  padding: 15px;
+  margin: 10px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+}
+.list {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.upper-section {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(
+    -45deg,
+    rgb(32,21,71),
+    rgb(32,21,71)
+  ) !important;
+  padding-right: 12rem;
+  padding-left: 12rem;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 80px;
+  border-radius: 10px;
+}
+.middle-section {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.middle-section h2 {
+  font-family: quantify;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.create-btn {
+  border-radius: 100px !important;
+  background-color: white;
+  color: black;
+}
+
+.loading-data {
+  margin: 0px 10px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+  overflow: auto;
+}
+.example-icon {
+  display: table-caption;
+  float: right;
+}
+.mat-menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

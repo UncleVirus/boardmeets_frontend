@@ -1,0 +1,10 @@
+::ng-deep .ngx-mat-select-search-toggle-all-tooltip {
+  font-size: 0.8em;
+}
+.example-full-width {
+  width: 100%;
+}
+
+.mat-select-search-hidden {
+  visibility: hidden;
+}

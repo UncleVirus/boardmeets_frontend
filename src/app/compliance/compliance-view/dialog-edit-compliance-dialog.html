@@ -1,0 +1,66 @@
+<div class="dialog">
+  <div class="heading-section">
+    <div>
+      <button mat-icon-button (click)="onNoClick()">
+        <mat-icon>arrow_back_ios_new</mat-icon>
+      </button>
+    </div>
+    <div class="save-changes">
+      <button
+        mat-button
+        (click)="onSubmit(formGroup.value)"
+        color="primary"
+        form="FormCompliance"
+        [disabled]="!formGroup.valid"
+        *ngIf="!loading"
+      >
+        Save Changes
+      </button>
+      <mat-spinner diameter="40" class="loading-indicator" *ngIf="loading">
+      </mat-spinner>
+    </div>
+  </div>
+  <br /><br />
+  <h2>Edit compliance details</h2>
+  <br />
+  <div
+    mat-dialog-content
+    [formGroup]="formGroup"
+    id="FormCompliance"
+    class="mat-dialog-content"
+  >
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Compliance Name</mat-label>
+      <input matInput value="New Meeting" formControlName="compliance_name" />
+    </mat-form-field>
+
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Open Date</mat-label>
+        <input
+          matInput
+          [ngxMatDatetimePicker]="picker1"
+          formControlName="compliance_start_date"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker1"
+        ></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker color="primary" #picker1>
+        </ngx-mat-datetime-picker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Close Date</mat-label>
+        <input
+          matInput
+          [ngxMatDatetimePicker]="picker"
+          formControlName="compliance_end_date"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker color="primary" #picker>
+        </ngx-mat-datetime-picker>
+      </mat-form-field>
+    </p>
+  </div>
+</div>

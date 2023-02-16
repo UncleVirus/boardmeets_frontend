@@ -1,0 +1,102 @@
+<div class="data">
+  <div class="upper-section">
+    <div class="middle-section">
+      <div>
+        <h2>{{ title }}</h2>
+      </div>
+      <button
+        mat-button
+        [disabled]="!(currentUser?.org_permission == 'Admin')"
+        class="create-btn"
+        routerLink="/admin/meeting-creation-page"
+      >
+        + Create Meeting
+      </button>
+    </div>
+  </div>
+
+ 
+  <br />
+  <div class="filter_meetings" align="end">
+    <mat-form-field appearance="standard" *ngIf="id == 'active'">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input
+        [formGroup]="meetingRange"
+        [min]="today"
+        [rangePicker]="picker"
+      >
+        <input matStartDate formControlName="start_date" />
+        <input matEndDate formControlName="end_date" />
+      </mat-date-range-input>
+
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" *ngIf="id != 'active'">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input
+        [formGroup]="meetingRange"
+        [max]="today"
+        [rangePicker]="picker"
+      >
+        <input matStartDate formControlName="start_date" />
+        <input matEndDate formControlName="end_date" />
+      </mat-date-range-input>
+
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+    <button
+      mat-button
+      class="search-btn"
+      [disabled]="!meetingRange.valid"
+      (click)="getMeetingsRange(meetingRange.value)"
+    >
+      <p>Search</p>
+    </button>
+  </div>
+  <div class="content-section">
+    <mat-card class="card" *ngFor="let meeting of meetingsObj" matRipple>
+      <div class="heading-section">
+        <div class="desc-section" (click)="viewMeetingDetails(meeting)">
+          <mat-card-title>{{ meeting?.meeting_title }}</mat-card-title>
+          <p>
+            Meeting address: {{ meeting.meeting_address }} <br />
+            Meeting invitees:
+            <b *ngFor="let item of meeting.invitees"
+              >{{ item?.first_name }} {{ item?.last_name }},
+            </b>
+            <br />
+            Meeting start time: {{ meeting?.start_date | date: "medium" }}
+            <br />
+          </p>
+        </div>
+        <div>
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            class="example-icon"
+            aria-label="Example icon-button with share icon"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="viewMeetingDetails(meeting)">
+              <span> View meeting</span>
+              <mat-icon color="primary">launch</mat-icon>
+            </button>
+            <button
+              [disabled]="!(currentUser?.org_permission == 'Admin')"
+              mat-menu-item
+              (click)="deleteMeeting(meeting.id)"
+            >
+              <span> Delete meeting</span>
+              <mat-icon color="warn">delete</mat-icon>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

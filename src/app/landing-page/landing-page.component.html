@@ -1,0 +1,207 @@
+<div class="data">
+  <br />
+
+  <mat-card class="card">
+    <div class="heading-section">
+      <div class="heading desc-section">
+        <mat-card-title>
+          <h1 style="color: #000;">
+            <!-- {{ organizationsObj[0]?.name }} -->
+            <span style="font-size: 20px;">Cabinet</span>
+          </h1>
+        </mat-card-title>
+        <p>
+          <span style="font-size: 23px; font-weight: bold; color: #201547; ">Description</span><br /><br />
+          {{ organizationsObj[0]?.description }}<span style="margin-right: 200px;">Cabinet Office is responsible, subject to the directions of the cabinet, for arranging the business, and keeping the minutes of the cabinet; Conveying the decisions of the cabinet to the appropriate persons or authorities. </span>
+        </p>
+        <br />
+        <br />
+
+
+      </div>
+      <div class="logo">
+        <img
+          src="../../assets/img/coat of arms.png"
+          alt=""
+          class="image"
+          srcset=""
+        />
+      </div>
+    </div>
+
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> More details </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <br />
+        <mat-card class="example-card">
+          <div class="heading">
+            <mat-card-title>Mission</mat-card-title>
+            <!-- <p>
+              {{ organizationsObj[0]?.mission }}
+            </p> -->
+            <p>
+              To provide leadership and policy direction for quality public service delivery.    </p>
+          </div> </mat-card
+        ><br />
+
+        <mat-card class="example-card">
+          <div class="heading">
+            <mat-card-title>Vision</mat-card-title>
+            <!-- <p>
+              {{ organizationsObj[0]?.vision }}
+            </p> -->
+            <p>
+              The lead agency in excellence, organization and coordination of Government business.
+            </p>
+          </div> </mat-card
+        ><br />
+
+        <mat-card class="example-card">
+          <div class="heading">
+            <mat-card-title>Core Values</mat-card-title>
+            <!-- <p>
+              {{ organizationsObj[0]?.vision }}
+            </p> -->
+            <p>
+              Kenya Seed Company is guided by the following set of values:
+            </p>
+              <ol style="color: #000;">
+                <li>Patriotism</li>
+                <li>National unity</li>
+                <li>Commitment to duty</li>
+                <li>Teamwork</li>
+                <li>Integrity and efficiency</li>
+              </ol>
+
+          </div> </mat-card
+        ><br />
+
+        <mat-card class="example-card">
+          <mat-card-title class="content">Social medial links</mat-card-title>
+
+          <div class="main-view"  style="color: #000;">
+            <!-- <P
+              ><span>Twitter: </span>
+              <b> {{ socialObj[0]?.twitter_link }}</b></P
+            > -->
+            <P
+              ><span>Twitter: </span>
+              <b><a href="https://twitter.com/StateHouseKenya" style="font-size: 18px; font-weight: bold; color: rgb(69, 69, 69); padding-left: 10px;">State House Kenya</a></b></P
+            >
+            <P
+              ><span>Facebook: </span>
+              <!-- <b> {{ socialObj[0]?.facebook_link }}</b> -->
+              <b><a href="https://www.facebook.com/StateHouseKenya/" style="font-size: 18px; font-weight: bold; color: rgb(69, 69, 69); ">State House Kenya</a></b>
+              </P
+            >
+          </div> </mat-card
+        ><br />
+      </mat-expansion-panel>
+    </mat-accordion> </mat-card
+  ><br />
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+      <div class="col">
+        <div class="card radius-10 border-start border-0 border-3 border-info">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div>
+                <p class="mb-0 text-secondary">Total active users</p>
+                <hr class="text-success">
+                <h2 class="text-center" style="font-size: 30px">{{ users.length }}</h2>
+              </div>
+              <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i class="fa fa-shopping-cart"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card radius-10 border-start border-0 border-3 border-danger">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div>
+                <p class="mb-0 text-secondary">Upcoming Meetings</p>
+                <hr class="text-success">
+                <h2 class="text-center" style="font-size: 30px">{{ meetingsObj.length }}</h2>
+              </div>
+              <div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i class="fa fa-dollar"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card radius-10 border-start border-0 border-3 border-success">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div>
+                <p class="mb-0 text-secondary">Total Tasks</p>
+                <hr class="text-success">
+                <h2 class="text-center" style="font-size: 30px">8</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card radius-10 border-start border-0 border-3 border-warning">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div>
+                <p class="mb-0 text-secondary">Total Contracts</p>
+                <hr class="text-success">
+                <h2 class="text-center" style="font-size: 30px">2</h2>
+              </div>
+              <div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"><i class="fa fa-users"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="dashboard-section">
+    <mat-card class="card card-dash">
+      <h2>Up coming meetings</h2>
+      <hr class="btn-success">
+      <mat-divider></mat-divider><br />
+
+      <div
+        class="meeting-section desc-section heading-section"
+        *ngFor="let meeting of meetingsObj"
+      >
+        <div class="desc-section">
+          <strong>{{ meeting.meeting_title }}</strong
+          ><br /><br /><hr>
+          <p>
+            Meeting address: {{ meeting.meeting_address }} <br />
+            Meeting invitees:
+            <b *ngFor="let item of meeting.invitees"
+              >{{ item?.first_name }} {{ item?.last_name }},
+            </b>
+            <br />
+            Meeting start date: {{ meeting?.start_date | date: "medium" }}
+            <br />
+          </p>
+        </div>
+
+        <div class="view-">
+          <button
+            mat-button
+            class="example-icon view-btn"
+            (click)="viewMeetingDetails(meeting)"
+            aria-label="Example icon-button with share icon"
+          >
+            View
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

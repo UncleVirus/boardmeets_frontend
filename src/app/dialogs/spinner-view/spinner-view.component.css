@@ -1,0 +1,10 @@
+.dialog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.text {
+  padding: 5px;
+  margin-left: 4px;
+  cursor: pointer;
+}

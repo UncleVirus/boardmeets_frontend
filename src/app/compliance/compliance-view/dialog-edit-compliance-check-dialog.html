@@ -1,0 +1,55 @@
+<div class="dialog">
+  <div class="heading-section">
+    <div>
+      <button mat-icon-button (click)="onNoClick()">
+        <mat-icon>arrow_back_ios_new</mat-icon>
+      </button>
+    </div>
+    <div class="save-changes">
+      <button
+        mat-button
+        (click)="onSubmit(formGroup.value)"
+        color="primary"
+        form="FormCompliance"
+        [disabled]="!formGroup.valid"
+        *ngIf="!loading"
+      >
+        Save Changes
+      </button>
+      <button
+        mat-button
+        *ngIf="!loading"
+        (click)="deleteComplianceCheck(data.id)"
+        color="warn"
+      >
+        Delete
+      </button>
+      <mat-spinner diameter="40" class="loading-indicator" *ngIf="loading">
+      </mat-spinner>
+    </div>
+  </div>
+  <br /><br />
+  <h2>Edit check compliance details</h2>
+  <br />
+  <div
+    mat-dialog-content
+    [formGroup]="formGroup"
+    id="FormCompliance"
+    class="mat-dialog-content"
+  >
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Check title</mat-label>
+      <input matInput formControlName="check_name" type="text" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Check description</mat-label>
+      <textarea
+        matInput
+        matTextareaAutosize
+        matAutosizeMinRows="1"
+        matAutosizeMaxRows="20"
+        formControlName="check_description"
+      ></textarea>
+    </mat-form-field>
+  </div>
+</div>

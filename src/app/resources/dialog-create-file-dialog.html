@@ -1,0 +1,64 @@
+<div class="h-dialog">
+  <div>
+    <button mat-icon-button mat-dialog-close cdkFocusInitial>
+      <mat-icon>arrow_back_ios_new</mat-icon>
+    </button>
+  </div>
+  <div class="save-changes">
+    <button
+      mat-button
+      (click)="onSubmit(formGroup.value)"
+      color="primary"
+      [disabled]="!formGroup.valid"
+    >
+      Save Changes
+    </button>
+  </div>
+</div>
+<hr />
+<br />
+<h1 mat-dialog-title align="center">Add Document</h1>
+<div mat-dialog-content [formGroup]="formGroup">
+  <strong>Name</strong>
+  <mat-form-field class="example-full-width" appearance="outline">
+    <input
+      matInput
+      placeholder="Input Agenda Title"
+      formControlName="doc_name"
+    />
+  </mat-form-field>
+  <strong>Type</strong>
+  <mat-form-field class="example-full-width" appearance="outline">
+    <mat-select
+      value="FILE"
+      formControlName="type"
+      (selectionChange)="channgeFileType($event.value)"
+    >
+      <mat-option value="FILE">FILE</mat-option>
+      <mat-option value="VIDEO">VIDEO</mat-option>
+      <mat-option value="LINK">LINK</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <strong *ngIf="!isFile">Link</strong>
+  <mat-form-field
+    class="example-full-width"
+    appearance="outline"
+    *ngIf="!isFile"
+  >
+    <input matInput formControlName="doc_file" />
+  </mat-form-field>
+</div>
+<div class="attachment-section" *ngIf="isFile">
+  <ngx-dropzone (change)="onSelect($event)">
+    <ngx-dropzone-label
+      >Drag and Drop or click here to upload!</ngx-dropzone-label
+    >
+    <ngx-dropzone-preview
+      *ngFor="let f of files"
+      [removable]="true"
+      (removed)="onRemove(f)"
+    >
+      <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+    </ngx-dropzone-preview>
+  </ngx-dropzone>
+</div>

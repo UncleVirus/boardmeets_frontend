@@ -1,0 +1,24 @@
+table,
+.data {
+  width: 100%;
+ 
+}
+
+.align-right {
+  position: static;
+  right: 15px;
+}
+
+.example-card {
+  display: inline-flex;
+  padding: 0;
+  margin: 6px;
+}
+.heading-section {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-content: flex-start;
+  flex-wrap: wrap;
+}

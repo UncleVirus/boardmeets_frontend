@@ -1,0 +1,46 @@
+<div class="dialog" style="border-radius: 10px;">
+  <div class="heading-section">
+    <div>
+      <button mat-icon-button (click)="onNoClick()">
+        <mat-icon>arrow_back_ios_new</mat-icon>
+      </button>
+    </div>
+  </div>
+  <br />
+  <mat-accordion>
+    <mat-expansion-panel class="mat-expansion-panel">
+      <mat-expansion-panel-header>
+        <h2 style="color: #201547; font-family: quantify;">Attendance</h2>
+      </mat-expansion-panel-header>
+      <p style="font-family: quantify;">
+        Attendance has moved to the Minutes Builder for easier recording. Start
+        minutes to take attendance.
+      </p>
+      <br />
+
+      <button mat-button color="primary">Start minutes</button>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <mat-divider></mat-divider>
+  <br />
+
+  <h2 style="font-weight: bold; color:black; font-family: quantify;">RSVP Responses</h2>
+
+  <div class="rsvp-list">
+    <div class="headig-section-list">
+      <strong style="color: #201547; font-family: quantify;">NAME</strong>
+      <strong style="color: #201547; font-family: quantify;">RSVP</strong>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+  <br />
+  <div class="rsvp-list" *ngFor="let item of rsvps">
+    <div class="headig-section-list">
+      <b style="font-family: quantify;">{{item?.parent_user.first_name}} {{item?.parent_user.last_name}}</b>
+      <strong>{{item?.choice}}</strong>
+    </div>
+    <mat-divider></mat-divider>
+    <br />
+  </div>
+
+</div>

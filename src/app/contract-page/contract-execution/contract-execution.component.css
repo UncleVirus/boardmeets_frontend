@@ -1,0 +1,158 @@
+.data {
+  width: 100% !important;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.h-title h1 {
+  margin: 0 !important;
+}
+h2 {
+  font-weight: bolder;
+  font-family: serif;
+}
+.details-btn {
+  position: absolute;
+  top: 0px;
+  right: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+}
+
+.heading-section {
+  display: flex;
+  justify-content: space-between;
+}
+.example-full-width,
+.iew-agenda-doc,
+.viewer {
+  width: 100%;
+}
+
+.users-profile {
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.profile {
+  width: 40%;
+  margin: 10px;
+}
+
+.other-details {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px !important;
+}
+.tile-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.image-section {
+  height: 50px;
+  width: 50px;
+  margin: auto;
+}
+.users-profile {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.vertical-direction {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+.doc-btn {
+  font-size: 14px;
+  color: blue;
+  border: 1px solid #201547;
+  border-radius: 58px;
+}
+
+.edit-btn {
+  border: 1px solid #201547;
+  border-radius: 28px;
+}
+.data-content {
+  height: calc(100% - 1px);
+  max-height: unset;
+}
+
+.dialog {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.mat-card {
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 30px;
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+  border-radius: 5px;
+  border-width: 0px;
+}
+.back-header {
+  display: flex;
+  box-shadow: none !important;
+  align-items: center;
+  margin: 0;
+}
+.approval_sec {
+  padding: 10px;
+  margin-left: 15px;
+}
+.signature-view {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+.view-doc-btn {
+  background-color: gray;
+  border-radius: 10px;
+  margin: 10px 8px;
+}
+.flex_1 {
+  display: flex;
+  flex-wrap: wrap;
+}
+.heading-section_1 {
+  flex: 1;
+  margin-right: 10px;
+}
+.view-agenda-doc {
+  width: 100% !important;
+}
+table {
+  width: 100%;
+}
+.comment-section {
+  max-width: 500px;
+}
+td.mat-cell {
+  /* row padding */
+  padding: 16px 0;
+}
+.mat-tab-group {
+  width: 100%;
+  padding: 10px;
+}
+.edit-section {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.mat-menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

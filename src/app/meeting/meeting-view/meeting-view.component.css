@@ -1,0 +1,355 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Lato&family=Roboto:wght@300&display=swap');
+*{
+  font-family: latoRegular,sans-serif !important;
+} */
+.data {
+  width: 100% !important;
+  margin-left: 20px;
+  position: relative;
+  overflow-x: hidden;
+}
+.items-body {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  box-shadow: none;
+}
+.items {
+  width: 100%;
+}
+
+.back-header {
+  display: flex;
+  box-shadow: none;
+  align-items: center;
+  margin: 0;
+}
+.flex-self h1 {
+  margin: 0 !important;
+  color: #201547;
+  font-size: 27px;
+  font-weight: bold;
+  font-family: quantify;
+}
+.details-btn {
+  position: absolute;
+  top: 0px;
+  right: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+}
+.agenda-input {
+  width: 100%;
+  margin-bottom: 8px;
+  position: relative;
+  display: inline-block;
+}
+.item-input {
+  background-color: #f4f4f5;
+  border-radius: 15px;
+  font-size: 15px;
+  padding: 15px;
+  min-height: 80px;
+
+  align-items: center;
+}
+.margin-0 {
+  margin: 0;
+  padding: 0px;
+}
+.item-details {
+  padding: 5px;
+  color: black;
+}
+.flex {
+  display: flex;
+  align-items: center;
+}
+.marging-right-15 {
+  width: 90%;
+  font-weight: bold;
+  background-color: #f4f4f5;
+  border: 0;
+  padding-bottom: 5px;
+  color: black;
+}
+
+.heading-section {
+  display: flex;
+  justify-content: space-between;
+}
+/* .heading-section h2{
+  font-family: quantify;
+  font-size: 20px;
+  font-weight: bold;
+} */
+.meeting-content h2{
+  font-family: quantify;
+  font-size: 20px;
+  font-weight: bold;
+}
+.meeting-content p {
+  font-family: quantify;
+  font-size: 18px;
+}
+.meeting-content span {
+  font-size: 19px;
+padding-right: 10px;
+}
+.card {
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 30px;
+  /* box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px; */
+  border-radius: 5px;
+  border-width: 0px;
+  box-shadow: 7px 5px 5px 0px rgb(179, 178, 178);
+}
+
+.setup-section span {
+  color: black;
+  font-family: quantify;
+  font-weight: bold;
+}
+.setup-section strong {
+  font-family: quantify;
+}
+.meeting-edit span{
+  font-family: quantify;
+  font-weight: bold;
+  font-size: 20px;
+}
+.meeting-invitees h2{
+  font-family: quantify;
+  font-size: 20px;
+  font-weight: bold;
+}
+.meeting-invitees span {
+  font-family: quantify;
+  font-size: 18px;
+}
+.actions-section {
+  margin: 2px;
+}
+.action {
+  box-shadow: 7px 5px 5px 0px rgb(179, 178, 178);
+}
+.body-action h3{
+  font-family: quantify;
+  font-weight: bold;
+  font-size: 20px;
+}
+.body-action span {
+  font-size: 18px;
+  font-family: quantify;
+  color: #615f5f;
+}
+.meeting-minutes h2 {
+  font-family: quantify;
+  font-size: 20px;
+  font-weight: bold;
+}
+.meeting-minutes span {
+  font-family: quantify;
+  font-size: 18px;
+}
+.minutes-module span{
+  font-family: quantify;
+  font-size: 20px;
+}
+.min-start-view {
+  font-size: 18px;
+  font-family: quantify;
+  font-weight: bold;
+}
+.tile-image {
+  max-width: 100%;
+  height: auto;
+}
+.vertical-direction {
+  font-family: quantify;
+  color: #080808;
+}
+.image-section {
+  height: 50px;
+  width: 50px;
+  margin: auto;
+}
+.example-full-width {
+  width: 100%;
+}
+.users-profile {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.vertical-direction {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+.doc-btn {
+  font-size: 14px;
+  color: blue;
+  border: 1px solid #201547;
+  border-radius: 58px;
+}
+
+.edit-btn {
+  border: 1px solid #201547;
+  border-radius: 28px;
+}
+.actions-section {
+  width: 95%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  min-width: 270px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  border-radius: 10px;
+}
+.action-icon {
+  display: flex;
+  width: 40px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.action:hover {
+  background-color: #e0e0e0;
+  animation-iteration-count: 1;
+}
+
+.body-action {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 20px;
+}
+h3 {
+  margin: 0;
+  padding: 0;
+}
+.mat-expansion-panel {
+  box-shadow: none;
+  padding-left: 0;
+}
+.mat-expansion-panel-header,
+.mat-expansion-panel-body {
+  padding-left: 2px !important;
+}
+.headig-section-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.example-large-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  width: 100%;
+  position: relative;
+}
+.metrics {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 45%;
+  flex-wrap: wrap;
+  margin: 10px;
+  margin-right: 25px;
+  padding: 15px;
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 30px;
+  border-radius: 5px;
+  border-width: 0px;
+  box-shadow: 0 8px 8px -4px rgb(168, 168, 168);
+}
+.metrics h2 {
+  font-family: quantify;
+  font-weight: bold;
+  color: #080808;
+  text-transform: uppercase;
+}
+.m_data span {
+  color: #201547;
+  font-family: quantify;
+  font-weight: bold;
+}
+.graph-section {
+  flex: 1 2;
+  flex-wrap: wrap;
+  margin: 10px;
+  margin-right: 25px;
+  padding: 15px;
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 30px;
+  border-radius: 5px;
+  border-width: 0px;
+  box-shadow: 0 8px 8px -4px rgb(179, 178, 178);
+}
+.graph-section h2 {
+  font-family: quantify;
+  font-weight: bold;
+  color: #080808;
+  text-transform: uppercase;
+}
+.meeting-metrics {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 8px;
+}
+.invites-metrics {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 8px;
+}
+.m_data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.level_a_items {
+  margin-left: 15px;
+}
+
+.level_b_items {
+  margin-left: 30px;
+}
+.zoom {
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  z-index: 100;
+  margin-bottom: 15px;
+}

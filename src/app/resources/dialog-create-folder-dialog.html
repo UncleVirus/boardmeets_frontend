@@ -1,0 +1,26 @@
+<div class="h-dialog">
+  <div>
+    <button mat-icon-button mat-dialog-close cdkFocusInitial>
+      <mat-icon>arrow_back_ios_new</mat-icon>
+    </button>
+  </div>
+  <div class="save-changes">
+    <button
+      mat-button
+      (click)="onSubmit(formGroup.value)"
+      color="primary"
+      [disabled]="!formGroup.valid"
+    >
+      Save Changes
+    </button>
+  </div>
+</div>
+<hr />
+<br />
+<h1 mat-dialog-title align="center">{{title}}</h1>
+<div mat-dialog-content [formGroup]="formGroup">
+  <strong>Name</strong>
+  <mat-form-field class="example-full-width" appearance="outline">
+    <input matInput placeholder="Input folder name" formControlName="name" />
+  </mat-form-field>
+</div>

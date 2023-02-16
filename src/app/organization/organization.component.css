@@ -1,0 +1,74 @@
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+.example-full-width,
+.data {
+  width: 100%;
+}
+.register-organization-section {
+  margin: 0 auto;
+  justify-content: center;
+  display: block;
+  width: 50%;
+}
+.dashboard-content {
+  padding: 10px;
+  margin: 0 auto;
+}
+.loading-indicator {
+  color: #201547;
+}
+.logo {
+  max-width: 130px;
+  height: auto;
+}
+
+td {
+  padding-right: 8px;
+}
+.logo-container {
+  width: fit-content;
+  margin: 0 auto;
+}
+.heading-section {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.ip-content-section {
+  padding: 10px;
+  width: 90%;
+  margin: 0 auto;
+}
+.card-ip,
+.mat-expansion-panel {
+  margin-bottom: 6px;
+  border-radius: 20px;
+  box-shadow: none;
+}
+.mat-card {
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+  border-radius: 20px;
+}
+
+.editOrg {
+  width: 90%;
+  margin: 0 auto;
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.feature-section,
+.content,
+.license-section {
+  padding: 15px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+  border-radius: 8px;
+}

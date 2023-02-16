@@ -1,0 +1,117 @@
+<div class="dialog">
+  <div class="heading-section">
+    <div>
+      <button mat-icon-button (click)="onNoClick()">
+        <mat-icon>arrow_back_ios_new</mat-icon>
+      </button>
+    </div>
+    <div class="save-changes">
+      <button
+        mat-button
+        (click)="onSubmit(formGroup.value)"
+        color="primary"
+        form="formGroup"
+        [disabled]="!formGroup.valid"
+      >
+        Save Changes
+      </button>
+
+      <mat-spinner diameter="40" class="loading-indicator" *ngIf="loading">
+      </mat-spinner>
+    </div>
+  </div>
+  <hr />
+  <br />
+  <div
+    mat-dialog-content
+    [formGroup]="formGroup"
+    id="formGroup"
+    class="data-content"
+  >
+    <strong>Contract title</strong>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input matInput value="New Meeting" formControlName="contract_title" />
+    </mat-form-field>
+    <strong>Contract parties/Contractors</strong>
+    <quill-editor formControlName="parties" class="editor"> </quill-editor>
+    <br />
+    <strong>Contract start date</strong>
+    <mat-form-field appearance="outline" class="example-full-width">
+      <input
+        matInput
+        [ngxMatDatetimePicker]="picker1"
+        formControlName="start_date_time"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <ngx-mat-datetime-picker color="primary" #picker1>
+      </ngx-mat-datetime-picker>
+    </mat-form-field>
+    <strong>Contract expiry date</strong>
+    <mat-form-field appearance="outline" class="example-full-width">
+      <input
+        matInput
+        [ngxMatDatetimePicker]="picker"
+        formControlName="end_date_time"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <ngx-mat-datetime-picker color="primary" #picker>
+      </ngx-mat-datetime-picker>
+    </mat-form-field>
+    <strong>Contract description</strong>
+    <quill-editor formControlName="description" class="editor"> </quill-editor>
+    <br />
+    <strong>Contract signatories</strong>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-select
+        class="mat-select-user"
+        #usersList
+        multiple
+        formControlName="signatories"
+      >
+        <mat-option *ngFor="let user of users" [value]="user.id"
+          >{{ user.first_name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <strong>Contract approvers</strong>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-select
+        class="mat-select-user"
+        #usersList
+        multiple
+        formControlName="approvers"
+      >
+        <mat-option *ngFor="let user of users" [value]="user.id"
+          >{{ user.first_name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <strong>Contract permission section</strong>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-select
+        class="mat-select-user"
+        #usersList
+        multiple
+        formControlName="permission"
+      >
+        <mat-option *ngFor="let user of users" [value]="user.id"
+          >{{ user.first_name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <div class="attachment-section">
+      <ngx-dropzone (change)="onSelect($event)">
+        <ngx-dropzone-label
+          >Drag and Drop or click here to upload!</ngx-dropzone-label
+        >
+        <ngx-dropzone-preview
+          *ngFor="let f of files"
+          [removable]="true"
+          (removed)="onRemove(f)"
+        >
+          <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+        </ngx-dropzone-preview> </ngx-dropzone
+      ><br />
+    </div>
+  </div>
+</div>

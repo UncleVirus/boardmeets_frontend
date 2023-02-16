@@ -1,0 +1,110 @@
+<div class="data">
+  <mat-card class="back-header">
+    <div class="header-btn">
+      <button mat-button>
+        <mat-icon color="primary" class="pointer" (click)="_location.back()"
+          >chevron_left</mat-icon
+        ><span>Back</span>
+      </button>
+    </div>
+    <div class="back-heading">
+      <h1>{{ minutesObj?.parent_meeting.meeting_title }}</h1>
+    </div>
+    <div class="minutes-buttons">
+      <button
+        mat-button
+        [matMenuTriggerFor]="menu"
+        class="example-icon"
+        aria-label="Example icon-button with share icon"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="downloadMinute()">
+          <mat-icon color="primary">file_download</mat-icon>
+          Export to pdf
+        </button>
+        <button mat-menu-item (click)="deleteMinutes(minutesObj.id)">
+          <mat-icon color="warn">delete</mat-icon>
+          Delete Minutes
+        </button>
+      </mat-menu>
+    </div>
+  </mat-card>
+
+  <div class="main-content" #minutePage>
+    <mat-card class="heading-card-section">
+      <div class="logo">
+        <img src="{{ image }}" alt="" class="image" srcset="" />
+      </div>
+      <div>
+        <h2>
+          <b>{{ minutesObj?.parent_meeting.meeting_title }}</b>
+        </h2>
+        <!-- <h4>COSEKE RWANDA</h4> -->
+        <mat-card-subtitle>{{
+          minutesObj?.parent_meeting.end_date | date: "fullDate"
+        }}</mat-card-subtitle>
+        <span style="font-family: quantify;">Boardmeets</span>
+      </div>
+    </mat-card>
+    <h2 class="att-title">
+      <b>Attendance</b>
+    </h2>
+    <mat-card class="attandance-card">
+      <div class="att-card">
+        <br />
+        <strong>Members list</strong>
+        <mat-list role="list">
+          <mat-list-item *ngFor="let item of minutesObj?.invitees" class="att-content"
+            >{{ item.parent_user.first_name }} {{ item.parent_user.last_name }}
+            <i>({{ item.choice }})</i></mat-list-item
+          >
+        </mat-list>
+        <strong>Guests</strong>
+        <mat-list role="list">
+          <div [innerHTML]="minutesObj?.guests" class="att-content-list"></div>
+        </mat-list>
+      </div>
+    </mat-card>
+
+    <h2 class="att-title">
+      <b>Agenda</b>
+    </h2>
+
+    <mat-card
+      class="agenda-card"
+      *ngFor="let agenda of minutesObj?.agenda; let i_agenda = index"
+    >
+      <div class="agenda-content">
+        <h2>
+          <b>{{ i_agenda + 1 }}</b> {{ agenda.title }}
+        </h2>
+        <br />
+        <strong>Discussion</strong>
+        <p [innerHTML]="agenda.discussion"></p>
+        <strong>Conclusion</strong>
+        <p [innerHTML]="agenda.conclusion"></p>
+      </div>
+      <div class="action-items">
+        <h2>Action Items</h2>
+        <mat-card
+          class="action-card"
+          *ngFor="let action of agenda.agenda_actions; let i_action = index"
+        >
+          <h3>{{ i_action + 1 }} . {{ action.action_name }}</h3>
+          <strong>Responsible person(s)</strong>
+          <mat-list role="list" *ngFor="let user of action.person_responsible">
+            <mat-list-item role="listitem"
+              >{{ user.first_name }} {{ user.last_name }}</mat-list-item
+            >
+          </mat-list>
+          <span
+            ><i>Deadline: {{ action.deadline | date: "fullDate" }}</i></span
+          >
+        </mat-card>
+      </div> </mat-card
+    ><br />
+  </div>
+</div>

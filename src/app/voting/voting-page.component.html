@@ -1,0 +1,192 @@
+<div class="content-container" *ngIf="!viewMeetingDoc">
+  <mat-card class="back-header">
+    <button mat-icon-button (click)="_location.back()">
+      <mat-icon color="primary" class="pointer">arrow_back_ios_new</mat-icon>
+    </button>
+    <div class="flex-self">
+      <h1>Approval Details</h1>
+    </div>
+  </mat-card>
+  <div
+    fxLayout
+    fxLayout.xs="column"
+    fxLayoutAlign="left"
+    fxLayoutGap="10px"
+    fxLayoutGap.xs="5px"
+  >
+    <div fxFlex="">
+      <mat-card class="heading-section">
+        <div>
+          <p>
+            Title: 
+            <span>{{ votingDetails?.title }}</span>
+          </p>
+          
+          <p>
+            Created by:
+            <span
+              >{{ votingDetails?.created_by.first_name }}
+              {{ votingDetails?.created_by.last_name }}</span
+            >
+          </p>
+          <p>
+            Approval Start Date: 
+            <span
+              >{{ votingDetails?.vote_start_date | date: "medium" }}
+              </span
+            >
+          </p>
+          <p>
+            Approval End Date: 
+            <span>{{ votingDetails?.vote_end_date | date: "medium" }}</span>
+          </p>
+
+          <p>Approval Description: <span>{{ votingDetails?.description }}</span></p>
+
+          <div
+            class="document-btn-section"
+            *ngIf="votingDetails?.supporting_documents"
+          ></div>
+          <h3>Supporting document</h3>
+          <span
+            >View document
+            <button
+              (click)="
+                openDocumentViewPage(votingDetails?.supporting_documents)
+              "
+            >
+              here
+            </button></span
+          >
+        </div>
+        <div>
+          <!-- <button mat-button color="primary">Edit details</button> -->
+        </div>
+      </mat-card>
+
+      <br />
+
+      <div class="attendees-section">
+        <mat-card>
+          <h2>Voters list</h2>
+          <div class="users-profile">
+            <div
+              class="vertical-direction"
+              *ngFor="let user of votingDetails?.voters"
+            >
+              <div class="image-section">
+                <img
+                  class="tile-image"
+                  src="../../../assets/images/user.jpg"
+                  alt=" "
+                  layout-cover
+                />
+              </div>
+              <span>{{ user?.first_name }} {{ user?.last_name }}</span>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+      <div align="center" class="voting-btns">
+        <button mat-button class="green-color" (click)="voteApproval(1)">
+          <mat-icon>check_circle</mat-icon><br />
+          <span>YES</span>
+        </button>
+
+        <button mat-button class="red-color" (click)="voteApproval(0)">
+          <mat-icon>pan_tool</mat-icon><br />
+          <span>NO</span>
+        </button>
+
+        <button mat-button class="orange-color" (click)="voteApproval(2)">
+          <mat-icon>gpp_maybe</mat-icon><br />
+          <span>ABSTAIN</span>
+        </button>
+      </div>
+    </div>
+
+    <mat-card fxFlex>
+      <h2 class="approval-results">Approval Results</h2>
+      <div class="approval-details-sections">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Selection</th>
+              <th scope="col">Percentage</th>
+              <th scope="col">Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">YES</th>
+              <td>
+                <mat-progress-bar
+                  mode="determinate"
+                  value="{{ voteResultObj[0]?.yes_percentage }}"
+                ></mat-progress-bar>
+                {{ voteResultObj[0]?.yes_percentage || 0.0 }}%
+              </td>
+              <td>{{ voteResultObj[0]?.yes_votes || 0.0 }}</td>
+            </tr>
+            <tr>
+              <th scope="row">NO</th>
+              <td>
+                <mat-progress-bar
+                  mode="determinate"
+                  value="{{ voteResultObj[0]?.no_percentage }}"
+                ></mat-progress-bar>
+                {{ voteResultObj[0]?.no_percentage || 0.0 }}%
+              </td>
+              <td>{{ voteResultObj[0]?.no_votes || 0.0 }}</td>
+            </tr>
+            <tr>
+              <th scope="row">ABSTAIN</th>
+              <td>
+                <mat-progress-bar
+                  mode="determinate"
+                  value="{{ voteResultObj[0]?.abstain_percentage }}"
+                ></mat-progress-bar>
+                {{ voteResultObj[0]?.abstain_percentage || 0.0 }}%
+              </td>
+              <td>{{ voteResultObj[0]?.abstain_votes || 0.0 }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="voting-user">
+          <h3 class="h-margin-right">Roll Call Results</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Users</th>
+                <th scope="col">Selection</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let voter of votesDetailsObj">
+                <td>
+                  {{ voter?.voter.first_name }} {{ voter.voter?.last_name }}
+                </td>
+                <td *ngIf="voter?.vote == 1">
+                  <span color="primary">Yes</span>
+                </td>
+                <td *ngIf="voter?.vote == 0">
+                  <span class="red-color">No</span>
+                </td>
+                <td *ngIf="voter?.vote == 2"><span>Abstain</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div class="view-voting-doc" *ngIf="viewMeetingDoc">
+  <button mat-button (click)="closeDocView()">
+    <mat-icon color="warn">close</mat-icon>Close
+  </button>
+  <app-view-document></app-view-document>
+</div>

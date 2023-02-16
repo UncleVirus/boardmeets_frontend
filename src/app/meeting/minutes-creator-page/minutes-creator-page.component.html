@@ -1,0 +1,226 @@
+<div class="data">
+  <mat-card class="heading-card">
+    <div class="h_view">
+      <button mat-icon-button (click)="_location.back()">
+        <mat-icon color="primary" class="pointer">arrow_back_ios_new</mat-icon>
+      </button>
+      <div class="minutes-header">
+        <h2>{{ meetingObj?.meeting_title }}</h2>
+        <mat-card-subtitle
+          >Minutes are currently being edited by you.</mat-card-subtitle
+        >
+      </div>
+    </div>
+    <div>
+      <button
+        mat-flat-button
+        color="primary"
+        form="agendaForm"
+        class="save"
+        [disabled]="!agendaForm.valid"
+        type="submit"
+      >
+        Save & Finish
+      </button>
+    </div> </mat-card
+  ><br />
+  <div class="minutes-section">
+    <mat-card class="heading-card-section">
+      <div class="logo">
+        <img
+          src="../../../assets/images/Coseke-Logo-Quality-means-no-compromise.jpg"
+          alt=""
+          class="image"
+          srcset=""
+        />
+      </div>
+      <div class="minutes-h">
+        <h2>
+          <b>{{ meetingObj?.meeting_title }}</b>
+        </h2>
+        <!-- <h4>COSEKE RWANDA</h4> -->
+        <mat-card-subtitle>{{
+          meetingObj.start_date | date: "fullDate"
+        }}</mat-card-subtitle>
+        <span>Boardmeets</span>
+      </div> </mat-card
+    ><br />
+
+    <mat-card class="heading-card-members">
+      <h1>Attendance</h1>
+      <br />
+      <h2>Members &nbsp;({{ meetingObj?.invitees.length }} present)</h2>
+      <div class="members-list">
+        <div class="member" *ngFor="let item of meetingObj?.invitees">
+          <strong>{{ item.first_name }} {{ item.last_name }}</strong>
+          <mat-radio-group aria-label="Select an option">
+            <mat-radio-button
+              value="absent"
+              (change)="attandanceChange($event.value, item.id)"
+              matRipple
+              matRippleColor="red"
+              >Absent</mat-radio-button
+            >
+            <mat-radio-button
+              value="Present"
+              (change)="attandanceChange($event.value, item.id)"
+              matRipple
+              matRippleColor="green"
+              >Present</mat-radio-button
+            >
+            <mat-radio-button
+              value="Remote"
+              (change)="attandanceChange($event.value, item.id)"
+              matRipple
+              matRippleColor="blue"
+              >Remote</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+      </div>
+      <h2>Guests</h2>
+      <div class="text-editor">
+        <quill-editor [(ngModel)]="guests" class="editor"> </quill-editor>
+      </div> </mat-card
+    ><br />
+
+    <!-- agenda-card -->
+    <mat-card class="agenda-card">
+      <div class="members-header">
+        <div><h2>Agendas</h2></div>
+        <div class="add-btn-member">
+          <button mat-button type="button" (click)="addAgenda()" class="add-btn">
+            <mat-icon color="primary">add</mat-icon>
+            Add Agenda
+          </button>
+        </div>
+      </div>
+
+      <!-- agenda section -->
+
+      <div class="agenda-item">
+        <form
+          id="agendaForm"
+          [formGroup]="agendaForm"
+          (submit)="submitMinutes(agendaForm.value)"
+        >
+          <div
+            class="form-array"
+            formArrayName="agendas"
+            class="agenda"
+            *ngFor="
+              let agenda of agendaForm.get('agendas')['controls'];
+              let i_agenda = index
+            "
+          >
+            <div class="form-group" [formGroupName]="i_agenda">
+              <div align="end">
+                <button mat-icon-button (click)="removeAgenda(i_agenda)">
+                  <mat-icon color="warn"> close</mat-icon>
+                </button>
+              </div>
+              <strong>Section Name</strong>
+              <mat-form-field class="example-60-width" appearance="outline">
+                <strong matPrefix>{{ i_agenda + 1 }} .</strong>
+                <input matInput formControlName="title" />
+              </mat-form-field>
+
+              <strong>Discussion</strong>
+              <div class="text-editor">
+                <quill-editor class="editor" formControlName="discussion">
+                </quill-editor>
+              </div>
+              <br />
+              <strong>Conclusion</strong>
+              <div class="text-editor">
+                <quill-editor class="editor" formControlName="conclusion">
+                </quill-editor>
+              </div>
+              <br />
+              <div class="members-header">
+                <div><h2>Action Items</h2></div>
+                <div class="add-btn-member">
+                  <button
+                    mat-button
+                    type="button"
+                    (click)="addAction(i_agenda)"
+                    class="add-btn"
+                  >
+                    <mat-icon color="primary">add</mat-icon>
+                    Add Action
+                  </button>
+                </div>
+              </div>
+
+              <div
+                formArrayName="action_items"
+                *ngFor="
+                  let item of agenda.get('action_items')['controls'];
+                  let i_action = index
+                "
+                class="task"
+              >
+                <div align="end">
+                  <button
+                    mat-icon-button
+                    (click)="removeAction(i_agenda, i_action)"
+                  >
+                    <mat-icon color="warn"> close</mat-icon>
+                  </button>
+                </div>
+                <div [formGroupName]="i_action" class="form-group">
+                  <strong>Action Title</strong>
+                  <mat-form-field class="example-60-width" appearance="outline">
+                    <strong matPrefix>{{ i_action + 1 }} .</strong>
+                    <input matInput formControlName="action_name" />
+                  </mat-form-field>
+                  <strong>Responsible person</strong>
+                  <mat-form-field
+                    appearance="outline"
+                    class="example-60-width"
+                    *ngIf="users.length > 0"
+                  >
+                    <mat-select multiple formControlName="person_responsible">
+                      <mat-option *ngFor="let user of users" [value]="user.id"
+                        >{{ user.first_name }} {{ user.last_name }}</mat-option
+                      >
+                    </mat-select>
+                  </mat-form-field>
+
+                  <strong>Deadline</strong>
+                  <mat-form-field
+                    appearance="outline"
+                    class="example-form-field"
+                  >
+                    <input
+                      matInput
+                      [matDatepicker]="datepicker"
+                      formControlName="deadline"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="datepicker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker>
+                      <mat-datepicker-actions>
+                        <button mat-button matDatepickerCancel>Cancel</button>
+                        <button
+                          mat-raised-button
+                          color="primary"
+                          matDatepickerApply
+                        >
+                          Apply
+                        </button>
+                      </mat-datepicker-actions>
+                    </mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <br />
+    </mat-card>
+  </div>
+</div>

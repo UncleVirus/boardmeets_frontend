@@ -1,0 +1,68 @@
+<div class="section">
+  <div class="content-grid">
+    <div class="logo-container">
+      <img src="../../assets/images/user.jpg" class="logo" alt="" />
+    </div>
+
+    <h2 class="h2">Verify Your Identity</h2>
+
+    <mat-card class="content">
+      <div class="card-header">
+        <span>To keep your account secure, we verify your identity.</span>
+        <h6 class="red-color">Enter the code sent to your email.</h6>
+      </div>
+      <br />
+
+      <div class="verify-code-section">
+        <form [formGroup]="formGroup" class="example-form">
+          <mat-form-field appearance="outline" class="example-form">
+            <mat-label>Username</mat-label>
+            <input type="text" formControlName="username" matInput />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="example-form">
+            <mat-label>Verification code</mat-label>
+            <input type="text" formControlName="auth_code" matInput />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="example-form">
+            <mat-label>Password</mat-label>
+            <input type="text" formControlName="password" matInput />
+          </mat-form-field>
+
+          <br />
+
+          <div class="user-form-btn" align="end">
+            <button
+              type="button"
+              routerLink="./login-page"
+              mat-button
+              *ngIf="!loading"
+              color="warn"
+            >
+              Cancel
+            </button>
+            <button
+              mat-button
+              color="primary"
+              [disabled]="!formGroup.valid"
+              (click)="verifyUser(formGroup.value)"
+              *ngIf="!loading"
+            >
+              Verify
+            </button>
+            <mat-spinner
+              diameter="40"
+              class="loading-indicator"
+              *ngIf="loading"
+            >
+            </mat-spinner>
+          </div>
+        </form>
+        <br />
+        <i class="resend-p"
+          >Didn't get the email?
+          <button mat-button (click)="resendCodeDialog()">Resend</button></i
+        >
+      </div>
+    </mat-card>
+  </div>
+</div>

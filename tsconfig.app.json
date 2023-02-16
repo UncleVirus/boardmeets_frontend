@@ -1,0 +1,26 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      "@angular/*": [
+        "./node_modules/@angular/*"
+      ],
+      "fs": [
+        "empty.ts"
+      ],
+      "path": [
+        "empty.ts"
+      ]
+    },
+    "outDir": "./out-tsc/app",
+    "experimentalDecorators": true,
+    "types": []
+  },
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
+}

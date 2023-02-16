@@ -1,0 +1,24 @@
+<div class="page">
+  <div class="profile_2">
+    <div class="heading-section">
+      <div>
+        <button mat-icon-button (click)="onClose()" color="primary">
+          <mat-icon>arrow_back_ios_new</mat-icon>
+        </button>
+      </div>
+      <h2>Sign Document</h2>
+    </div>
+    <br />
+    <button mat-button class="save-btn" (click)="completeSigning()">
+      <mat-icon>check_circle</mat-icon>
+      Complete signing
+    </button>
+    <br />
+    <mat-hint color="warn" class="example-full-width"
+      >You only allowed to sign once so make sure you sign in right
+      position</mat-hint
+    >
+  </div>
+
+  <div #viewer class="viewer"></div>
+</div>

@@ -1,0 +1,94 @@
+<div class="dialog">
+  <div class="heading-section">
+    <div>
+      <button mat-icon-button mat-dialog-close cdkFocusInitial>
+        <mat-icon>arrow_back_ios_new</mat-icon>
+      </button>
+    </div>
+    <h1 mat-dialog-title>+ Add new approval</h1>
+
+    <div class="save-changes">
+      <button
+        mat-button
+        (click)="onSubmit(formGroup.value)"
+        color="primary"
+        [disabled]="!formGroup.valid"
+        *ngIf="!loading"
+      >
+        Save Changes
+      </button>
+
+      <mat-spinner diameter="20" class="loading-indicator" *ngIf="loading">
+      </mat-spinner>
+    </div>
+  </div>
+  <hr />
+
+  <div mat-dialog-content [formGroup]="formGroup" class="mat-dialog-content">
+    <strong>Title</strong>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input matInput formControlName="title" />
+    </mat-form-field>
+    <strong>Description</strong>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <textarea
+        matInput
+        matTextareaAutosize
+        matAutosizeMinRows="2"
+        matAutosizeMaxRows="10"
+        formControlName="description"
+      ></textarea>
+    </mat-form-field>
+    <strong>Start Date</strong>
+    <mat-form-field appearance="outline" class="example-full-width">
+      <input
+        matInput
+        [ngxMatDatetimePicker]="picker1"
+        formControlName="vote_start_date"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <ngx-mat-datetime-picker color="primary" #picker1>
+      </ngx-mat-datetime-picker>
+    </mat-form-field>
+    <strong>End Date</strong>
+    <mat-form-field appearance="outline" class="example-full-width">
+      <input
+        matInput
+        [ngxMatDatetimePicker]="picker"
+        formControlName="vote_end_date"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <ngx-mat-datetime-picker color="primary" #picker>
+      </ngx-mat-datetime-picker>
+    </mat-form-field>
+    <strong>Voters</strong>
+    <app-search-member-dropdown
+      class="example-full-width"
+      [bankMultiCtrl]="formGroup.get('voters')"
+    ></app-search-member-dropdown>
+
+    <div class="attachment">
+      <strong>Supporting document</strong>
+      <div class="attachment-section">
+        <ngx-dropzone [multiple]="false" (change)="onSelect($event)" #drop>
+          <ngx-dropzone-label
+            >Drag and Drop or click here to upload!</ngx-dropzone-label
+          >
+          <ngx-dropzone-preview
+            *ngFor="let f of files"
+            [removable]="true"
+            (removed)="onRemove(f)"
+          >
+            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+          </ngx-dropzone-preview>
+        </ngx-dropzone>
+        <!-- <button (click)="drop.showFileSelector()">Open</button> -->
+      </div>
+    </div>
+    <div>
+      <mat-slide-toggle (click)="enableSendEmail()"
+        ><span>Enable send email notification</span></mat-slide-toggle
+      >
+    </div>
+  </div>
+</div>

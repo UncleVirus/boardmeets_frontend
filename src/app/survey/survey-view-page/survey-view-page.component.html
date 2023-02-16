@@ -1,0 +1,316 @@
+<div class="data" *ngIf="!doc">
+  <mat-card class="survey-card">
+    <div class="heading-section">
+      <div class="flex">
+        <button mat-icon-button (click)="_location.back()">
+          <mat-icon color="primary" class="pointer"
+            >arrow_back_ios_new</mat-icon
+          >
+        </button>
+        <div class="flex-self">
+          <h1>Survey Details</h1>
+        </div>
+      </div>
+    </div>
+    <br />
+    <mat-card-content>
+      <form class="example-form" [formGroup]="surveyForm">
+        <p>
+          <strong>Survey title</strong>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput formControlName="survey_title" />
+          </mat-form-field>
+          <strong>Survey Description</strong>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <textarea matInput formControlName="survey_description"></textarea>
+          </mat-form-field>
+        </p>
+
+        <p class="space">
+          <strong>Open Date</strong>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input
+              matInput
+              [ngxMatDatetimePicker]="picker1"
+              formControlName="survey_open_date"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker1"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker color="primary" #picker1>
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+          <strong>Close Date</strong>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input
+              matInput
+              [ngxMatDatetimePicker]="picker"
+              formControlName="survey_close_date"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker color="primary" #picker>
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+        </p>
+      </form>
+      <div *ngIf="surveyObj?.document">
+        <span>View supporting document</span>
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="openSuupportingDoc(surveyObj?.document)"
+        >
+          <mat-icon>description</mat-icon>
+        </button>
+      </div>
+      <div class="invitees-metrics">
+        <h2>Respondants</h2>
+        <div class="users-profile">
+          <div
+            class="vertical-direction"
+            *ngFor="let item of surveyObj.permissions"
+          >
+            <div class="image-section">
+              <img
+                class="tile-image"
+                src="../../../assets/images/profile.jpg"
+                alt=" "
+                layout-cover
+              />
+            </div>
+            <span>{{ item.first_name }} {{ item.last_name }} </span>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="content">
+    <mat-card class="survey-card">
+      <h2>
+        Survey Questions
+        <span class="red-color">{{ questionsObj?.length }}</span>
+      </h2>
+      <p>Start by doing your Survey</p> </mat-card
+    ><br />
+    <!-- not submitted survey section -->
+    <div class="questions-view" *ngIf="!submitted">
+      <div class="q-view">
+        <mat-card
+          class="q-card"
+          *ngFor="let question of questionsObj; let i = index"
+        >
+          <h4>
+            <b>{{ i + 1 }} . </b> {{ question.question_title }}
+          </h4>
+          <div class="answers" [ngSwitch]="question?.question_type">
+            <section
+              class="example-section-checkbox in-row"
+              *ngSwitchCase="'checkbox'"
+            >
+              <mat-selection-list
+                #res
+                (selectionChange)="
+                  onCheckBoxQuestionChange(
+                    res.selectedOptions.selected,
+                    question?.id,
+                    question?.question_type
+                  )
+                "
+              >
+                <mat-list-option
+                  *ngFor="let item of question.responses; let i = index"
+                  [value]="item.id"
+                  checkboxPosition="before"
+                >
+                  {{ item.responses }}
+                </mat-list-option>
+              </mat-selection-list>
+            </section>
+
+            <section class="example-section-option" *ngSwitchCase="'radio'">
+              <mat-radio-group aria-label="Select an option" class="in-row">
+                <mat-radio-button
+                  *ngFor="let item of question.responses"
+                  [value]="item.id"
+                  (change)="
+                    radioChange($event, question.id, question?.question_type)
+                  "
+                  >{{ item?.responses }}</mat-radio-button
+                >
+              </mat-radio-group>
+            </section>
+
+            <section
+              class="example-section-option"
+              *ngSwitchCase="'liner-scale'"
+            >
+              <mat-form-field appearance="outline" class="range">
+                <mat-select
+                  name="number"
+                  (valueChange)="
+                    changeRangeQuestion(
+                      $event,
+                      question.id,
+                      question?.question_type
+                    )
+                  "
+                >
+                  <mat-option *ngFor="let number of numbers" [value]="number">
+                    {{ number }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </section>
+
+            <section class="example-section-texbox" *ngSwitchCase="'paragraph'">
+              <mat-form-field class="example-full-width" appearance="standard">
+                <mat-label>your answer</mat-label>
+                <textarea
+                  matInput
+                  (keyup)="
+                    textQuestionBoxChange(
+                      $event,
+                      question.id,
+                      question?.question_type
+                    )
+                  "
+                ></textarea>
+              </mat-form-field>
+            </section>
+
+            <section class="example-section-texbox" *ngSwitchDefault>
+              <mat-form-field class="example-70-width" appearance="standard">
+                <mat-label>your answer</mat-label>
+                <input
+                  matInput
+                  (keyup)="
+                    textQuestionBoxChange(
+                      $event,
+                      question.id,
+                      question?.question_type
+                    )
+                  "
+                />
+              </mat-form-field>
+            </section>
+          </div>
+        </mat-card>
+        <br />
+      </div>
+      <div class="submit-view-btn">
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="SubmitAnswers()"
+          class="save-btn"
+        >
+          Submit
+        </button>
+      </div>
+      <br />
+    </div>
+    <!-- submitted survey section -->
+    <div class="questions-view" *ngIf="submitted">
+      <div class="q-view">
+        <mat-card
+          class="q-card"
+          *ngFor="let question of submittedObj; let i = index"
+        >
+          <h3>
+            <b>{{ i + 1 }} . </b> {{ question?.survey_question.question_title }}
+          </h3>
+          <div
+            class="answers"
+            [ngSwitch]="question?.survey_question.question_type"
+          >
+            <section
+              class="example-section-checkbox in-row"
+              *ngSwitchCase="'checkbox'"
+            >
+              <!-- <mat-selection-list #res>
+                <mat-list-option
+                  *ngFor="
+                    let item of question?.survey_question.responses;
+                    let i = index
+                  "
+                  checkboxPosition="before"
+                >
+                  {{ item }}
+                </mat-list-option>
+              </mat-selection-list> -->
+              <p>
+                Your Answer:
+                <span *ngFor="let item of question?.selected_responses">
+                  {{ item.responses }}
+                </span>
+              </p>
+            </section>
+
+            <section class="example-section-option" *ngSwitchCase="'radio'">
+              <!-- <mat-radio-group aria-label="Select an option" class="in-row">
+                <mat-radio-button
+                  *ngFor="let item of question?.survey_question.responses"
+                  >{{ item }}</mat-radio-button
+                >
+              </mat-radio-group> -->
+              <p>
+                Your Answer:
+                <span *ngFor="let item of question.selected_responses">{{
+                  item.responses
+                }}</span>
+              </p>
+            </section>
+
+            <section
+              class="example-section-option"
+              *ngSwitchCase="'liner-scale'"
+            >
+              <!-- <mat-form-field appearance="outline" class="range">
+                <mat-select>
+                  <mat-option *ngFor="let number of numbers" [value]="number">
+                    {{ number }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field> -->
+              <p>Your answer: {{ question.answer }}</p>
+            </section>
+
+            <section class="example-section-texbox" *ngSwitchCase="'paragraph'">
+              <!-- <mat-form-field class="example-full-width" appearance="standard">
+                <mat-label>your answer</mat-label>
+                <textarea matInput></textarea>
+              </mat-form-field> -->
+              <p>Your answer: {{ question.answer }}</p>
+            </section>
+
+            <section class="example-section-texbox" *ngSwitchDefault>
+              <!-- <mat-form-field class="example-70-width" appearance="standard">
+                <mat-label>your answer</mat-label>
+                <input matInput />
+              </mat-form-field> -->
+              <p>Your answer: {{ question.answer }}</p>
+            </section>
+          </div>
+        </mat-card>
+        <br />
+        <strong align="center" class="red-color"
+          >We have received your response</strong
+        >
+      </div>
+
+      <br />
+    </div>
+    <!-- ------------------------- -->
+  </div>
+</div>
+<div class="view-doc" *ngIf="doc">
+  <button mat-button (click)="closeDocumentView()">
+    <mat-icon color="warn">close</mat-icon>Close
+  </button>
+  <app-view-document></app-view-document>
+</div>

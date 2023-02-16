@@ -1,0 +1,227 @@
+<div class="data" *ngIf="!docView">
+  <div class="upper-section">
+    <div class="middle-section">
+      <div class="flex" *ngIf="filter">
+        <div>
+          <button mat-icon-button (click)="filter = false">
+            <mat-icon>arrow_back_ios_new</mat-icon>
+          </button>
+        </div>
+
+        <h2>
+          {{ title }}
+        </h2>
+      </div>
+      <h2 *ngIf="!filter">Tasks</h2>
+      <button
+        mat-button
+        [disabled]="!(currentUser?.org_permission == 'Admin')"
+        class="create-btn"
+        (click)="createTaskDialog()"
+      >
+        + Create Task
+      </button>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="filters-section">
+      <div
+        class="filter-tasks"
+        align="end"
+        *ngIf="currentUser?.org_permission == 'Admin'"
+      >
+        <form class="example-form">
+          <strong>Assignee: </strong>
+          <mat-form-field appearance="fill">
+            <mat-icon matPrefix>search</mat-icon>
+            <input
+              type="text"
+              placeholder="Filter"
+              aria-label="Number"
+              matInput
+              [formControl]="myControl"
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option
+                *ngFor="let option of filteredOptions | async"
+                [value]="option.first_name"
+                (click)="activeTaskUser = option"
+              >
+                {{ option.first_name }} {{ option.last_name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+        <button
+          mat-button
+          class="search-btn"
+          [disabled]="!activeTaskUser.id"
+          (click)="getUserTasksByUserId(activeTaskUser)"
+        >
+          Get tasks
+        </button>
+      </div>
+      <div class="filter-tasks" align="end">
+        <strong>Status or Periority: </strong>
+        <mat-form-field appearance="fill">
+          <mat-icon matPrefix>search</mat-icon>
+          <select matNativeControl (change)="onFilterChange($event)">
+            <optgroup label="Task periority">
+              <option *ngFor="let item of PERIORITY">
+                {{ item }}
+              </option>
+            </optgroup>
+            <optgroup label="Task status">
+              <option *ngFor="let item of STATUS">
+                {{ item }}
+              </option>
+            </optgroup>
+          </select>
+        </mat-form-field>
+        <button
+          class="search-btn"
+          [disabled]="!selectedValue"
+          (click)="
+            isStatus
+              ? getTasksByStatus(selectedValue)
+              : getTasksByPeriority(selectedValue)
+          "
+          mat-button
+        >
+          Get tasks
+        </button>
+      </div>
+    </div>
+
+    <div class="filter-data" *ngIf="filter">
+      <mat-card class="card" *ngFor="let task of filteredTask" matRipple>
+        <div class="heading-section">
+          <div class="desc-section" (click)="manageTaskDialog(task)">
+            <mat-card-title>{{ task.task_name }}</mat-card-title>
+            <div [innerHTML]="task.task_description"></div>
+            <p class="task-desc">
+              Task periority: {{ task.task_priority }}
+              <br />
+              Task due date: {{ task.completion_date | date: "medium" }}
+              <br />
+            </p>
+          </div>
+          <div>
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+              class="example-icon primary"
+              aria-label="Example icon-button with share icon"
+            >
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="manageTaskDialog(task)">
+                <span>View Task</span>
+                <mat-icon color="primary">launch</mat-icon>
+              </button>
+              <button
+                mat-menu-item
+                [disabled]="!(currentUser?.org_permission == 'Admin')"
+                (click)="deleteTask(task.id)"
+              >
+                <span> Delete task</span>
+                <mat-icon color="warn">delete</mat-icon>
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+    <mat-tab-group
+      mat-align-tabs="start"
+      *ngIf="!filter"
+      class="remove-border-bottom"
+    >
+      <mat-tab label="My Tasks">
+        <br />
+        <mat-card class="card" *ngFor="let task of assignedTaskObj" matRipple>
+          <div class="heading-section">
+            <div class="desc-section" (click)="manageTaskDialog(task)">
+              <mat-card-title>{{ task.task_name }}</mat-card-title>
+              <div [innerHTML]="task.task_description"></div>
+              <p>
+                Task periority: {{ task.task_priority }}
+                <br />
+                Task due date: {{ task.completion_date | date: "medium" }}
+                <br />
+              </p>
+            </div>
+            <div>
+              <button
+                mat-icon-button
+                [matMenuTriggerFor]="menu"
+                class="example-icon primary"
+                aria-label="Example icon-button with share icon"
+              >
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="manageTaskDialog(task)">
+                  <span>View Task</span>
+                  <mat-icon color="primary">launch</mat-icon>
+                </button>
+                <button mat-menu-item (click)="deleteTask(task.id)">
+                  <span> Delete task</span>
+                  <mat-icon color="warn">delete</mat-icon>
+                </button>
+              </mat-menu>
+            </div>
+          </div>
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="Tasks for Others">
+        <br />
+        <mat-card class="card" *ngFor="let task of allTasksObj" matRipple>
+          <div class="heading-section">
+            <div class="desc-section" (click)="manageTaskDialog(task)">
+              <mat-card-title>{{ task.task_name }}</mat-card-title>
+              <div [innerHTML]="task.task_description"></div>
+              <p>
+                Task periority: {{ task.task_priority }}
+                <br />
+                Task due date: {{ task.completion_date | date: "medium" }}
+                <br />
+              </p>
+            </div>
+            <div>
+              <button
+                mat-icon-button
+                [matMenuTriggerFor]="menu"
+                class="example-icon primary"
+                aria-label="Example icon-button with share icon"
+              >
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="manageTaskDialog(task)">
+                  <span>View Task</span>
+                  <mat-icon color="primary">launch</mat-icon>
+                </button>
+                <button mat-menu-item (click)="deleteTask(task.id)">
+                  <span>Delete task</span>
+                  <mat-icon color="warn">delete</mat-icon>
+                </button>
+              </mat-menu>
+            </div>
+          </div>
+        </mat-card>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
+
+<div class="view-doc" *ngIf="docView">
+  <button mat-button (click)="onClose()">
+    <mat-icon color="warn">close</mat-icon>Close
+  </button>
+  <app-view-document></app-view-document>
+</div>

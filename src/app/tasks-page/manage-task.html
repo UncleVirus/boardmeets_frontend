@@ -1,0 +1,158 @@
+<div class="dialog">
+  <div class="heading-section">
+    <div>
+      <button mat-icon-button (click)="onNoClick()">
+        <mat-icon>arrow_back_ios_new</mat-icon>
+      </button>
+    </div>
+    <h1>Task</h1>
+    <div class="save-changes"></div>
+  </div>
+
+  <mat-dialog-content class="mat-dialog-content">
+    <mat-tab-group
+      mat-stretch-tabs
+      (selectedTabChange)="enableForm()"
+      class="example-stretched-tabs mat-elevation-z4"
+    >
+      <mat-tab label="Task details">
+        <mat-card>
+          <div class="heading-section">
+            <mat-card-title-group>
+              <mat-card-title>{{data.task_name}}</mat-card-title>
+              <mat-card-subtitle
+                >Created at: {{ data.created_at | date: "medium" }} by {{
+                data.created_by.first_name }} {{ data.created_by.last_name }}
+              </mat-card-subtitle>
+            </mat-card-title-group>
+          </div>
+
+          <mat-card-content>
+            <div [innerHTML]="data.task_description"></div>
+
+            <div class="infos">
+              <p>
+                Periority:
+                <span class="red-color">{{ data.task_priority }}</span>
+              </p>
+              <br />
+              <p>Status: <span>{{ data.task_status }}</span></p>
+              <br />
+              <p *ngIf=" data?.meeting">
+                Meeting: <span>{{ data.meeting.meeting_title }}</span>
+                <button
+                  mat-button
+                  color="primary"
+                  (click)="goToMeeting(data?.meeting)"
+                >
+                  View meeting details
+                </button>
+              </p>
+              <br />
+              <p>Deadline: <b>{{ data.completion_date | date:"medium" }}</b></p>
+              <br />
+
+              <strong>Assignee:</strong>
+              <mat-list role="list">
+                <mat-list-item
+                  role="listitem"
+                  *ngFor="let item of data.task_assignee"
+                  >{{ item.first_name }} <mat-divider></mat-divider
+                ></mat-list-item>
+              </mat-list>
+
+              <strong>Viwers:</strong>
+              <mat-list role="list">
+                <mat-list-item
+                  role="listitem"
+                  *ngFor="let item of data.task_viewers"
+                  >{{ item.first_name }}
+                  <mat-divider></mat-divider>
+                </mat-list-item>
+              </mat-list>
+
+              <p *ngIf="data.task_document">
+                Attachment:
+                <button mat-button (click)="openDocument(data.task_document)">
+                  <mat-icon color="warn">attachment</mat-icon>
+                  open file ...
+                </button>
+              </p>
+            </div>
+            <br />
+            <div class="task-update-section">
+              <mat-form-field appearance="outline" class="example-full-width">
+                <mat-label color="primary">Status</mat-label>
+                <mat-select
+                  [(value)]="data.task_status"
+                  (selectionChange)="updateTask($event.value)"
+                >
+                  <mat-option value="Inprogress">Inprogress</mat-option>
+                  <mat-option value="Completed">Completed</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="Discussion" class="c-tab">
+        <ng-template mat-tab-label>
+          <span matBadge="{{taskCommentsObj.length}}" matBadgeOverlap="false"
+            >Discussion</span
+          >
+        </ng-template>
+        <div class="discussion">
+          <div class="discussion-conent">
+            <br />
+            <mat-card
+              *ngFor="let comment of taskCommentsObj"
+              class="messages-section"
+            >
+              <div class="heading-section">
+                <mat-card-title-group>
+                  <mat-card-title
+                    >{{comment.commentor.first_name}}
+                    {{comment.commentor.last_name}}</mat-card-title
+                  >
+                  <mat-card-subtitle
+                    >Created at: {{comment.created_at | date:"medium"}}
+                  </mat-card-subtitle>
+                </mat-card-title-group>
+                <button
+                  mat-icon-button
+                  [matMenuTriggerFor]="menu"
+                  class="example-icon"
+                  aria-label="Example icon-button with share icon"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="deleteComment(comment.id)">
+                    <span>Delete</span>
+                    <mat-icon color="warn">delete</mat-icon>
+                  </button>
+                </mat-menu>
+              </div>
+
+              <mat-card-content class="infos">
+                <p>{{comment.comment}}</p>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-dialog-content>
+  <mat-card-actions class="heading-section" *ngIf="enableAtFormView">
+    <mat-form-field appearance="outline" class="example-field-width">
+      <mat-label>Comment</mat-label>
+      <input matInput [(ngModel)]="message" [value]="message" />
+    </mat-form-field>
+    <div class="send-btn">
+      <button mat-icon-button [dissabled]="!message" (click)="sendMessage()">
+        <mat-icon color="primary"> send</mat-icon>
+      </button>
+    </div>
+  </mat-card-actions>
+</div>

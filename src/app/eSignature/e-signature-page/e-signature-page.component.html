@@ -1,0 +1,125 @@
+<div class="data" *ngIf="!placement">
+  <mat-card class="card">
+    <div class="heading-section">
+      <div class="flex">
+        <button mat-icon-button (click)="_location.back()">
+          <mat-icon color="primary" class="pointer"
+            >arrow_back_ios_new</mat-icon
+          >
+        </button>
+        <div class="flex-self">
+          <h1>New eSignature</h1>
+        </div>
+      </div>
+      <button
+        form="signatureForm"
+        [disabled]="!formGroup.valid"
+        mat-flat-button
+        color="primary"
+      >
+        Save changes
+      </button>
+    </div>
+    <br />
+    <mat-card-content>
+      <form
+        class="example-form"
+        [formGroup]="formGroup"
+        id="signatureForm"
+        (ngSubmit)="onSubmit(formGroup.value)"
+      >
+        <p>
+          <strong>eSignature title</strong>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput formControlName="signature_title" />
+          </mat-form-field>
+          <strong>eSignature Description</strong>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <textarea matInput formControlName="description"></textarea>
+          </mat-form-field>
+          <strong>Signers</strong>
+          <app-search-member-dropdown
+            class="example-full-width"
+            [bankMultiCtrl]="formGroup.get('signers')"
+          ></app-search-member-dropdown>
+        </p>
+
+        <p class="space">
+          <strong>Open Date</strong>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input
+              matInput
+              [ngxMatDatetimePicker]="picker1"
+              formControlName="open_date"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker1"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker color="primary" #picker1>
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+          <strong>Close Date</strong>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input
+              matInput
+              [ngxMatDatetimePicker]="picker"
+              formControlName="close_date"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker color="primary" #picker>
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+          <mat-checkbox
+            (change)="sendEmail = $event.checked"
+            class="example-margin"
+            >Enable Send email notification!</mat-checkbox
+          >
+        </p>
+      </form>
+      <div class="document-section">
+        <h2>Document To Be Signed</h2>
+        <div class="attachment-section">
+          <ngx-dropzone (change)="onSelect($event)">
+            <ngx-dropzone-label
+              >Drag and Drop or click here to upload!</ngx-dropzone-label
+            >
+            <ngx-dropzone-preview
+              *ngFor="let f of files"
+              [removable]="true"
+              (removed)="onRemove(f)"
+            >
+              <ngx-dropzone-label
+                >{{ f.name }} ({{ f.type }})</ngx-dropzone-label
+              >
+            </ngx-dropzone-preview>
+          </ngx-dropzone>
+        </div>
+        <br />
+        <h2>Signed Document Destination</h2>
+        <p>Select a destination to save documents to resources.</p>
+        <div class="folder-section" *ngIf="folder_id">
+          <mat-icon color="primary">folder</mat-icon>
+          <span>{{ folder_name }}</span>
+          <button mat-button color="warn" (click)="removeDocumentLocation()">
+            Remove
+          </button>
+        </div>
+        <button
+          mat-button
+          color="primary"
+          (click)="openDocDestinationDialog()"
+          *ngIf="!folder_id"
+        >
+          Select destination
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div class="view-doc" *ngIf="placement">
+  <contract-document-viwer class="viewer"></contract-document-viwer>
+</div>

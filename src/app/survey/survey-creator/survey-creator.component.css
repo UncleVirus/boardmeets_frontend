@@ -1,0 +1,63 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.heading-section {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.add-new-btn {
+  margin: 10px;
+}
+.q {
+  flex: 2 1 auto;
+  max-width: 70%;
+}
+.survey-card {
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 10px;
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+  border-radius: 5px;
+  border-width: 0px;
+}
+.example-full-width {
+  width: 100%;
+}
+.example-form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.card3 {
+  display: flex;
+  justify-content: space-between;
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+}
+.question-body {
+  margin: 6px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.add-q-button {
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+.primary {
+  width: 200px;
+  border-top-left-radius: 20px;
+  margin-left: 10px !important;
+}
+.space {
+  padding: 0px 10px;
+  margin-right: 10px;
+  align-self: flex-start;
+}
+.flex-self h1 {
+  margin: 0 !important;
+}
+.questions {
+  width: 80%;
+  margin: 0 auto;
+}

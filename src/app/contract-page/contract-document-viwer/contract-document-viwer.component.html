@@ -1,0 +1,43 @@
+<div class="page">
+  <div class="profile_2">
+    <div class="heading-section">
+      <div>
+        <button mat-icon-button>
+          <mat-icon>arrow_back_ios_new</mat-icon>
+        </button>
+      </div>
+      <h2>Signatories</h2>
+    </div>
+    <mat-form-field appearance="standard">
+      <select matNativeControl (change)="assignee = $event.target.value">
+        <option *ngFor="let item of assigneesValues" [value]="item.value">
+          {{ item.label }}
+        </option>
+      </select>
+      <mat-hint>select assignee and drop it to the viwer</mat-hint>
+    </mat-form-field>
+    <br />
+
+    <div
+      draggable="true"
+      (dragstart)="dragStart($event)"
+      (dragover)="dragOver($event)"
+      (dragend)="dragEnd($event, 'SIGNATURE')"
+      role="listitem"
+    >
+      <br />
+      <button mat-button (click)="addField('SIGNATURE')">
+        <mat-icon>drag_indicator</mat-icon> Add signature
+      </button>
+    </div>
+    <br />
+    <br />
+    <br />
+    <button class="save-btn" mat-button (click)="applyFields()">
+      <mat-icon>done</mat-icon>
+      Save & finish
+    </button>
+  </div>
+
+  <div #viewer class="viewer"></div>
+</div>

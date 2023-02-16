@@ -1,0 +1,19 @@
+<h1 mat-dialog-title style="font-weight: bold; font-family: quantify;">RSVP to Meeting</h1>
+<div mat-dialog-content style="padding-top: 10px;">
+  <p style="font-family: quantify;">Let meeting invitees know if you plan to attend the meeting.</p>
+  <br />
+  <strong style="color: #201547; font-family: quantify;">RSVP Status</strong>
+  <mat-form-field appearance="standard" class="example-full-width">
+    <select matNativeControl (change)="choice = $event.target.value">
+      <option value="Attending" style="font-family: quantify;">Attending</option>
+      <option value="Attending Remotely" style="font-family: quantify;">Attending Remotely</option>
+      <option value="Not Attending" style="font-family: quantify;">Not attending</option>
+    </select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()" color="warn" style="font-family: quantify;">Cancel</button>
+  <button mat-button (click)="onSubmit()" color="primary" cdkFocusInitial style="font-family: quantify;">
+    Submit
+  </button>
+</div>

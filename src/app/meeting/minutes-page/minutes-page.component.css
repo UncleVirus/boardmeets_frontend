@@ -1,0 +1,113 @@
+.data {
+  margin-right: 40px;
+  width: 100%;
+  position: relative;
+}
+.logo {
+  width: 130px;
+  background-size: cover;
+  margin-right: 15px;
+  padding: 8px;
+  border-radius: 20px;
+}
+.image {
+  width: 100%;
+  height: auto;
+}
+.header-btn span{
+  font-family: quantify;
+  color: #201547;
+  font-size: 22px;
+  font-weight: bold;
+}
+.back-heading h1 {
+  color: #201547;
+  font-weight: bold;
+}
+.heading-card-section,
+.members-list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+}
+h2,
+h4 {
+  padding: 0;
+  margin: 0;
+}
+.att-title {
+  margin-left: 10px;
+  padding: 6px;
+}
+.att-title b {
+  color: #201547;
+  font-size: 20px;
+  font-family: quantify;
+}
+.main-content,
+.action-items {
+  width: 99%;
+  margin: 0 auto;
+}
+.action-card {
+  margin-top: 8px;
+  border-radius: 15px;
+  box-shadow: rgb(255 255 255 / 20%) 0px 0px 0px 1px inset,
+    #f1f1f1 0px 0px 0px 1px;
+}
+.agenda-card,
+.attandance-card,
+.heading-card-section {
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 30px;
+  /* box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px; */
+  border-radius: 5px;
+  border-width: 0px;
+  box-shadow: 7px 5px 5px 0px rgb(179, 178, 178);
+}
+.back-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: none;
+  margin: 0;
+  z-index: 1;
+}
+.att-card strong {
+  font-family: quantify;
+  font-size: 18px;
+}
+.att-content {
+  font-family: quantify;
+}
+.att-content-list {
+  font-family: quantify;
+  margin-left: 5px;
+}
+.agenda-content {
+  padding: 10px;
+}
+.agenda-content p {
+  padding-bottom: 10px;
+}
+.agenda-content b {
+  font-family: quantify;
+}
+.agenda-content strong {
+  font-family: quantify;
+  font-size: 18px;
+  color: black;
+}
+.action-items h2 {
+  font-family: quantify;
+  font-size: 20px;
+  color: #201547;
+  font-weight: bold;
+}
+.action-card strong {
+  font-family: quantify;
+  font-size: 18px;
+  color: black;
+}

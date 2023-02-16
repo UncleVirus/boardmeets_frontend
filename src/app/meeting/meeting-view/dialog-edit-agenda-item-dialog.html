@@ -1,0 +1,100 @@
+<div class="dialog">
+  <div class="heading-section">
+    <div>
+      <button mat-icon-button (click)="onNoClick()">
+        <mat-icon>arrow_back_ios_new</mat-icon>
+      </button>
+    </div>
+    <div class="save-changes" *ngIf="currentUser?.org_permission == 'Admin'">
+      <button mat-button color="warn" (click)="deleteAgenda(items.id)">
+        Delete
+      </button>
+
+      <button
+        mat-button
+        (click)="onSubmit(formGroup.value)"
+        color="primary"
+        form="FormAgenda"
+        [disabled]="!formGroup.valid"
+      >
+        Save Changes
+      </button>
+
+      <mat-spinner diameter="40" class="loading-indicator" *ngIf="loading">
+      </mat-spinner>
+    </div>
+  </div>
+  <br />
+
+  <h2>{{items?.agenda_name}}</h2>
+
+  <div
+    mat-dialog-content
+    [formGroup]="formGroup"
+    id="FormAgenda"
+    class="mat-dialog-content"
+  >
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Section name</mat-label>
+      <input matInput formControlName="agenda_name" />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Section description</mat-label>
+      <textarea
+        matInput
+        matTextareaAutosize
+        matAutosizeMinRows="1"
+        matAutosizeMaxRows="20"
+        formControlName="agenda_description"
+      ></textarea>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Permisions</mat-label>
+      <mat-select
+        class="mat-select-user"
+        #usersList
+        multiple
+        formControlName="permission"
+      >
+        <mat-option *ngFor="let user of users" [value]="user.id"
+          >{{ user.first_name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Presenters</mat-label>
+      <textarea
+        matInput
+        matTextareaAutosize
+        matAutosizeMinRows="1"
+        matAutosizeMaxRows="20"
+        formControlName="presenters"
+      ></textarea>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Guests</mat-label>
+      <textarea
+        matInput
+        matTextareaAutosize
+        matAutosizeMinRows="1"
+        matAutosizeMaxRows="20"
+        formControlName="guests"
+      ></textarea>
+    </mat-form-field>
+    <div class="attachment-section">
+      <ngx-dropzone (change)="onSelect($event)">
+        <ngx-dropzone-label
+          >Drag and Drop or click here to upload!</ngx-dropzone-label
+        >
+        <ngx-dropzone-preview
+          *ngFor="let f of files"
+          [removable]="true"
+          (removed)="onRemove(f)"
+        >
+          <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+        </ngx-dropzone-preview> </ngx-dropzone
+      ><br />
+    </div>
+  </div>
+</div>

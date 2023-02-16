@@ -1,0 +1,87 @@
+<div class="dialog">
+  <div class="heading-section">
+    <div>
+      <button mat-icon-button (click)="onNoClick()">
+        <mat-icon>arrow_back_ios_new</mat-icon>
+      </button>
+    </div>
+    <div class="save-changes">
+      <button
+        mat-button
+        (click)="onSubmit(formGroup.value)"
+        color="primary"
+        form="FormMeeting"
+        [disabled]="!formGroup.valid"
+        *ngIf="!loading"
+        style="font-weight: bold; font-family: quantify; font-size: 26px;"
+      >
+        Save Changes
+      </button>
+      <mat-spinner diameter="40" class="loading-indicator" *ngIf="loading" style="background-color:#201547;">
+      </mat-spinner>
+    </div>
+  </div>
+  <br /><br />
+  <h2 style="font-weight: bold; font-family: quantify;">Edit Meeting Details</h2>
+  <br />
+  <div
+    mat-dialog-content
+    [formGroup]="formGroup"
+    id="FormMeeting"
+    class="mat-dialog-content"
+  >
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label style="color: #201547; font-weight: bold; font-family: quantify; font-size: 20px;">Meeting title</mat-label>
+      <input matInput value="New Meeting" formControlName="meeting_title" style="color: black; font-family: quantify;"/>
+    </mat-form-field>
+
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label style="color: #201547; font-weight: bold; font-family: quantify; font-size: 20px;">Open Date</mat-label>
+        <input
+          matInput
+          [ngxMatDatetimePicker]="picker1"
+          formControlName="start_date"
+          style="color: black; font-family: quantify;"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker1"
+        ></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker color="primary" #picker1>
+        </ngx-mat-datetime-picker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label style=" color: #201547; font-weight: bold; font-family: quantify; font-size: 20px;">Close Date</mat-label>
+        <input
+          matInput
+          [ngxMatDatetimePicker]="picker"
+          formControlName="end_date"
+          style="color: black; font-family: quantify;"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker color="primary" #picker>
+        </ngx-mat-datetime-picker>
+      </mat-form-field>
+    </p>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label style="color: #201547; font-weight: bold; font-family: quantify; font-size: 20px;">Meeting address</mat-label>
+      <input matInput value="New Meeting" formControlName="meeting_address" style="color: black; font-family: quantify;" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label style=" color: #201547; font-weight: bold; font-family: quantify; font-size: 20px;">Invitees</mat-label>
+      <mat-select
+        class="mat-select-user"
+        #usersList
+        multiple
+        formControlName="invitees"
+        style="color: black; font-family: quantify;"
+      >
+        <mat-option *ngFor="let user of users" [value]="user.id"
+          >{{ user.first_name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

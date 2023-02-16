@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Roboto:wght@300&display=swap');
+*{
+  font-family: latoRegular,sans-serif !important;
+}
+.data {
+  width: 100%;
+}
+.heading-section {
+  display: flex;
+  justify-content: space-between;
+}
+.add-new-btn {
+  margin: 10px;
+}
+
+.questions-view {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.example-full-width {
+  width: 100%;
+  color: black;
+}
+.example-form {
+  width: 60%;
+}
+
+.in-row {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+.tile-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.image-section {
+  height: 50px;
+  width: 50px;
+  margin: auto;
+}
+.users-profile {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.vertical-direction {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+.q-card {
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+  border-radius: 5px;
+  border-width: 0px;
+  margin-bottom: 8px;
+}
+.example-70-width {
+  width: 70%;
+}
+.range {
+  width: 60px !important;
+  margin: 0;
+  padding: 0;
+}
+.survey-card {
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 10px;
+  box-shadow: rgba(69, 65, 78, 0.1) 2px 6px 15px 0px;
+  border-radius: 5px;
+  border-width: 0px;
+}
+
+.survey-card h2 {
+  font-weight: 700;
+  font-family: quantify;
+}
+.space {
+  padding: 10px;
+  margin-right: 10px;
+  align-self: flex-start;
+}
+.flex-self h1 {
+  margin: 0 !important;
+  font-weight: 700;
+  font-family: quantify;
+}
+.example-form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.invitees-metrics {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.invitees-metrics h2 {
+  font-family: quantify;
+  font-weight: bold;
+}

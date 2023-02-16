@@ -1,0 +1,43 @@
+<div class="heading-section h-dialog">
+  <div>
+    <button mat-icon-button mat-dialog-close cdkFocusInitial>
+      <mat-icon>arrow_back_ios_new</mat-icon>
+    </button>
+  </div>
+  <div class="save-changes">
+    <button
+      mat-button
+      form="formGroup"
+      [disabled]="!formGroup.valid"
+      color="primary"
+      (click)="OnSubmit(formGroup.value)"
+    >
+      Save Changes
+    </button>
+
+    <mat-spinner diameter="20" class="loading-indicator" *ngIf="loading">
+    </mat-spinner>
+  </div>
+</div>
+<hr />
+<br />
+<h2 mat-dialog-title align="center">Add Leaders</h2>
+<br /><br />
+<mat-dialog-content class="mat-typography data-content">
+  <form [formGroup]="formGroup" id="formGroup">
+    <strong>Ceo</strong>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input matInput formControlName="ceo" />
+    </mat-form-field>
+
+    <strong>Chairman</strong>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input matInput formControlName="chairman" />
+    </mat-form-field>
+
+    <strong>Secretary</strong>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input matInput formControlName="secretary" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>

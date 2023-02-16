@@ -1,0 +1,37 @@
+<div class="heading-section h-dialog">
+  <div>
+    <button mat-icon-button mat-dialog-close cdkFocusInitial>
+      <mat-icon>arrow_back_ios_new</mat-icon>
+    </button>
+  </div>
+  <div class="save-changes">
+    <button
+      mat-button
+      (click)="onSubmit()"
+      [disabled]="!formGroup.valid"
+      color="primary"
+      *ngIf="!loading"
+      cdkFocusInitial
+    >
+      Save Changes
+    </button>
+
+    <mat-spinner diameter="20" class="loading-indicator" *ngIf="loading">
+    </mat-spinner>
+  </div>
+</div>
+<hr />
+<br />
+
+<h1 mat-dialog-title>Add ip address allowed range</h1>
+<br />
+<div mat-dialog-content [formGroup]="formGroup" class="form">
+  <strong>Start ipAddress</strong>
+  <mat-form-field class="example-full-width" appearance="outline">
+    <input matInput formControlName="ip_start" />
+  </mat-form-field>
+  <strong>End ipAddress</strong>
+  <mat-form-field class="example-full-width" appearance="outline">
+    <input matInput formControlName="ip_end" />
+  </mat-form-field>
+</div>

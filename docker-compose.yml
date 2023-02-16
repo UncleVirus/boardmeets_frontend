@@ -1,0 +1,12 @@
+#Docker compose file Reference
+version: '2'
+
+# define the services
+service:
+
+#front-end Angular Application
+  web:
+    build: ./BOARDMEETS_FRONTEND
+    #container_name: scrum-ui
+    ports:
+      - 4200:80

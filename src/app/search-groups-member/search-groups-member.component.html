@@ -1,0 +1,40 @@
+<div class="example-full-width">
+  <h3>Filter by group members</h3>
+  <mat-form-field appearance="standard">
+    <mat-select (selectionChange)="onGroupsChange($event.value)">
+      <mat-option [value]="0"> None </mat-option>
+      <mat-option [value]="group.id" *ngFor="let group of groupsObj">
+        {{ group.group_name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<p *ngIf="expression">
+  <mat-form-field class="example-full-width" appearance="outline">
+    <mat-select
+      [formControl]="bankMultiCtrl"
+      class="mat-elevation-z0"
+      placeholder="Add all members in selected group"
+      [multiple]="true"
+      #multiSelect
+    >
+      <mat-option>
+        <ngx-mat-select-search
+          [showToggleAllCheckbox]="true"
+          (toggleAll)="toggleSelectAll($event)"
+          [formControl]="bankMultiFilterCtrl"
+          placeholderLabel="Find Member..."
+          noEntriesFoundLabel="'no matching member found'"
+          [toggleAllCheckboxTooltipMessage]="tooltipMessage"
+          [toogleAllCheckboxTooltipPosition]="'above'"
+        ></ngx-mat-select-search>
+      </mat-option>
+      <mat-option
+        *ngFor="let bank of filteredBanksMulti | async"
+        [value]="bank.id"
+      >
+        {{ bank.first_name }} {{ bank.last_name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</p>

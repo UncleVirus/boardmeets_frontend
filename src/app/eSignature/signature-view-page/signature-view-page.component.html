@@ -1,0 +1,184 @@
+<div class="data" *ngIf="!viewDocument && !signedDoc">
+  <mat-card class="survey-card">
+    <div class="heading-section">
+      <div class="flex">
+        <button mat-icon-button (click)="_location.back()">
+          <mat-icon color="primary" class="pointer"
+            >arrow_back_ios_new</mat-icon
+          >
+        </button>
+        <div class="flex-self">
+          <h1>eSignature Details</h1>
+        </div>
+      </div>
+    </div>
+    <br />
+    <mat-card-content>
+      <form class="example-form" [formGroup]="formGroup">
+        <p>
+          <strong>eSignature title</strong>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput formControlName="signature_title" />
+          </mat-form-field>
+          <strong>eSignature Description</strong>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <textarea
+              [cdkTextareaAutosize]="true"
+              matInput
+              formControlName="description"
+            ></textarea>
+          </mat-form-field>
+        </p>
+
+        <p class="space">
+          <strong>Open Date</strong>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input
+              matInput
+              [ngxMatDatetimePicker]="picker1"
+              formControlName="open_date"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker1"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker color="primary" #picker1>
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+          <strong>Close Date</strong>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input
+              matInput
+              [ngxMatDatetimePicker]="picker"
+              formControlName="close_date"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker color="primary" #picker>
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+        </p>
+      </form>
+      <div *ngIf="eSignatureObj?.document">
+        <p>
+          <button
+            mat-button
+            class="view-doc-btn"
+            (click)="openSignatureDoc(eSignatureObj, true)"
+          >
+            <mat-icon>description</mat-icon>
+            View
+          </button>
+
+          <span>OR</span>
+
+          <button
+            mat-button
+            class="view-doc-btn"
+            (click)="openSignatureDoc(eSignatureObj)"
+          >
+            <mat-icon>edit_note</mat-icon>
+            Sign
+          </button>
+        </p>
+      </div>
+      <br />
+      <h4>Signed Document Destination</h4>
+      <p class="folder-section">
+        <button
+          mat-button
+          (click)="openDestinationFolder(eSignatureObj?.destination)"
+        >
+          <mat-icon color="primary">folder</mat-icon
+          ><span>{{ eSignatureObj?.destination?.name }}</span>
+        </button>
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="survey-card">
+    <div class="invites-metrics">
+      <h2>Signers</h2>
+      <div class="users-profile">
+        <div
+          class="vertical-direction"
+          *ngFor="let item of eSignatureObj?.signers"
+        >
+          <div class="image-section">
+            <img
+              class="tile-image"
+              src="../../../assets/images/user.jpg"
+              alt="beer"
+              layout-cover
+            />
+          </div>
+          <span>{{ item?.first_name }} {{ item?.last_name }}</span>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+  <br />
+  <mat-card
+    class="heading-section"
+    *ngIf="currentUser?.org_permission == 'Admin'"
+  >
+    <div class="invites-metrics">
+      <table class="table table-borderless">
+        <thead>
+          <tr>
+            <th colspan="2">
+              <h2>Signers Actions</h2>
+            </th>
+          </tr>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Signed date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of eSignatureAnalytics">
+            <td>
+              {{ item?.signer.first_name }}
+              {{ item?.signer?.last_name }}
+            </td>
+            <td>
+              <i> {{ item?.signed_at | date: "medium" }}</i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="invites-metrics stastics">
+      <div class="chart-wrapper">
+        <canvas
+          baseChart
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"
+          [options]="pieChartOptions"
+          [plugins]="pieChartPlugins"
+          [legend]="pieChartLegend"
+        >
+        </canvas>
+      </div>
+    </div>
+  </mat-card>
+</div>
+
+<!-- Document wiewing -->
+<div class="view-agenda-doc" *ngIf="viewDocument">
+  <contract-signing-viewer
+    (close)="viewDocument = false"
+    class="viewer"
+  ></contract-signing-viewer>
+</div>
+
+<div class="view-agenda-doc" *ngIf="signedDoc">
+  <app-view-signed-document
+    (close)="signedDoc = false"
+    class="viewer"
+  ></app-view-signed-document>
+</div>

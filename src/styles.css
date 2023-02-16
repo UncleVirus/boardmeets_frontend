@@ -1,0 +1,199 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css?family=Lato:300");
+@import url("https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css");
+
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Roboto:wght@300&display=swap');
+
+@import "~quill/dist/quill.core.css";
+@import "~quill/dist/quill.bubble.css";
+@import "~quill/dist/quill.snow.css";
+*{
+  font-size: 1.9rem;
+
+  /* font-family: 'system-ui' ; */
+
+  /* font-family: 'Roboto', sans-serif; */
+  font-family: latoRegular,sans-serif;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  outline: 0;
+
+  font-family: latoRegular,sans-serif !important;
+  background: #fffcf5 !important;
+}
+.white-color {
+  color: white;
+}
+.red-color {
+  color: red;
+}
+.black-color {
+  color: black;
+}
+.gray-color {
+  color: gray;
+}
+.green-color {
+  color: green;
+}
+.orange-color {
+  color: orange;
+}
+.z-index {
+  z-index: 99;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+#transition-popper {
+  z-index: 10;
+}
+.full-screen-icon {
+  display: block;
+  z-index: 99;
+}
+svg.mat-datepicker-toggle-default-icon.ng-star-inserted {
+  background-color: #2196f3;
+  color: white;
+}
+.mat-form-field-appearance-legacy .mat-form-field-infix {
+  padding: 0.4375em 0;
+  background-color: #80808026;
+  float: left;
+}
+.mat-drawer-inner-container::-webkit-scrollbar {
+  overflow-y: auto;
+}
+.mat-progress-bar-fill::after {
+  background-color: #cddc39ba;
+}
+.mat-drawer-backdrop.mat-drawer-shown {
+  background-color: rgb(0 0 0 / 31%);
+}
+
+label.mat-slide-toggle-label {
+  margin-top: 10px;
+}
+
+.my-component-bottom-sheet {
+  min-width: 100vw !important;
+}
+
+.mat-card-title {
+  font-size: 15px;
+}
+.pointer {
+  cursor: pointer;
+}
+.back-header {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  margin-bottom: 7px;
+  padding-bottom: 4px;
+}
+#zmmtg-root {
+  display: none;
+}
+#google_translate_element {
+  position: fixed;
+  bottom: 0;
+  overflow: hidden !important;
+  right: 15px;
+  padding: 10px;
+}
+.goog-logo-link {
+  display: none !important;
+}
+
+.goog-te-gadget {
+  color: transparent !important;
+}
+
+.goog-te-gadget .goog-te-combo {
+  color: #094ca2 !important;
+  padding: 10px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+body {
+  top: 0px !important;
+}
+
+.goog-tooltip {
+  display: none !important;
+}
+.goog-tooltip:hover {
+  display: none !important;
+}
+.goog-text-highlight {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+#goog-gt-tt,
+.goog-te-balloon-frame {
+  display: none !important;
+}
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}
+ngx-dropzone {
+  justify-content: center !important;
+  height: 80px !important;
+  overflow: hidden !important;
+}
+
+ngx-dropzone-preview {
+  height: 60px !important;
+  margin-top: 15px !important;
+  min-height: 80px !important;
+  min-width: 40px !important;
+  max-width: 40px !important;
+}
+canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+.ql-editor:focus {
+  min-height: 100px;
+}
+.custom-dialog-container .mat-dialog-container {
+  border-radius: 20px !important;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px !important;
+  background: linear-gradient(
+    -45deg,
+    rgb(6, 65, 142),
+    rgb(16, 125, 65)
+  ) !important;
+  color: White !important;
+  padding: 8px !important;
+}
+.mat-expansion-panel-body {
+  padding: 0px !important;
+}
+.primary {
+  background: linear-gradient(
+    -45deg,
+    rgb(6, 65, 142),
+    rgb(21, 114, 232)
+  ) !important;
+  color: White;
+}
+.desc-section {
+  flex: 1;
+}

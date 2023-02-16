@@ -1,0 +1,258 @@
+<mat-drawer-container class="example-container" *ngIf="show">
+  <mat-drawer
+    class="mat-drawer"
+    mode="side"
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <div class="main-side">
+      <div class="active-user">
+        <div class="example-card">
+          <strong class="author">Contacts</strong>
+          <div class="settings">
+            <button
+              mat-icon-button
+              class="example-icon"
+              aria-label="icon-button"
+              (click)="createPrivateChatDialog()"
+            >
+              <mat-icon>message</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+              class="example-icon"
+              aria-label="Example icon-button with share icon"
+            >
+              <mat-icon>more_vert</mat-icon>
+            </button>
+
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="createGroupChatDialog()">
+                <strong>New group</strong>
+                <mat-icon color="primary">add</mat-icon>
+              </button>
+              <button mat-menu-item (click)="_location.back()">
+                <strong class="red-color">Leave the Chat</strong>
+                <mat-icon color="warn">close</mat-icon>
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+        <br />
+        <mat-form-field
+          class="example-form-field example-full-width"
+          appearance="standard"
+        >
+          <input matInput type="text" [(ngModel)]="value" />
+          <mat-icon matPrefix>search</mat-icon>
+          <button
+            *ngIf="value"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            color="warn"
+            (click)="value = ''"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div class="contacts-list">
+        <mat-selection-list #contacts [multiple]="false">
+          <mat-list-option
+            [value]="1"
+            *ngFor="let chat of activeChatsObj"
+            (click)="startChat(chat)"
+          >
+            <div class="contacts-item" *ngIf="chat.is_group == true">
+              <div class="flex">
+                <mat-icon mat-list-icon>groups</mat-icon>
+                <div mat-line class="mat-line">{{ chat.chat_title }}</div>
+              </div>
+              <div class="time">
+                <i class="gray-color">{{
+                  chat.updated_timestamp | date: "shortTime"
+                }}</i>
+              </div>
+            </div>
+            <div class="contacts-item" *ngIf="chat.is_group == false">
+              <div class="flex">
+                <mat-icon mat-list-icon>person</mat-icon>
+                <div mat-line class="mat-line">
+                  <div *ngFor="let item of chat.participants">
+                    <span *ngIf="item.user.id !== author"
+                      >{{ item.user.first_name }}
+                      {{ item.user.last_name }}</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="time">
+                <i class="gray-color">{{
+                  chat.updated_timestamp | date: "shortTime"
+                }}</i>
+              </div>
+            </div>
+            <mat-divider></mat-divider>
+          </mat-list-option>
+        </mat-selection-list>
+      </div>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content class="mat-drawer-content">
+    <button
+      type="button"
+      aria-label="Toggle sidenav"
+      mat-icon-button
+      (click)="drawer.toggle()"
+      *ngIf="isHandset$ | async"
+    >
+      <mat-icon aria-label="Side nav toggle icon">expand_more</mat-icon>
+    </button>
+
+    <div class="mat-drawer-section" *ngIf="activeChat">
+      <div class="chat-heading">
+        <div class="space"></div>
+
+        <strong class="author" *ngIf="singleChatObj?.is_group == true">{{
+          singleChatObj?.chat_title
+        }}</strong>
+        <div class="author" *ngIf="singleChatObj?.is_group == false">
+          <div *ngFor="let item of singleChatObj.participants">
+            <strong *ngIf="item.user.id !== author"
+              >{{ item.user.first_name }} {{ item.user.last_name }}</strong
+            >
+          </div>
+        </div>
+
+        <div class="chat-ctions-btn">
+          <button mat-button color="primary" [matMenuTriggerFor]="menu2">
+            Chat Details
+          </button>
+
+          <mat-menu #menu2="matMenu">
+            <mat-card class="chat-details">
+              <mat-card-title>Conversation Details</mat-card-title>
+              <mat-card-subtitle
+                >Created by Valens Nsengimana on Nov 08, 2021 5:10 PM
+                CAT</mat-card-subtitle
+              >
+              <mat-card-content>
+                <h4>Conversation Participants</h4>
+                <mat-list role="list">
+                  <mat-list-item
+                    *ngFor="let item of singleChatObj.participants"
+                    role="listitem"
+                    >{{ item.user.first_name }} {{ item.user.first_name }}
+                    <mat-divider></mat-divider>
+                  </mat-list-item>
+                </mat-list>
+              </mat-card-content>
+            </mat-card>
+          </mat-menu>
+        </div>
+      </div>
+      <div
+        id="scrollMessages"
+        class="messages-view"
+        *ngIf="webSocketService.chatMessages.value.length > 0"
+      >
+        <ul
+          class="message-list"
+          *ngFor="let message of webSocketService.chatMessages.value"
+        >
+          <li
+            class="message"
+            [ngClass]="
+              message.author === authorName ? 'right-message' : 'left-message'
+            "
+          >
+            <div [ngSwitch]="message.author">
+              <div *ngSwitchCase="authorName" class="message-section">
+                <p>
+                  {{ message.content }}
+                </p>
+                <span class="gray-color">{{
+                  renderTimeStamp(message.timestamp)
+                }}</span>
+              </div>
+
+              <div *ngSwitchDefault class="message-section-left">
+                <strong>{{ message.author }}</strong>
+                <p>
+                  {{ message.content }}
+                </p>
+                <span class="gray-color">{{
+                  renderTimeStamp(message.timestamp)
+                }}</span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bottom-input-form">
+        <button mat-icon-button class="go-to-bottom" (click)="gotoBottom()">
+          <mat-icon>keyboard_double_arrow_down</mat-icon>
+        </button>
+        <mat-divider></mat-divider>
+        <form
+          [formGroup]="formGroup"
+          (ngSubmit)="sendMessage(formGroup.value)"
+          class="form"
+        >
+          <div class="input">
+            <textarea
+              matInput
+              class="message-input"
+              matTextareaAutosize
+              matAutosizeMinRows="1"
+              matAutosizeMaxRows="20"
+              formControlName="content"
+              placeholder="Type a message"
+            ></textarea>
+          </div>
+          <div class="send-btn">
+            <button
+              mat-icon-button
+              class="send_btn"
+              type="submit"
+              [disabled]="!formGroup.valid"
+            >
+              <mat-icon class="send-icon">send</mat-icon>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="start-new-chat" *ngIf="!activeChat">
+      <div class="new-chat">
+        <div class="chat-image">
+          <img
+            class="start-image"
+            src="../../../assets/images/member_icon.png"
+            alt=""
+          />
+        </div>
+        <div class="slag">
+          <h4>Select a Current Conversation or Start a New One</h4>
+
+          <div class="chat-image">
+            <button
+              mat-raised-button
+              class="start-btn"
+              (click)="createPrivateChatDialog()"
+            >
+              Start New Chat
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

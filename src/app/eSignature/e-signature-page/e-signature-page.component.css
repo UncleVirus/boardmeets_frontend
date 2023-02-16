@@ -1,0 +1,125 @@
+.space {
+  padding: 10px;
+  margin-right: 10px;
+  align-self: flex-start;
+}
+.flex-self h1 {
+  margin: 0 !important;
+}
+.example-form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.example-full-width,
+.card {
+  width: 100%;
+}
+
+.viewer {
+  width: 100%;
+}
+
+.heading-section {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
+}
+.save-btn {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Structure */
+table {
+  width: 100%;
+  box-shadow: none;
+}
+.back-btn {
+  display: flex;
+  align-items: center;
+}
+h1 {
+  margin: 0;
+  padding: 0;
+}
+.mat-menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-card-actions {
+  padding: 0;
+  margin: 0;
+}
+.example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mat-list-item {
+  border: solid 1px #e0e0e0;
+  border-radius: 10px;
+  margin-top: 3px;
+  padding: 0;
+  margin: 0;
+}
+.bacBtn {
+  position: absolute;
+}
+.mat-form-field {
+  width: 100%;
+  padding: 0;
+  border: 0;
+}
+.example-full-width {
+  width: 100%;
+}
+.example-card {
+  width: 100%;
+  font-size: smaller;
+}
+.vertical-align {
+  vertical-align: bottom;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+.menu-btn {
+  flex: 1 1 auto;
+  padding: 21px 0;
+  justify-content: flex-end;
+}
+.example-icon {
+  display: table-caption;
+  float: right;
+}
+/* .mat-row:hover {
+  background-color: rgb(230, 230, 230);
+  cursor: pointer;
+} */
+.folder-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 3px;
+  border: 1px solid #80808038;
+  width: fit-content;
+  border-radius: 10px;
+}
+.resource-title {
+  align-self: center;
+}
